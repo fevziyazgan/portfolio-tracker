@@ -400,37 +400,46 @@ def create_report_image(
         donut
     )
 
-    center_x = 1350
-    center_y = y + 350
+    legend_x = 1180
+    legend_y = y + 760
     
     draw.text(
-        (center_x - 120, center_y - 30),
-        f"{summary['total_value_tl']:,.0f} TL",
-        fill="black",
+        (legend_x, legend_y),
+        f"■ Fonlar    %{fund_pct:.1f}",
+        fill="#2563EB",
         font=get_font(28)
     )
     
+    legend_y += 45
+    
     draw.text(
-        (center_x - 90, center_y + 15),
-        "Toplam Portfoy",
-        fill="#666666",
-        font=get_font(20)
+        (legend_x, legend_y),
+        f"■ Altin     %{gold_pct:.1f}",
+        fill="#EAB308",
+        font=get_font(28)
     )
     
-    y += 190
-
+    legend_y += 45
+    
     draw.text(
-        (
-            40,
-            y
-        ),
-        "PORTFOY DAGILIMI",
-        fill="black",
-        font=section_font
+        (legend_x, legend_y),
+        f"■ Kripto    %{crypto_pct:.1f}",
+        fill="#F97316",
+        font=get_font(28)
+    )
+    
+    legend_y += 45
+    
+    draw.text(
+        (legend_x, legend_y),
+        f"■ Mevduat   %{deposit_pct:.1f}",
+        fill="#10B981",
+        font=get_font(28)
     )
 
-    y += 50
     
+    y += 780
+
     total = max(
     summary["total_value_tl"],
     1
