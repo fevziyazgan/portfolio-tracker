@@ -3,6 +3,55 @@ from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
 WIDTH = 1200
+
+def create_donut_chart(
+    report_data
+):
+    summary = report_data[
+        "summary"
+    ]
+    values = [
+        summary[
+            "fund_total_tl"
+        ],
+        summary[
+            "crypto_total_tl"
+        ],
+        summary[
+            "gold_total_tl"
+        ]
+    ]
+    labels = [
+        "Fon",
+        "Kripto",
+        "Altin"
+    ]
+    colors = [
+        "#2563EB",  # mavi
+        "#F97316",  # turuncu
+        "#EAB308"   # sari
+    ]
+    fig, ax = plt.subplots(
+        figsize=(4, 4)
+    )
+    ax.pie(
+        values,
+        labels=labels,
+        colors=colors,
+        startangle=90,
+        wedgeprops={
+            "width": 0.40
+        }
+    )
+    ax.set_aspect(
+        "equal"
+    )
+    plt.savefig(
+        "donut_chart.png",
+        bbox_inches="tight",
+        transparent=True
+    )
+    plt.close()
 def get_font(size):
     try:
         return ImageFont.truetype(
