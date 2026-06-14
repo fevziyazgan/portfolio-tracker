@@ -1,47 +1,46 @@
 {
-  "ALTIN": {
-    "name": "Gram Altın",
-    "category": "commodity",
-    "track": true
+  "funds": {
+    "IPV": {
+      "name": "İş Portföy Eurobond"
+    },
+    "PHE": {
+      "name": "Pusula Hisse"
+    },
+    "TMV": {
+      "name": "TMV"
+    },
+    "TLY": {
+      "name": "TLY"
+    }
   },
-  "USDTRY": {
-    "name": "USDTRY",
-    "category": "fx",
-    "track": true
-  },
-  "BIST100": {
-    "name": "BIST100",
-    "category": "index",
-    "track": true
-  },
-  "US10Y": {
-    "name": "US10Y",
-    "category": "bond",
-    "track": true
-  },
-  "CDS": {
-    "name": "CDS",
-    "category": "risk",
-    "track": true
-  },
-  "IPV": {
-    "name": "IPV",
-    "category": "fund",
-    "track": true
-  },
-  "PHE": {
-    "name": "PHE",
-    "category": "fund",
-    "track": true
-  },
-  "TMV": {
-    "name": "TMV",
-    "category": "fund",
-    "track": true
-  },
-  "TLY": {
-    "name": "TLY",
-    "category": "fund",
-    "track": true
+
+  "crypto": {
+    "BTC": {
+      "ticker": "BTC-USD"
+    },
+    "ETH": {
+      "ticker": "ETH-USD"
+    },
+    "XRP": {
+      "ticker": "XRP-USD"
+    },
+    "LUNC": {
+      "ticker": "LUNC-USD"
+    },
+    "AGIX": {
+      "ticker": "AGIX-USD"
+    },
+    "SHIB": {
+      "ticker": "SHIB-USD"
+    },
+    "TRX": {
+      "ticker": "TRX-USD"
+    },
+    "FTT": {
+      "ticker": "FTT-USD"
+    },
+    "MBOX": {
+      "ticker": "MBOX-USD"
+    }
   }
 }
