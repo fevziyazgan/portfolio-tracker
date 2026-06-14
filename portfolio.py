@@ -2,20 +2,32 @@ import json
 import csv
 import os
 from datetime import datetime
-import requests
-import yfinance as yf
+from services.yahoo_service import get_price
+from services.telegram_service import send_message
 from services.tefas_service import test_funds
-TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
 CONFIG_FILE = "config/users.json"
 HISTORY_DIR = "history"
 def load_users():
-    with open(CONFIG_FILE, "r", encoding="utf-8") as f:
+    with open(
+        CONFIG_FILE,
+        "r",
+        encoding="utf-8"
+    ) as f:
         data = json.load(f)
     return data["users"]
-def ensure_history_file(user_id):
-    os.makedirs(HISTORY_DIR, exist_ok=True)
-    filename = f"{HISTORY_DIR}/{user_id}.csv"
-    if not os.path.exists(filename):
+def ensure_history_file(
+    user_id
+):
+    os.makedirs(
+        HISTORY_DIR,
+        exist_ok=True
+    )
+    filename = (
+        f"{HISTORY_DIR}/{user_id}.csv"
+    )
+    if not os.path.exists(
+        filename
+    ):
         with open(
             filename,
             "w",
@@ -34,33 +46,15 @@ def ensure_history_file(user_id):
                 "us10y"
             ])
     return filename
-def get_yahoo_price(ticker):
-    try:
-        data = yf.Ticker(ticker)
-        hist = data.history(
-            period="5d"
-        )
-        if len(hist) == 0:
-            return None
-        return round(
-            float(
-                hist["Close"].iloc[-1]
-            ),
-            4
-        )
-    except Exception as e:
-        print(
-            f"ERROR {ticker}: {e}"
-        )
-        return None
 def append_history_row(
     filename,
     usdtry,
     bist100,
     us10y
 ):
-    today = datetime.now().strftime(
-        "%Y-%m-%d"
+    today = (
+        datetime.now()
+        .strftime("%Y-%m-%d")
     )
     with open(
         filename,
@@ -79,38 +73,14 @@ def append_history_row(
             0,
             us10y
         ])
-def send_test_message(user):
-    if not TOKEN:
-        print(
-            "TOKEN BULUNAMADI"
-        )
-        return
-    response = requests.post(
-        f"https://api.telegram.org/bot{TOKEN}/sendMessage",
-        json={
-            "chat_id":
-                user["telegram"]["chat_id"],
-            "text":
-                "🚀 Portfolio Tracker test mesajı"
-        },
-        timeout=30
-    )
-    print(
-        "TELEGRAM STATUS:",
-        response.status_code
-    )
 def main():
-    print(
-        "TOKEN VAR:",
-        TOKEN is not None
-    )
-    usdtry = get_yahoo_price(
+    usdtry = get_price(
         "USDTRY=X"
     )
-    bist100 = get_yahoo_price(
+    bist100 = get_price(
         "XU100.IS"
     )
-    us10y = get_yahoo_price(
+    us10y = get_price(
         "^TNX"
     )
     print(
@@ -133,8 +103,10 @@ def main():
     )
     users = load_users()
     for user in users:
-        filename = ensure_history_file(
-            user["id"]
+        filename = (
+            ensure_history_file(
+                user["id"]
+            )
         )
         append_history_row(
             filename,
@@ -142,11 +114,20 @@ def main():
             bist100,
             us10y
         )
-        send_test_message(
-            user
+        send_message(
+            user["telegram"]["chat_id"],
+            (
+                "🚀 Portfolio Tracker\n\n"
+                f"Kullanıcı: {user['name']}\n"
+                f"USDTRY: {usdtry}\n"
+                f"BIST100: {bist100}\n"
+                f"US10Y: {us10y}"
+            )
         )
         print(
-            f"OK -> {user['name']} ({user['id']})"
+            f"OK -> "
+            f"{user['name']} "
+            f"({user['id']})"
         )
 if __name__ == "__main__":
     main()
