@@ -285,7 +285,7 @@ def create_report_image(
     
     else:
 
-    profit_pct = 0
+        profit_pct = 0
     
     draw_card(
         draw,
