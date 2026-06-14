@@ -394,14 +394,14 @@ def create_report_image(
     image.paste(
         donut,
         (
-            1000,
-            y + 120
+            1100,
+            y + 140
         ),
         donut
     )
 
     legend_x = 1180
-    legend_y = y + 760
+    legend_y = y + 780
     
     draw.text(
         (legend_x, legend_y),
