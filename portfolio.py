@@ -54,15 +54,21 @@ def append_history_row(
             0,
             us10y
         ])
-def send_test_message(user):
+def send_report(user, usdtry, bist100, us10y):
+
     token = user["telegram"]["token"]
     chat_id = user["telegram"]["chat_id"]
-    text = (
-        f"✅ Portfolio Tracker Aktif\n\n"
-        f"Kullanıcı: {user['name']}\n"
-        f"ID: {user['id']}\n\n"
-        f"Yeni mimari başarıyla çalışıyor."
-    )
+
+    text = f"""
+📊 PORTFÖY
+
+👤 {user['name']}
+
+USDTRY : {usdtry}
+BIST100: {bist100}
+US10Y  : {us10y}
+"""
+
     requests.post(
         f"https://api.telegram.org/bot{token}/sendMessage",
         json={
@@ -92,7 +98,12 @@ def main():
     us10y
 
 )
-        send_test_message(user)
+        send_report(
+    user,
+    usdtry,
+    bist100,
+    us10y
+)
         print(
             f"OK -> {user['name']} ({user['id']})"
         )
