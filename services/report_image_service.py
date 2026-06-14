@@ -240,7 +240,7 @@ def create_report_image(
         f"{summary['total_value_tl']:,.0f} TL",
         "#16A34A",
         None,
-        "assets/icons/money.png"
+        "icons/money.png"
     )
 
     daily_tl = perf["daily"]["change_tl"]
@@ -258,7 +258,7 @@ def create_report_image(
         f"{perf['daily']['change_tl']:,.0f} TL",
         "#16A34A",
         f"{perf['daily']['change_pct']:.2f}%",
-        "assets/icons/chart.png"
+        "icons/chart.png"
     )
     
     draw_card(
@@ -272,7 +272,7 @@ def create_report_image(
         f"{perf['monthly']['change_tl']:,.0f} TL",
         "#16A34A",
         f"{perf['monthly']['change_pct']:.2f}%",
-        "assets/icons/calendar.png"
+        "icons/calendar.png"
     )
 
     if summary["total_cost_tl"] > 0:
@@ -298,7 +298,7 @@ def create_report_image(
         f"{summary['profit_tl']:,.0f} TL",
         "#16A34A",
         f"{profit_pct:.2f}%",
-        "assets/icons/profit.png"
+        "icons/profit.png"
     )
     
     y += 200
@@ -314,7 +314,7 @@ def create_report_image(
     f"{summary['fund_total_tl']:,.0f} TL",
     "#2563EB",
     f"%{fund_pct:.2f}",
-    "assets/icons/fund.png"
+    "icons/fund.png"
     )
 
     draw_card(
@@ -328,7 +328,7 @@ def create_report_image(
     f"{summary['crypto_total_tl']:,.0f} TL",
     "#F97316",
     f"%{crypto_pct:.2f}",
-    "assets/icons/bitcoin.png"
+    "icons/bitcoin.png"
     )
 
     draw_card(
@@ -342,7 +342,7 @@ def create_report_image(
     f"{summary['gold_total_tl']:,.0f} TL",
     "#EAB308",
     f"%{gold_pct:.2f}",
-    "assets/icons/gold.png"
+    "icons/gold.png"
     )
 
     draw_card(
@@ -356,7 +356,7 @@ def create_report_image(
     f"{summary['total_cost_tl']:,.0f} TL",
     "#6B7280",
     f"%{cost_pct:.2f}",
-    "assets/icons/wallet.png"
+    "icons/wallet.png"
     )
     
     donut = Image.open(
