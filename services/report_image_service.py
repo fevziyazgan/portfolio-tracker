@@ -260,9 +260,11 @@ y += 200
         donut
     )
 
+    y += 50
+
     draw.text(
         (
-            30,
+            40,
             y
         ),
         "PORTFOY DAGILIMI",
