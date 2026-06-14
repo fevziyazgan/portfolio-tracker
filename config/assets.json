@@ -1,45 +1,62 @@
 {
   "funds": {
     "IPV": {
-      "name": "İş Portföy Eurobond"
+      "provider": "tefas"
     },
     "PHE": {
-      "name": "Pusula Hisse"
+      "provider": "tefas"
     },
     "TMV": {
-      "name": "TMV"
+      "provider": "tefas"
     },
     "TLY": {
-      "name": "TLY"
+      "provider": "tefas"
     }
   },
 
   "crypto": {
     "BTC": {
+      "provider": "yahoo",
       "ticker": "BTC-USD"
     },
+
     "ETH": {
+      "provider": "yahoo",
       "ticker": "ETH-USD"
     },
+
     "XRP": {
+      "provider": "yahoo",
       "ticker": "XRP-USD"
     },
+
     "LUNC": {
+      "provider": "yahoo",
       "ticker": "LUNC-USD"
     },
+
     "AGIX": {
+      "provider": "yahoo",
       "ticker": "AGIX-USD"
     },
+
     "SHIB": {
+      "provider": "yahoo",
       "ticker": "SHIB-USD"
     },
+
     "TRX": {
+      "provider": "yahoo",
       "ticker": "TRX-USD"
     },
+
     "FTT": {
+      "provider": "yahoo",
       "ticker": "FTT-USD"
     },
+
     "MBOX": {
+      "provider": "yahoo",
       "ticker": "MBOX-USD"
     }
   }
