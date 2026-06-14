@@ -1,63 +1,71 @@
 import requests
 
 
+def get_fund_price(fund_code):
+
+    url = (
+        "https://www.tefas.gov.tr"
+        "/api/funds/fonFiyatBilgiGetir"
+    )
+
+    payload = {
+        "fonKodu": fund_code,
+        "dil": "TR",
+        "periyod": 1
+    }
+
+    try:
+
+        response = requests.post(
+            url,
+            json=payload,
+            timeout=30,
+            headers={
+                "User-Agent":
+                "Mozilla/5.0",
+                "Accept":
+                "application/json"
+            }
+        )
+
+        print(
+            f"\nFUND: {fund_code}"
+        )
+
+        print(
+            "STATUS:",
+            response.status_code
+        )
+
+        print(
+            response.text[:1000]
+        )
+
+        return response.json()
+
+    except Exception as e:
+
+        print(
+            f"{fund_code} ERROR:",
+            e
+        )
+
+        return None
+
+
 def test_funds():
 
-    funds = [
+    result = {}
+
+    for code in [
         "IPV",
         "PHE",
         "TMV",
         "TLY"
-    ]
+    ]:
 
-    result = {}
-
-    print("\n===== TEFAS API TEST =====\n")
-
-    for fund in funds:
-
-        url = (
-            f"https://www.tefas.gov.tr/api/funds/{fund}"
+        result[code] = get_fund_price(
+            code
         )
-
-        try:
-
-            response = requests.get(
-                url,
-                timeout=30,
-                headers={
-                    "User-Agent":
-                    "Mozilla/5.0"
-                }
-            )
-
-            print("\nURL:", url)
-            print(
-                "STATUS:",
-                response.status_code
-            )
-
-            print(
-                response.text[:500]
-            )
-
-            result[fund] = {
-                "success":
-                response.status_code == 200,
-                "status_code":
-                response.status_code
-            }
-
-        except Exception as e:
-
-            print(
-                f"{fund} ERROR:",
-                e
-            )
-
-            result[fund] = {
-                "success": False,
-                "error": str(e)
-            }
 
     return result
