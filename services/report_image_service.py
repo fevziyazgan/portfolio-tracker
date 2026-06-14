@@ -249,7 +249,7 @@ def create_report_image(
         / total
     ) * 100
     
-    y += 170
+    y += 70
     
     draw_card(
         draw,
