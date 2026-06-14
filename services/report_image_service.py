@@ -184,68 +184,82 @@ def create_report_image(
         "summary"
     ]
 
+    perf = report_data["performance"]
+    
+    # 1. SATIR
+    
     draw_card(
         draw,
         30,
         y,
-        360,
+        260,
         120,
-        "Toplam",
+        "Toplam Deger",
         f"{summary['total_value_tl']:,.0f} TL"
     )
-
+    
     draw_card(
         draw,
-        420,
+        320,
         y,
-        360,
+        260,
+        120,
+        "Gunluk Degisim",
+        f"{perf['daily']['change_pct']:.2f}%"
+    )
+    
+    draw_card(
+        draw,
+        610,
+        y,
+        260,
+        120,
+        "30 Gunluk",
+        f"{perf['monthly']['change_pct']:.2f}%"
+    )
+    
+    draw_card(
+        draw,
+        900,
+        y,
+        260,
+        120,
+        "Kar / Zarar",
+        f"{summary['profit_tl']:,.0f} TL"
+    )
+    
+    y += 150
+    
+    # 2. SATIR
+    
+    total = max(
+        summary["total_value_tl"],
+        1
+    )
+    
+    draw_card(
+        draw,
+        30,
+        y,
+        260,
         120,
         "Fonlar",
         f"{summary['fund_total_tl']:,.0f} TL"
     )
-
+    
     draw_card(
         draw,
-        810,
+        320,
         y,
-        360,
+        260,
         120,
         "Kripto",
         f"{summary['crypto_total_tl']:,.0f} TL"
     )
+    
+    y += 190
 
-    y += 150
-
-    draw_card(
-        draw,
-        30,
-        y,
-        360,
-        120,
-        "Altin",
-        f"{summary['gold_total_tl']:,.0f} TL"
-    )
-
-    draw_card(
-        draw,
-        420,
-        y,
-        360,
-        120,
-        "Maliyet",
-        f"{summary['total_cost_tl']:,.0f} TL"
-    )
-
-    draw_card(
-        draw,
-        810,
-        y,
-        360,
-        120,
-        "Kar/Zarar",
-        f"{summary['profit_tl']:,.0f} TL"
-    )
-
+    
     y += 190
 
     donut = Image.open(
@@ -473,102 +487,6 @@ def create_report_image(
     )
     
     y += 430
-
-    perf = report_data["performance"]
-    
-    # 1. SATIR
-    
-    draw_card(
-        draw,
-        30,
-        y,
-        260,
-        120,
-        "Toplam Deger",
-        f"{summary['total_value_tl']:,.0f} TL"
-    )
-    
-    draw_card(
-        draw,
-        320,
-        y,
-        260,
-        120,
-        "Gunluk Degisim",
-        f"{perf['daily']['change_pct']:.2f}%"
-    )
-    
-    draw_card(
-        draw,
-        610,
-        y,
-        260,
-        120,
-        "30 Gunluk",
-        f"{perf['monthly']['change_pct']:.2f}%"
-    )
-    
-    draw_card(
-        draw,
-        900,
-        y,
-        260,
-        120,
-        "Kar / Zarar",
-        f"{summary['profit_tl']:,.0f} TL"
-    )
-    
-    y += 150
-    
-    # 2. SATIR
-    
-    total = max(
-        summary["total_value_tl"],
-        1
-    )
-    
-    draw_card(
-        draw,
-        30,
-        y,
-        260,
-        120,
-        "Fonlar",
-        f"{summary['fund_total_tl']:,.0f} TL"
-    )
-    
-    draw_card(
-        draw,
-        320,
-        y,
-        260,
-        120,
-        "Kripto",
-        f"{summary['crypto_total_tl']:,.0f} TL"
-    )
-    
-    draw_card(
-        draw,
-        610,
-        y,
-        260,
-        120,
-        "Altin",
-        f"{summary['gold_total_tl']:,.0f} TL"
-    )
-    
-    draw_card(
-        draw,
-        900,
-        y,
-        260,
-        120,
-        "Maliyet",
-        f"{summary['total_cost_tl']:,.0f} TL"
-    )
-    
-    y += 190
-
     
     image.save(
         output_file
