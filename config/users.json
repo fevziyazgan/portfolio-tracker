@@ -2,63 +2,88 @@
   "users": [
     {
       "id": 1,
-      "version": 2,
       "name": "Fevzi",
-      "role": "admin",
+
       "telegram": {
-        "chat_id": 1968226108
+        "chat_id": "1968226108"
       },
-      "settings": {
-        "report_hour": "19:00",
-        "daily_report": true,
-        "send_text": true,
-        "send_png": true
+
+      "gold": {
+        "grams": 150,
+        "cost": 0,
+        "buy_date": ""
       },
-      "alarms": {
-        "usdtry_high": 48.5,
-        "gold_high": 7000,
-        "cds_low": 250,
-        "cds_high": 400,
-        "us10y_low": 3.5,
-        "us10y_high": 5.0,
-        "portfolio_day_change": 3,
-        "portfolio_month_change": 15
-      },
-      "portfolio": {
-        "LIKIT": {
-          "principal": 1164000,
-          "rate": 43,
-          "rate_type": "annual",
-          "start_date": "2026-06-14",
-          "end_date": "2026-09-14"
+
+      "funds": [
+        {
+          "code": "IPV",
+          "quantity": 1000,
+          "cost": 0,
+          "buy_date": ""
         },
-        "ALTIN": {
-          "grams": 212.13,
-          "buy_price": 5487.00,
-          "buy_date": "2026-06-14"
+        {
+          "code": "PHE",
+          "quantity": 3000,
+          "cost": 0,
+          "buy_date": ""
         },
-        "TLY": {
-          "units": 250.8612,
-          "buy_price": 6186.81844,
-          "buy_date": "2026-06-14"
+        {
+          "code": "TMV",
+          "quantity": 500,
+          "cost": 0,
+          "buy_date": ""
         },
-        "PHE": {
-          "units": 118.4421,
-          "buy_price": 13103.24,
-          "buy_date": "2026-06-14"
-        },
-        "TMV": {
-          "units": 187.5221,
-          "buy_price": 6207.54,
-          "buy_date": "2026-06-14"
-        },
-        "IPV": {
-          "units": 142.1192,
-          "buy_price": 8190.11,
-          "buy_date": "2026-06-14"
+        {
+          "code": "TLY",
+          "quantity": 250,
+          "cost": 0,
+          "buy_date": ""
         }
-      },
-      "transactions": [
+      ],
+
+      "crypto": [
+        {
+          "symbol": "XRP",
+          "quantity": 556.242,
+          "cost": 0,
+          "buy_date": ""
+        },
+        {
+          "symbol": "LUNC",
+          "quantity": 1409159.3255,
+          "cost": 0,
+          "buy_date": ""
+        },
+        {
+          "symbol": "AGIX",
+          "quantity": 970.701,
+          "cost": 0,
+          "buy_date": ""
+        },
+        {
+          "symbol": "SHIB",
+          "quantity": 12440759.13,
+          "cost": 0,
+          "buy_date": ""
+        },
+        {
+          "symbol": "TRX",
+          "quantity": 157.2362,
+          "cost": 0,
+          "buy_date": ""
+        },
+        {
+          "symbol": "FTT",
+          "quantity": 22.1665,
+          "cost": 0,
+          "buy_date": ""
+        },
+        {
+          "symbol": "MBOX",
+          "quantity": 92.9106,
+          "cost": 0,
+          "buy_date": ""
+        }
       ]
     }
   ]
