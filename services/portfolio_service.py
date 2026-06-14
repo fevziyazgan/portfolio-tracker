@@ -16,28 +16,26 @@ def load_users():
     ) as f:
         data = json.load(f)
     return data["users"]
-def build_report(user):
-    report = []
-    report.append(
-        "📊 PORTFÖY RAPORU"
+def build_report_data(
+    user
+):
+    usdtry = (
+        get_price(
+            "USDTRY=X"
+        ) or 0
     )
-    report.append(
-        datetime.now().strftime(
-            "%d.%m.%Y"
-        )
+    bist100 = (
+        get_price(
+            "XU100.IS"
+        ) or 0
     )
-    report.append("")
-    report.append(
-        "═══════════════"
+    us10y = (
+        get_price(
+            "^TNX"
+        ) or 0
     )
-    report.append(
-        "🏦 ANA PORTFÖY"
-    )
-    report.append(
-        "═══════════════"
-    )
-    report.append("")
-    total_fund_value = 0
+    funds = []
+    fund_total_tl = 0
     for fund in user.get(
         "funds",
         []
@@ -53,113 +51,124 @@ def build_report(user):
                 price
                 * fund["quantity"]
             )
-            total_fund_value += value
-            report.append(
-                f"{fund['code']}  "
-                f"{price:.4f}"
+            fund_total_tl += value
+            funds.append(
+                {
+                    "code":
+                    fund["code"],
+                    "quantity":
+                    fund["quantity"],
+                    "price":
+                    price,
+                    "value":
+                    round(value, 2)
+                }
             )
         except Exception:
             continue
-    report.append("")
-    report.append(
-        f"💰 Fon Toplamı: "
-        f"{total_fund_value:,.0f} TL"
-    )
-    report.append("")
-    report.append("")
-    report.append(
-        "═══════════════"
-    )
-    report.append(
-        "₿ KRİPTO PORTFÖYÜ"
-    )
-    report.append(
-        "═══════════════"
-    )
-    report.append("")
-    total_crypto_usd = 0
+    cryptos = []
+    crypto_total_usd = 0
     for crypto in user.get(
         "crypto",
         []
     ):
         try:
-            price = get_crypto_price(
-                crypto["symbol"]
+            price = (
+                get_crypto_price(
+                    crypto["symbol"]
+                )
             )
             if not price:
                 continue
             value = (
-                crypto["quantity"]
-                * price
+                price
+                * crypto["quantity"]
             )
-            total_crypto_usd += value
-            report.append(
-                f"{crypto['symbol']}  "
-                f"{price:.6f}$"
+            crypto_total_usd += value
+            cryptos.append(
+                {
+                    "symbol":
+                    crypto["symbol"],
+                    "quantity":
+                    crypto["quantity"],
+                    "price":
+                    price,
+                    "value":
+                    round(value, 2)
+                }
             )
         except Exception:
             continue
-    report.append("")
-    report.append(
-        f"💰 Kripto Toplamı: "
-        f"{total_crypto_usd:,.2f} USD"
+    crypto_total_tl = (
+        crypto_total_usd
+        * usdtry
     )
-    report.append("")
-    report.append("")
-    report.append(
-        "═══════════════"
+    gold_total_tl = 0
+    total_value_tl = (
+        fund_total_tl
+        + crypto_total_tl
+        + gold_total_tl
     )
-    report.append(
-        "📈 PİYASA"
-    )
-    report.append(
-        "═══════════════"
-    )
-    report.append("")
-    try:
-        usdtry = get_price(
-            "USDTRY=X"
-        )
-        report.append(
-            f"USDTRY : {usdtry}"
-        )
-    except Exception:
-        pass
-    try:
-        bist100 = get_price(
-            "XU100.IS"
-        )
-        report.append(
-            f"BIST100 : {bist100}"
-        )
-    except Exception:
-        pass
-    try:
-        us10y = get_price(
-            "^TNX"
-        )
-        report.append(
-            f"US10Y : {us10y}"
-        )
-    except Exception:
-        pass
-    return "\n".join(
-        report
-    )
+    return {
+        "date":
+        datetime.now().strftime(
+            "%d.%m.%Y"
+        ),
+        "summary": {
+            "total_value_tl":
+            round(
+                total_value_tl,
+                0
+            ),
+            "fund_total_tl":
+            round(
+                fund_total_tl,
+                0
+            ),
+            "crypto_total_tl":
+            round(
+                crypto_total_tl,
+                0
+            ),
+            "gold_total_tl":
+            round(
+                gold_total_tl,
+                0
+            )
+        },
+        "funds":
+        funds,
+        "cryptos":
+        cryptos,
+        "market": {
+            "usdtry":
+            usdtry,
+            "bist100":
+            bist100,
+            "us10y":
+            us10y
+        }
+    }
 def run_portfolios():
     users = load_users()
     for user in users:
         try:
-            report = build_report(
-                user
+            report_data = (
+                build_report_data(
+                    user
+                )
             )
             image_file = (
                 create_report_image(
-                    report
+                    report_data
                 )
             )
             send_photo(
-                user["telegram"]["chat_id"],
+                user[
+                    "telegram"
+                ][
+                    "chat_id"
+                ],
                 image_file
             )
         except Exception as e:
