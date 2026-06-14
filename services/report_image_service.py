@@ -141,9 +141,11 @@ def create_report_image(
     summary = report_data[
         "summary"
     ]
+    
     create_donut_chart(
     report_data
-)
+    )
+    
     draw_card(
         draw,
         30,
@@ -199,10 +201,15 @@ def create_report_image(
         "Kar/Zarar",
         f"{summary['profit_tl']:,.0f} TL"
     )
-    y += 190
-    donut = Image.open(
-    "donut_chart.png"
-)
+    
+y += 190 
+
+donut = Image.open( "donut_chart.png" ).convert( "RGBA" ) 
+
+donut = donut.resize( ( 350, 350 ) ) 
+
+image.paste( donut, ( 780, y - 20 ), donut )
+    
 donut = donut.resize(
     (
         350,
