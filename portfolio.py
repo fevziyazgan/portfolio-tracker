@@ -1,6 +1,7 @@
 import json
 import csv
 import os
+import yfinance as yf
 from datetime import datetime
 import requests
 CONFIG_FILE = "config/users.json"
@@ -25,6 +26,16 @@ def ensure_history_file(user_id):
                 "us10y"
             ])
     return filename
+
+def get_yahoo_price(ticker):
+    try:
+        data = yf.Ticker(ticker)
+        hist = data.history(period="5d")
+        if len(hist) == 0:
+            return None
+        return round(float(hist["Close"].iloc[-1]), 4)
+    except Exception:
+        return None
 def append_test_row(filename):
     today = datetime.now().strftime("%Y-%m-%d")
     with open(filename, "a", newline="", encoding="utf-8") as f:
@@ -56,6 +67,13 @@ def send_test_message(user):
         timeout=30
     )
 def main():
+    usdtry = get_yahoo_price("USDTRY=X")
+bist100 = get_yahoo_price("XU100.IS")
+us10y = get_yahoo_price("^TNX")
+
+print("USDTRY:", usdtry)
+print("BIST100:", bist100)
+print("US10Y:", us10y)
     users = load_users()
     for user in users:
         filename = ensure_history_file(user["id"])
