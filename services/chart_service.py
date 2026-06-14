@@ -88,6 +88,15 @@ def create_portfolio_performance_chart(
             row[1]
             for row in history
         ]
+        
+        "30 Gunluk Portfoy Performansi (%)"
+        
+        base = values[0]
+
+        values = [
+            (v / base) * 100
+            for v in values
+        ]
 
     plt.figure(
         figsize=(10, 4)
