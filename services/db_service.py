@@ -32,8 +32,10 @@ def init_db():
             asset_code TEXT,
             asset_type TEXT,
             quantity REAL,
+            cost REAL,
             price REAL,
-            value REAL
+            value REAL,
+            profit REAL
         )
         """
     )
@@ -86,18 +88,22 @@ def save_daily_snapshot(report_data):
                 asset_code,
                 asset_type,
                 quantity,
+                cost,
                 price,
-                value
+                value,
+                profit
             )
-            VALUES (?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             """,
             (
                 date,
                 fund["code"],
                 "FUND",
                 fund["quantity"],
+                fund["cost"],
                 fund["price"],
-                fund["value"]
+                fund["value"],
+                fund["profit"]
             )
         )
     for crypto in report_data["cryptos"]:
@@ -108,18 +114,22 @@ def save_daily_snapshot(report_data):
                 asset_code,
                 asset_type,
                 quantity,
+                cost,
                 price,
-                value
+                value,
+                profit
             )
-            VALUES (?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             """,
             (
                 date,
                 crypto["symbol"],
                 "CRYPTO",
                 crypto["quantity"],
+                crypto["cost"],
                 crypto["price"],
-                crypto["value_tl"]
+                crypto["value_tl"],
+                crypto["profit"]
             )
         )
     gold = report_data["gold"]
@@ -130,18 +140,22 @@ def save_daily_snapshot(report_data):
             asset_code,
             asset_type,
             quantity,
+            cost,
             price,
-            value
+            value,
+            profit
         )
-        VALUES (?, ?, ?, ?, ?, ?)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
         """,
         (
             date,
             "GOLD",
             "GOLD",
             gold["grams"],
+            gold["cost"],
             gold["price"],
-            gold["value"]
+            gold["value"],
+            gold["profit"]
         )
     )
     market = report_data["market"]
