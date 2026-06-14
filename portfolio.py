@@ -1,13 +1,9 @@
 import json
-import csv
-import os
-from datetime import datetime
-import requests
 from services.yahoo_service import get_price
+from services.tefas_service import get_fund_price
+from services.crypto_service import get_crypto_price
 from services.telegram_service import send_message
-from services.tefas_service import test_funds
 CONFIG_FILE = "config/users.json"
-HISTORY_DIR = "history"
 def load_users():
     with open(
         CONFIG_FILE,
@@ -16,138 +12,97 @@ def load_users():
     ) as f:
         data = json.load(f)
     return data["users"]
-def ensure_history_file(user_id):
-    os.makedirs(
-        HISTORY_DIR,
-        exist_ok=True
+def build_report(user):
+    report = []
+    report.append(
+        "📊 PORTFÖY RAPORU"
     )
-    filename = f"{HISTORY_DIR}/{user_id}.csv"
-    if not os.path.exists(filename):
-        with open(
-            filename,
-            "w",
-            newline="",
-            encoding="utf-8"
-        ) as f:
-            writer = csv.writer(f)
-            writer.writerow([
-                "date",
-                "total_value",
-                "portfolio_return_pct",
-                "usdtry",
-                "gold",
-                "bist100",
-                "cds",
-                "us10y"
-            ])
-    return filename
-def append_history_row(
-    filename,
-    usdtry,
-    bist100,
-    us10y
-):
-    today = datetime.now().strftime(
-        "%Y-%m-%d"
-    )
-    with open(
-        filename,
-        "a",
-        newline="",
-        encoding="utf-8"
-    ) as f:
-        writer = csv.writer(f)
-        writer.writerow([
-            today,
-            0,
-            0,
-            usdtry,
-            0,
-            bist100,
-            0,
-            us10y
-        ])
-def test_investing():
-    try:
-        url = (
-            "https://www.investing.com/"
-            "funds/tryispo00100"
-        )
-        response = requests.get(
-            url,
-            timeout=30,
-            headers={
-                "User-Agent":
-                "Mozilla/5.0"
-            }
-        )
-        print("\n===== INVESTING TEST =====")
-        print(
-            "STATUS:",
-            response.status_code
-        )
-        print(
-            "HTML LENGTH:",
-            len(response.text)
-        )
-        print(
-            response.text[:1000]
-        )
-    except Exception as e:
-        print(
-            "INVESTING ERROR:",
-            e
-        )
-def main():
+    report.append("")
     usdtry = get_price(
         "USDTRY=X"
     )
-    bist100 = get_price(
-        "XU100.IS"
+    report.append(
+        f"USDTRY: {usdtry}"
     )
-    us10y = get_price(
-        "^TNX"
+    report.append("")
+    report.append(
+        "🏦 FON PORTFÖYÜ"
     )
-    print(
-        "USDTRY:",
-        usdtry
+    total_fund_value = 0
+    for fund in user.get(
+        "funds",
+        []
+    ):
+        try:
+            price_data = (
+                get_fund_price(
+                    fund["code"]
+                )
+            )
+            if not price_data:
+                continue
+            value = (
+                price_data["price"]
+                * fund["quantity"]
+            )
+            total_fund_value += value
+            report.append(
+                f"{fund['code']} | "
+                f"{price_data['price']:.4f}"
+            )
+        except Exception:
+            pass
+    report.append("")
+    report.append(
+        f"Toplam Fon: "
+        f"{total_fund_value:,.0f} TL"
     )
-    print(
-        "BIST100:",
-        bist100
+    report.append("")
+    report.append(
+        "₿ KRİPTO PORTFÖYÜ"
     )
-    print(
-        "US10Y:",
-        us10y
+    total_crypto_usd = 0
+    for crypto in user.get(
+        "crypto",
+        []
+    ):
+        try:
+            price = get_crypto_price(
+                crypto["symbol"]
+            )
+            if not price:
+                continue
+            value = (
+                crypto["quantity"]
+                * price
+            )
+            total_crypto_usd += value
+            report.append(
+                f"{crypto['symbol']} | "
+                f"{price:.6f}$"
+            )
+        except Exception:
+            pass
+    report.append("")
+    report.append(
+        f"Toplam Kripto: "
+        f"{total_crypto_usd:,.2f} USD"
     )
-    print(
-        "\n===== TEFAS TEST ====="
-    )
-    print(
-        test_funds()
-    )
-    test_investing()
+    return "\n".join(report)
+def main():
     users = load_users()
     for user in users:
-        filename = ensure_history_file(
-            user["id"]
-        )
-        append_history_row(
-            filename,
-            usdtry,
-            bist100,
-            us10y
-        )
-        status = send_message(
-            user["telegram"]["chat_id"],
-            "🚀 Investing test tamamlandı"
-        )
-        print(
-            "TELEGRAM:",
-            status
-        )
-        print(
-            f"OK -> {user['name']} ({user['id']})"
-        )
+        try:
+            report = build_report(
+                user
+            )
+            send_message(
+                user["telegram"]["chat_id"],
+                report
+            )
+        except Exception as e:
+            print(
+                f"HATA: {e}"
+            )
 if __name__ == "__main__":
     main()
