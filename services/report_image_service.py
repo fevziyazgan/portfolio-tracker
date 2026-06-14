@@ -226,6 +226,31 @@ def create_report_image(
     ]
 
     perf = report_data["performance"]
+
+    total = max(
+    summary["total_value_tl"],
+    1
+    )
+    
+    fund_pct = (
+        summary["fund_total_tl"]
+        / total
+    ) * 100
+    
+    crypto_pct = (
+        summary["crypto_total_tl"]
+        / total
+    ) * 100
+    
+    gold_pct = (
+        summary["gold_total_tl"]
+        / total
+    ) * 100
+    
+    cost_pct = (
+        summary["total_cost_tl"]
+        / total
+    ) * 100
     
     y += 170
     
