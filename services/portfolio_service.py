@@ -25,7 +25,9 @@ from services.analytics_service import (
     get_daily_change,
     get_monthly_change,
     get_best_asset,
-    get_worst_asset
+    get_worst_asset,
+    get_asset_daily_change,
+    get_asset_monthly_change
 )
 
 CONFIG_FILE = "config/users.json"
@@ -86,32 +88,24 @@ def build_report_data(
                 - cost_value
             )
             funds.append(
-                {
-                    "code":
-                    fund["code"],
-                    "quantity":
-                    fund["quantity"],
-                    "price":
-                    price,
-                    "cost":
-                    cost,
-                    "value":
-                    round(
-                        value,
-                        2
-                    ),
-                    "cost_value":
-                    round(
-                        cost_value,
-                        2
-                    ),
-                    "profit":
-                    round(
-                        profit,
-                        2
-                    )
-                }
-            )
+            {
+                "code": fund["code"],
+                "quantity": fund["quantity"],
+                "price": price,
+                "cost": cost,
+                "value": round(value, 2),
+                "cost_value": round(cost_value, 2),
+                "profit": round(profit, 2),
+        
+                "daily_pct": get_asset_daily_change(
+                    fund["code"]
+                ),
+        
+                "monthly_pct": get_asset_monthly_change(
+                    fund["code"]
+                )
+            }
+        )
         except Exception:
             continue
     cryptos = []
@@ -210,6 +204,29 @@ def build_report_data(
         gold_total_tl
         - gold_cost_total
     )
+
+    gold_daily_pct = (
+        get_asset_daily_change(
+            "GOLD"
+        )
+    )
+    
+    gold_monthly_pct = (
+        get_asset_monthly_change(
+            "GOLD"
+        )
+    )
+    
+    for fund in funds:
+
+    fund["portfolio_pct"] = round(
+        (
+            fund["value"]
+            / fund_total_tl
+        ) * 100,
+        2
+    ) if fund_total_tl else 0
+    
     total_cost = 0
     for fund in funds:
         total_cost += fund[
@@ -275,27 +292,27 @@ def build_report_data(
         "cryptos":
         cryptos,
         "gold": {
-            "grams":
-            gold_grams,
-            "cost":
-            gold_cost,
-            "price":
-            gold_price,
-            "value":
-            round(
+            "grams": gold_grams,
+            "cost": gold_cost,
+            "price": gold_price,
+        
+            "value": round(
                 gold_total_tl,
                 2
             ),
-            "cost_value":
-            round(
+        
+            "cost_value": round(
                 gold_cost_total,
                 2
             ),
-            "profit":
-            round(
+        
+            "profit": round(
                 gold_profit,
                 2
-            )
+            ),
+        
+            "daily_pct": gold_daily_pct,
+            "monthly_pct": gold_monthly_pct
         },
         "performance": {
         
