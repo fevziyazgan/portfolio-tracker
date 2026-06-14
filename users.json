@@ -28,12 +28,12 @@
         "investor_rise": 15,
         "investor_drop": -10
       },
-      "start_value": 7760000,
+      "portfolio_start_date": "2026-07-01",
       "cash_positions": [
         {
+          "id": 1,
           "name": "Likit",
-          "weight": 15,
-          "principal": 1164000,
+          "amount": 1164000,
           "rate": 43,
           "rate_type": "annual",
           "start_date": "2026-07-01",
@@ -42,19 +42,19 @@
       ],
       "portfolio": {
         "ALTIN": {
-          "weight": 15
+          "amount": 1164000
         },
         "TLY": {
-          "weight": 20
+          "amount": 1552000
         },
         "PHE": {
-          "weight": 20
+          "amount": 1552000
         },
         "TMV": {
-          "weight": 15
+          "amount": 1164000
         },
         "IPV": {
-          "weight": 15
+          "amount": 1164000
         }
       },
       "transactions": []
