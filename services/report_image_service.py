@@ -438,60 +438,7 @@ def create_report_image(
     )
 
     
-    y += 780
-
-    total = max(
-    summary["total_value_tl"],
-    1
-    )
-    
-    draw.text(
-        (
-            50,
-            y
-        ),
-        f"Fonlar %{summary['fund_total_tl'] / total * 100:.1f}",
-        fill="#2563EB",
-        font=text_font
-    )
-
-    y += 35
-
-    draw.text(
-        (
-            50,
-            y
-        ),
-        f"Mevduat %{summary.get('deposit_total_tl',0) / total * 100:.1f}",
-        fill="#10B981",
-        font=text_font
-    )
-    
-    y += 35
-
-    draw.text(
-        (
-            50,
-            y
-        ),
-        f"Kripto %{summary['crypto_total_tl'] / total * 100:.1f}",
-        fill="#F97316",
-        font=text_font
-    )
-
-    y += 35
-
-    draw.text(
-        (
-            50,
-            y
-        ),
-        f"Altin %{summary['gold_total_tl'] / total * 100:.1f}",
-        fill="#EAB308",
-        font=text_font
-    )
-
-    y += 90
+    y += 480
 
     draw.text(
         (
