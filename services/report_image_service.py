@@ -7,8 +7,8 @@ from services.chart_service import (
     create_portfolio_performance_chart
 )
 
-WIDTH = 1200
-HEIGHT = 3200
+WIDTH = 3200
+HEIGHT = 4500
 
 
 def get_font(size):
@@ -475,55 +475,100 @@ def create_report_image(
     y += 430
 
     perf = report_data["performance"]
-
-    draw.text(
-        (30, y),
-        "PERFORMANS OZETI",
-        fill="black",
-        font=section_font
-    )
     
-    y += 60
+    # 1. SATIR
+    
     draw_card(
-    draw,
-    30,
-    y,
-    250,
-    100,
-    "Gunluk",
-    f"{perf['daily']['change_pct']:.2f}%"
+        draw,
+        30,
+        y,
+        260,
+        120,
+        "Toplam Deger",
+        f"{summary['total_value_tl']:,.0f} TL"
     )
     
     draw_card(
         draw,
-        310,
+        320,
         y,
-        250,
-        100,
+        260,
+        120,
+        "Gunluk Degisim",
+        f"{perf['daily']['change_pct']:.2f}%"
+    )
+    
+    draw_card(
+        draw,
+        610,
+        y,
+        260,
+        120,
         "30 Gunluk",
         f"{perf['monthly']['change_pct']:.2f}%"
     )
     
     draw_card(
         draw,
-        590,
+        900,
         y,
-        250,
-        100,
-        "En Iyi",
-        f"{perf['best_asset']['asset']}"
+        260,
+        120,
+        "Kar / Zarar",
+        f"{summary['profit_tl']:,.0f} TL"
+    )
+    
+    y += 150
+    
+    # 2. SATIR
+    
+    total = max(
+        summary["total_value_tl"],
+        1
     )
     
     draw_card(
         draw,
-        870,
+        30,
         y,
-        250,
-        100,
-        "En Kotu",
-        f"{perf['worst_asset']['asset']}"
+        260,
+        120,
+        "Fonlar",
+        f"{summary['fund_total_tl']:,.0f} TL"
     )
-    y += 140
+    
+    draw_card(
+        draw,
+        320,
+        y,
+        260,
+        120,
+        "Kripto",
+        f"{summary['crypto_total_tl']:,.0f} TL"
+    )
+    
+    draw_card(
+        draw,
+        610,
+        y,
+        260,
+        120,
+        "Altin",
+        f"{summary['gold_total_tl']:,.0f} TL"
+    )
+    
+    draw_card(
+        draw,
+        900,
+        y,
+        260,
+        120,
+        "Maliyet",
+        f"{summary['total_cost_tl']:,.0f} TL"
+    )
+    
+    y += 190
+
     
     image.save(
         output_file
