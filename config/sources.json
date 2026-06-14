@@ -1,26 +1,16 @@
 {
   "USDTRY": {
-    "provider": "yfinance",
+    "provider": "yahoo",
     "ticker": "USDTRY=X"
   },
+
   "BIST100": {
-    "provider": "yfinance",
+    "provider": "yahoo",
     "ticker": "XU100.IS"
   },
+
   "US10Y": {
-    "provider": "yfinance",
+    "provider": "yahoo",
     "ticker": "^TNX"
-  },
-  "IPV": {
-    "provider": "tefas"
-  },
-  "PHE": {
-    "provider": "tefas"
-  },
-  "TMV": {
-    "provider": "tefas"
-  },
-  "TLY": {
-    "provider": "tefas"
   }
 }
