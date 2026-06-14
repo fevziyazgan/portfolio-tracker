@@ -1,4 +1,3 @@
-```python
 from services.db_service import (
     get_connection
 )
@@ -301,5 +300,4 @@ def get_worst_asset():
             }
 
     return worst
-```
 
