@@ -271,7 +271,12 @@ def create_report_image(
     )
 
     y += 50
-
+    
+    total = max(
+    summary["total_value_tl"],
+    1
+    )
+    
     draw.text(
         (
             50,
