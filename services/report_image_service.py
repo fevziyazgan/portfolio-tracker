@@ -494,27 +494,15 @@ def create_report_image(
         "funds"
     ]:
 
-        draw.text(
-            (
-                50,
-                y
-            ),
-            fund["code"],
-            fill="black",
-            font=text_font
-        )
-
-        draw.text(
-            (
-                850,
-                y
-            ),
-            f"{fund['value']:,.0f} TL",
-            fill="black",
-            font=text_font
-        )
-
-        y += 35
+        draw.text((50, y), "KOD", fill="black", font=get_font(24))
+        draw.text((250, y), "DEGER", fill="black", font=get_font(24))
+        draw.text((650, y), "GUNLUK", fill="black", font=get_font(24))
+        draw.text((900, y), "30 GUN", fill="black", font=get_font(24))
+        draw.text((1150, y), "%", fill="black", font=get_font(24))
+        
+        y += 40
+        draw.line((50, y, 1300, y), fill="#CCCCCC", width=2)
+        y += 20
 
     y += 50
 
