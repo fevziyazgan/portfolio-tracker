@@ -9,3 +9,29 @@ jobs:
 
     steps:
       - run: echo "Repository OK"
+name: Portfolio Tracker
+on:
+  workflow_dispatch
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install
+        run: |
+          pip install -r requirements.txt
+      - name: Run
+        run: |
+          python portfolio.py
+      - name: Commit
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add history/
+          git commit -m "history update" || echo "No changes"
+          git push
