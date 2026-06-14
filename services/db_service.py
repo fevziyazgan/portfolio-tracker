@@ -178,5 +178,134 @@ def save_daily_snapshot(report_data):
             market["gram_gold"]
         )
     )
+
+def get_daily_change():
+
+    conn = get_connection()
+    cur = conn.cursor()
+
+    cur.execute(
+        """
+        SELECT
+            date,
+            total_value
+        FROM portfolio_history
+        ORDER BY date DESC
+        LIMIT 2
+        """
+    )
+
+    rows = cur.fetchall()
+
+    conn.close()
+
+    if len(rows) < 2:
+        return {
+            "change_tl": 0,
+            "change_pct": 0
+        }
+
+    today = rows[0][1]
+    yesterday = rows[1][1]
+
+    change_tl = (
+        today - yesterday
+    )
+
+    change_pct = (
+        (change_tl / yesterday) * 100
+        if yesterday > 0
+        else 0
+    )
+
+    return {
+        "change_tl": round(
+            change_tl,
+            2
+        ),
+        "change_pct": round(
+            change_pct,
+            2
+        )
+    }
+
+
+def get_monthly_change():
+
+    conn = get_connection()
+    cur = conn.cursor()
+
+    cur.execute(
+        """
+        SELECT
+            date,
+            total_value
+        FROM portfolio_history
+        ORDER BY date DESC
+        LIMIT 30
+        """
+    )
+
+    rows = cur.fetchall()
+
+    conn.close()
+
+    if len(rows) < 2:
+        return {
+            "change_tl": 0,
+            "change_pct": 0
+        }
+
+    latest = rows[0][1]
+    oldest = rows[-1][1]
+
+    change_tl = (
+        latest - oldest
+    )
+
+    change_pct = (
+        (change_tl / oldest) * 100
+        if oldest > 0
+        else 0
+    )
+
+    return {
+        "change_tl": round(
+            change_tl,
+            2
+        ),
+        "change_pct": round(
+            change_pct,
+            2
+        )
+    }
+
+
+def get_history(
+    days=30
+):
+
+    conn = get_connection()
+    cur = conn.cursor()
+
+    cur.execute(
+        """
+        SELECT
+            date,
+            total_value
+        FROM portfolio_history
+        ORDER BY date ASC
+        LIMIT ?
+        """,
+        (days,)
+    )
+
+    rows = cur.fetchall()
+
+    conn.close()
+
+    return rows
+
+    
     conn.commit()
     conn.close()
