@@ -1,38 +1,47 @@
 {
   "ALTIN": {
     "name": "Gram Altın",
-    "category": "commodity"
+    "category": "commodity",
+    "track": true
   },
   "USDTRY": {
-    "name": "USD/TRY",
-    "category": "fx"
+    "name": "USDTRY",
+    "category": "fx",
+    "track": true
   },
   "BIST100": {
     "name": "BIST100",
-    "category": "index"
+    "category": "index",
+    "track": true
   },
   "US10Y": {
-    "name": "ABD 10Y",
-    "category": "bond"
+    "name": "US10Y",
+    "category": "bond",
+    "track": true
   },
   "CDS": {
-    "name": "Türkiye 5Y CDS",
-    "category": "risk"
+    "name": "CDS",
+    "category": "risk",
+    "track": true
   },
   "IPV": {
-    "name": "İş Portföy IPV",
-    "category": "fund"
+    "name": "IPV",
+    "category": "fund",
+    "track": true
   },
   "PHE": {
-    "name": "Pusula PHE",
-    "category": "fund"
+    "name": "PHE",
+    "category": "fund",
+    "track": true
   },
   "TMV": {
-    "name": "Tera TMV",
-    "category": "fund"
+    "name": "TMV",
+    "category": "fund",
+    "track": true
   },
   "TLY": {
-    "name": "Tera TLY",
-    "category": "fund"
+    "name": "TLY",
+    "category": "fund",
+    "track": true
   }
 }
