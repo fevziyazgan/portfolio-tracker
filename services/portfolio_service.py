@@ -52,6 +52,18 @@ def build_report_data(
                 * fund["quantity"]
             )
             fund_total_tl += value
+            cost = fund.get(
+                "cost",
+                0
+            )
+            cost_value = (
+                cost
+                * fund["quantity"]
+            )
+            profit = (
+                value
+                - cost_value
+            )
             funds.append(
                 {
                     "code":
@@ -60,8 +72,23 @@ def build_report_data(
                     fund["quantity"],
                     "price":
                     price,
+                    "cost":
+                    cost,
                     "value":
-                    round(value, 2)
+                    round(
+                        value,
+                        2
+                    ),
+                    "cost_value":
+                    round(
+                        cost_value,
+                        2
+                    ),
+                    "profit":
+                    round(
+                        profit,
+                        2
+                    )
                 }
             )
         except Exception:
@@ -85,6 +112,22 @@ def build_report_data(
                 * crypto["quantity"]
             )
             crypto_total_usd += value
+            cost = crypto.get(
+                "cost",
+                0
+            )
+            value_tl = (
+                value
+                * usdtry
+            )
+            profit = (
+                (
+                    price
+                    - cost
+                )
+                *
+                crypto["quantity"]
+            )
             cryptos.append(
                 {
                     "symbol":
@@ -93,8 +136,23 @@ def build_report_data(
                     crypto["quantity"],
                     "price":
                     price,
+                    "cost":
+                    cost,
                     "value":
-                    round(value, 2)
+                    round(
+                        value,
+                        2
+                    ),
+                    "value_tl":
+                    round(
+                        value_tl,
+                        2
+                    ),
+                    "profit":
+                    round(
+                        profit,
+                        2
+                    )
                 }
             )
         except Exception:
@@ -104,10 +162,25 @@ def build_report_data(
         * usdtry
     )
     gold_total_tl = 0
+    total_cost = 0
+    for fund in funds:
+        total_cost += fund[
+            "cost_value"
+        ]
+    for crypto in cryptos:
+        total_cost += (
+            crypto["cost"]
+            * crypto["quantity"]
+            * usdtry
+        )
     total_value_tl = (
         fund_total_tl
         + crypto_total_tl
         + gold_total_tl
+    )
+    profit_tl = (
+        total_value_tl
+        - total_cost
     )
     return {
         "date":
@@ -133,6 +206,16 @@ def build_report_data(
             "gold_total_tl":
             round(
                 gold_total_tl,
+                0
+            ),
+            "total_cost_tl":
+            round(
+                total_cost,
+                0
+            ),
+            "profit_tl":
+            round(
+                profit_tl,
                 0
             )
         },
