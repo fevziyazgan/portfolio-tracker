@@ -1,39 +1,30 @@
 name: Portfolio Tracker
-
 on:
   workflow_dispatch:
-
 permissions:
   contents: write
-
 jobs:
   run:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-
       - name: Install Requirements
         run: |
           pip install -r requirements.txt
-
       - name: Run Portfolio
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
         run: |
           python portfolio.py
-
       - name: Commit History
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
-
           git add history/
-
           git commit -m "history update" || echo "No changes"
-
           git push
