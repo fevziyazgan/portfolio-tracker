@@ -1,14 +1,32 @@
+import json
 import requests
-BASE_URL = (
-    "https://www.tefas.gov.tr/"
-    "FonAnaliz.aspx"
-)
+CONFIG_FILE = "config/sources.json"
+def load_sources():
+    with open(
+        CONFIG_FILE,
+        "r",
+        encoding="utf-8"
+    ) as f:
+        return json.load(f)
+def get_fund_codes():
+    sources = load_sources()
+    result = []
+    for code, info in sources.items():
+        if (
+            info.get("provider")
+            == "tefas"
+        ):
+            result.append(code)
+    return result
 def test_connection(
     fund_code
 ):
     try:
         response = requests.get(
-            f"{BASE_URL}?FonKod={fund_code}",
+            (
+                "https://www.tefas.gov.tr/"
+                f"FonAnaliz.aspx?FonKod={fund_code}"
+            ),
             timeout=30,
             headers={
                 "User-Agent":
@@ -26,15 +44,22 @@ def test_connection(
             "error": str(e)
         }
 def test_funds():
-    funds = [
-        "IPV",
-        "PHE",
-        "TMV",
-        "TLY"
-    ]
     result = {}
-    for code in funds:
+    for code in get_fund_codes():
         result[code] = (
             test_connection(code)
         )
     return result
+def get_price(
+    fund_code
+):
+    """
+    Geçici.
+    Gerçek TEFAS endpointi
+    bulunduğunda sadece bu
+    fonksiyon değişecek.
+    """
+    return {
+        "code": fund_code,
+        "price": None
+    }
