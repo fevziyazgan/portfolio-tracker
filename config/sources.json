@@ -13,33 +13,5 @@
     "provider": "yfinance",
     "ticker": "^TNX",
     "enabled": true
-  },
-  "ALTIN": {
-    "provider": "gold",
-    "enabled": true
-  },
-  "CDS": {
-    "provider": "worldgovernmentbonds",
-    "enabled": true
-  },
-  "IPV": {
-    "provider": "tefas",
-    "code": "IPV",
-    "enabled": true
-  },
-  "PHE": {
-    "provider": "tefas",
-    "code": "PHE",
-    "enabled": true
-  },
-  "TMV": {
-    "provider": "tefas",
-    "code": "TMV",
-    "enabled": true
-  },
-  "TLY": {
-    "provider": "tefas",
-    "code": "TLY",
-    "enabled": true
   }
 }
