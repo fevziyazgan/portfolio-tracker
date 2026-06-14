@@ -490,11 +490,11 @@ def create_report_image(
 
     y += 50
 
-    draw.text((50, y), "KOD", fill="black", font=get_font(24))
-    draw.text((250, y), "DEGER", fill="black", font=get_font(24))
-    draw.text((650, y), "GUNLUK", fill="black", font=get_font(24))
-    draw.text((900, y), "30 GUN", fill="black", font=get_font(24))
-    draw.text((1150, y), "%", fill="black", font=get_font(24))
+    draw.text((20, y), "KOD", fill="black", font=get_font(24))
+    draw.text((110, y), "DEGER", fill="black", font=get_font(24))
+    draw.text((420, y), "GUNLUK", fill="black", font=get_font(24))
+    draw.text((590, y), "30 GUN", fill="black", font=get_font(24))
+    draw.text((760, y), "%", fill="black", font=get_font(24))
     
     y += 40
     draw.line((50, y, 1300, y), fill="#CCCCCC", width=2)
@@ -502,35 +502,35 @@ def create_report_image(
     for fund in report_data["funds"]:
     
         draw.text(
-            (50, y),
+            (20, y),
             fund["code"],
             fill="black",
             font=text_font
         )
     
         draw.text(
-            (250, y),
+            (110, y),
             f"{fund['value']:,.0f}",
             fill="black",
             font=text_font
         )
     
         draw.text(
-            (650, y),
+            (420, y),
             f"{fund['daily_pct']:.2f}%",
             fill="#16A34A" if fund["daily_pct"] >= 0 else "#DC2626",
             font=text_font
         )
     
         draw.text(
-            (900, y),
+            (590, y),
             f"{fund['monthly_pct']:.2f}%",
             fill="#16A34A" if fund["monthly_pct"] >= 0 else "#DC2626",
             font=text_font
         )
     
         draw.text(
-            (1150, y),
+            (760, y),
             f"{fund['portfolio_pct']:.2f}",
             fill="#2563EB",
             font=text_font
