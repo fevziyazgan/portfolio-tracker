@@ -30,7 +30,8 @@ def draw_card(
     w,
     h,
     title,
-    value
+    value,
+    value_color
 ):
 
     draw.rounded_rectangle(
@@ -62,7 +63,7 @@ def draw_card(
             y + 55
         ),
         value,
-        fill="#111111",
+        fill=value_color,
         font=get_font(28)
     )
 
@@ -196,6 +197,7 @@ def create_report_image(
         120,
         "Toplam Deger",
         f"{summary['total_value_tl']:,.0f} TL"
+        "#16A34A"
     )
     
     draw_card(
@@ -206,6 +208,7 @@ def create_report_image(
         120,
         "Gunluk Degisim",
         f"{perf['daily']['change_pct']:.2f}%"
+        "#16A34A"
     )
     
     draw_card(
@@ -216,6 +219,7 @@ def create_report_image(
         120,
         "30 Gunluk",
         f"{perf['monthly']['change_pct']:.2f}%"
+        "#16A34A"
     )
     
     draw_card(
@@ -226,6 +230,7 @@ def create_report_image(
         120,
         "Kar / Zarar",
         f"{summary['profit_tl']:,.0f} TL"
+        "#16A34A"
     )
     
     y += 150
@@ -245,6 +250,7 @@ def create_report_image(
         120,
         "Fonlar",
         f"{summary['fund_total_tl']:,.0f} TL"
+        "#16A34A"
     )
     
     draw_card(
@@ -255,6 +261,7 @@ def create_report_image(
         120,
         "Kripto",
         f"{summary['crypto_total_tl']:,.0f} TL"
+        "#16A34A"
     )
     
     y += 190
@@ -270,8 +277,8 @@ def create_report_image(
 
     donut = donut.resize(
         (
-            350,
-            350
+            500,
+            500
         )
     )
 
@@ -473,8 +480,8 @@ def create_report_image(
     
     chart = chart.resize(
         (
-            1100,
-            400
+            1500,
+            600
         )
     )
     
