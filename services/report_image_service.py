@@ -1,4 +1,4 @@
-```python
+python
 import matplotlib.pyplot as plt
 
 from PIL import Image
@@ -440,4 +440,3 @@ def create_report_image(
     )
 
     return output_file
-```
