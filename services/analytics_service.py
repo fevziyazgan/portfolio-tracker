@@ -280,6 +280,55 @@ def get_best_asset():
     return best
 
 
+def get_asset_daily_change(asset_code):
+
+    history = get_asset_history(
+        asset_code,
+        2
+    )
+
+    if len(history) < 2:
+        return 0
+
+    previous = history[-2][1]
+    current = history[-1][1]
+
+    if previous == 0:
+        return 0
+
+    return round(
+        (
+            (current - previous)
+            / previous
+        ) * 100,
+        2
+    )
+
+
+def get_asset_monthly_change(asset_code):
+
+    history = get_asset_history(
+        asset_code,
+        30
+    )
+
+    if len(history) < 2:
+        return 0
+
+    first = history[0][1]
+    last = history[-1][1]
+
+    if first == 0:
+        return 0
+
+    return round(
+        (
+            (last - first)
+            / first
+        ) * 100,
+        2
+    )
+
 def get_worst_asset():
 
     conn = get_connection()
