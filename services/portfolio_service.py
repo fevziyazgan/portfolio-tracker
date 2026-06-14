@@ -332,3 +332,39 @@ def run_portfolios():
             user["telegram"]["chat_id"],
             image_file
         )
+        
+        perf = report_data[
+            "performance"
+        ]
+        
+        print(
+            "\n=== PERFORMANCE ==="
+        )
+        
+        print(
+            "Daily:",
+            perf[
+                "daily_change"
+            ]
+        )
+        
+        print(
+            "Monthly:",
+            perf[
+                "monthly_change"
+            ]
+        )
+        
+        print(
+            "Best:",
+            perf[
+                "best_asset"
+            ]
+        )
+        
+        print(
+            "Worst:",
+            perf[
+                "worst_asset"
+            ]
+        )
