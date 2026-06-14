@@ -16,6 +16,10 @@ from services.telegram_service import (
 from services.report_image_service import (
     create_report_image
 )
+from services.db_service import (
+    init_db,
+    save_daily_snapshot
+)
 CONFIG_FILE = "config/users.json"
 def load_users():
     with open(
@@ -170,12 +174,16 @@ def build_report_data(
         crypto_total_usd
         * usdtry
     )
-    gold_data = user.get(
+    gold_info = user.get(
         "gold",
         {}
     )
-    gold_grams = gold_data.get(
+    gold_grams = gold_info.get(
         "grams",
+        0
+    )
+    gold_cost = gold_info.get(
+        "cost",
         0
     )
     gold_price = (
@@ -186,15 +194,13 @@ def build_report_data(
         gold_grams
         * gold_price
     )
-    gold_cost = (
-        gold_data.get(
-            "cost",
-            0
-        )
-    )
     gold_cost_total = (
-        gold_cost
-        * gold_grams
+        gold_grams
+        * gold_cost
+    )
+    gold_profit = (
+        gold_total_tl
+        - gold_cost_total
     )
     total_cost = 0
     for fund in funds:
@@ -263,6 +269,8 @@ def build_report_data(
         "gold": {
             "grams":
             gold_grams,
+            "cost":
+            gold_cost,
             "price":
             gold_price,
             "value":
@@ -270,11 +278,14 @@ def build_report_data(
                 gold_total_tl,
                 2
             ),
-            "cost":
-            gold_cost,
             "cost_value":
             round(
                 gold_cost_total,
+                2
+            ),
+            "profit":
+            round(
+                gold_profit,
                 2
             )
         },
@@ -289,43 +300,24 @@ def build_report_data(
             gold_price
         }
     }
-from services.db_service import (
-    init_db,
-    save_daily_snapshot
-)
 def run_portfolios():
-
     init_db()
-
     users = load_users()
-
     for user in users:
-
-        try:
-
-            report_data = (
-                build_report_data(
-                    user
-                )
+        report_data = (
+            build_report_data(
+                user
             )
-
-            save_daily_snapshot(
+        )
+        save_daily_snapshot(
+            report_data
+        )
+        image_file = (
+            create_report_image(
                 report_data
             )
-
-            image_file = (
-                create_report_image(
-                    report_data
-                )
-            )
-
-            send_photo(
-                user["telegram"]["chat_id"],
-                image_file
-            )
-
-        except Exception as e:
-
-            print(
-                f"ERROR: {e}"
-            )
+        )
+        send_photo(
+            user["telegram"]["chat_id"],
+            image_file
+        )
