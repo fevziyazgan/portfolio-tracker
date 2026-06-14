@@ -249,7 +249,7 @@ def create_report_image(
         / total
     ) * 100
     
-    y += 70
+    y += 10
     
     draw_card(
         draw,
@@ -398,12 +398,12 @@ def create_report_image(
         donut,
         (
             1000,
-            y - 40
+            y 
         ),
         donut
     )
 
-    y += 50
+    y += 190
 
     draw.text(
         (
