@@ -438,8 +438,8 @@ def create_report_image(
         )
 
         y += 35
-
-        y += 80
+        
+    y += 80
 
         draw.text(
             (
@@ -473,7 +473,6 @@ def create_report_image(
         )
         
         y += 430
-    
     image.save(
         output_file
     )
