@@ -415,7 +415,7 @@ def create_report_image(
     
     draw.text(
         (
-            center_x - 150,
+            center_x - 100,
             center_y + 10
         ),
         f"{summary['total_value_tl']:,.0f} TL",
@@ -423,7 +423,7 @@ def create_report_image(
         font=get_font(30)
     )
     
-    legend_x = 1180
+    legend_x = 1280
     legend_y = y + 780
     
     draw.text(
