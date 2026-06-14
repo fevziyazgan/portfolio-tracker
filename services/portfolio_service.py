@@ -144,32 +144,36 @@ def build_report_data(
                 crypto["quantity"]
             )
             cryptos.append(
-                {
-                    "symbol":
-                    crypto["symbol"],
-                    "quantity":
-                    crypto["quantity"],
-                    "price":
-                    price,
-                    "cost":
-                    cost,
-                    "value":
-                    round(
-                        value,
-                        2
-                    ),
-                    "value_tl":
-                    round(
-                        value_tl,
-                        2
-                    ),
-                    "profit":
-                    round(
-                        profit,
-                        2
-                    )
-                }
-            )
+            {
+                "symbol": crypto["symbol"],
+                "quantity": crypto["quantity"],
+                "price": price,
+                "cost": cost,
+        
+                "value": round(
+                    value,
+                    2
+                ),
+        
+                "value_tl": round(
+                    value_tl,
+                    2
+                ),
+        
+                "profit": round(
+                    profit,
+                    2
+                ),
+        
+                "daily_pct": get_asset_daily_change(
+                    crypto["symbol"]
+                ),
+        
+                "monthly_pct": get_asset_monthly_change(
+                    crypto["symbol"]
+                )
+            }
+        )
         except Exception:
             continue
     crypto_total_tl = (
