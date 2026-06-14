@@ -196,7 +196,7 @@ def create_report_image(
         260,
         120,
         "Toplam Deger",
-        f"{summary['total_value_tl']:,.0f} TL"
+        f"{summary['total_value_tl']:,.0f} TL",
         "#16A34A"
     )
     
@@ -207,7 +207,7 @@ def create_report_image(
         260,
         120,
         "Gunluk Degisim",
-        f"{perf['daily']['change_pct']:.2f}%"
+        f"{perf['daily']['change_pct']:.2f}%",
         "#16A34A"
     )
     
@@ -218,7 +218,7 @@ def create_report_image(
         260,
         120,
         "30 Gunluk",
-        f"{perf['monthly']['change_pct']:.2f}%"
+        f"{perf['monthly']['change_pct']:.2f}%",
         "#16A34A"
     )
     
@@ -229,7 +229,7 @@ def create_report_image(
         260,
         120,
         "Kar / Zarar",
-        f"{summary['profit_tl']:,.0f} TL"
+        f"{summary['profit_tl']:,.0f} TL",
         "#16A34A"
     )
     
@@ -249,7 +249,7 @@ def create_report_image(
         260,
         120,
         "Fonlar",
-        f"{summary['fund_total_tl']:,.0f} TL"
+        f"{summary['fund_total_tl']:,.0f} TL",
         "#16A34A"
     )
     
@@ -260,7 +260,7 @@ def create_report_image(
         260,
         120,
         "Kripto",
-        f"{summary['crypto_total_tl']:,.0f} TL"
+        f"{summary['crypto_total_tl']:,.0f} TL",
         "#16A34A"
     )
     
