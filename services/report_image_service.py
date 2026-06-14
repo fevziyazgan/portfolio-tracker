@@ -395,7 +395,7 @@ def create_report_image(
         donut,
         (
             1000,
-            y 
+            y + 120
         ),
         donut
     )
