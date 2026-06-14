@@ -20,6 +20,10 @@ from services.db_service import (
     init_db,
     save_daily_snapshot
 )
+from services.db_service import (
+    get_daily_change,
+    get_monthly_change
+)
 CONFIG_FILE = "config/users.json"
 def load_users():
     with open(
