@@ -2,7 +2,6 @@ from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
 WIDTH = 1200
-PADDING = 30
 def get_font(size):
     try:
         return ImageFont.truetype(
@@ -32,8 +31,6 @@ def draw_card(
         outline="#d8dee9",
         width=2
     )
-    title_font = get_font(22)
-    value_font = get_font(28)
     draw.text(
         (
             x + 20,
@@ -41,7 +38,7 @@ def draw_card(
         ),
         title,
         fill="#666666",
-        font=title_font
+        font=get_font(22)
     )
     draw.text(
         (
@@ -50,18 +47,17 @@ def draw_card(
         ),
         value,
         fill="#111111",
-        font=value_font
+        font=get_font(28)
     )
 def create_report_image(
     report_data,
     output_file="report.png"
 ):
-    height = 2200
     image = Image.new(
         "RGB",
         (
             WIDTH,
-            height
+            2500
         ),
         "white"
     )
@@ -69,13 +65,12 @@ def create_report_image(
         image
     )
     title_font = get_font(48)
-    date_font = get_font(24)
     section_font = get_font(30)
     text_font = get_font(22)
     y = 30
     draw.text(
         (
-            PADDING,
+            30,
             y
         ),
         "PORTFOY RAPORU",
@@ -85,12 +80,12 @@ def create_report_image(
     y += 60
     draw.text(
         (
-            PADDING,
+            30,
             y
         ),
         report_data["date"],
         fill="#666666",
-        font=date_font
+        font=get_font(24)
     )
     y += 70
     summary = report_data[
@@ -151,7 +146,44 @@ def create_report_image(
         "Kar/Zarar",
         f"{summary['profit_tl']:,.0f} TL"
     )
-    y += 180
+    y += 190
+    draw.text(
+        (
+            30,
+            y
+        ),
+        "ALTIN",
+        fill="black",
+        font=section_font
+    )
+    y += 45
+    gold = report_data[
+        "gold"
+    ]
+    draw.text(
+        (
+            50,
+            y
+        ),
+        (
+            f"{gold['grams']} gram | "
+            f"{gold['price']:,.2f} TL/gr"
+        ),
+        fill="black",
+        font=text_font
+    )
+    draw.text(
+        (
+            850,
+            y
+        ),
+        (
+            f"{gold['value']:,.0f} TL"
+        ),
+        fill="black",
+        font=text_font
+    )
+    y += 70
     draw.text(
         (
             30,
@@ -179,7 +211,18 @@ def create_report_image(
         )
         draw.text(
             (
-                800,
+                550,
+                y
+            ),
+            (
+                f"{fund['price']:,.4f}"
+            ),
+            fill="black",
+            font=text_font
+        )
+        draw.text(
+            (
+                850,
                 y
             ),
             (
@@ -189,7 +232,7 @@ def create_report_image(
             font=text_font
         )
         y += 35
-    y += 40
+    y += 50
     draw.text(
         (
             30,
@@ -217,7 +260,7 @@ def create_report_image(
         )
         draw.text(
             (
-                700,
+                550,
                 y
             ),
             (
@@ -228,7 +271,7 @@ def create_report_image(
         )
         draw.text(
             (
-                950,
+                850,
                 y
             ),
             (
@@ -238,7 +281,7 @@ def create_report_image(
             font=text_font
         )
         y += 35
-    y += 40
+    y += 50
     draw.text(
         (
             30,
@@ -257,7 +300,9 @@ def create_report_image(
             50,
             y
         ),
-        f"USDTRY : {market['usdtry']}",
+        (
+            f"USDTRY : {market['usdtry']}"
+        ),
         fill="black",
         font=text_font
     )
@@ -267,7 +312,9 @@ def create_report_image(
             50,
             y
         ),
-        f"BIST100 : {market['bist100']}",
+        (
+            f"BIST100 : {market['bist100']}"
+        ),
         fill="black",
         font=text_font
     )
@@ -277,7 +324,22 @@ def create_report_image(
             50,
             y
         ),
-        f"US10Y : {market['us10y']}",
+        (
+            f"US10Y : {market['us10y']}"
+        ),
+        fill="black",
+        font=text_font
+    )
+    y += 35
+    draw.text(
+        (
+            50,
+            y
+        ),
+        (
+            f"Gram Altin : "
+            f"{market['gram_gold']}"
+        ),
         fill="black",
         font=text_font
     )
