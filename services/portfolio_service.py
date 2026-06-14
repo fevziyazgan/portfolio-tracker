@@ -1,9 +1,18 @@
 import json
 from datetime import datetime
-from services.yahoo_service import get_price
-from services.tefas_service import get_fund_price
-from services.crypto_service import get_crypto_price
-from services.telegram_service import send_photo
+from services.yahoo_service import (
+    get_price,
+    get_gram_gold
+)
+from services.tefas_service import (
+    get_fund_price
+)
+from services.crypto_service import (
+    get_crypto_price
+)
+from services.telegram_service import (
+    send_photo
+)
 from services.report_image_service import (
     create_report_image
 )
@@ -161,7 +170,32 @@ def build_report_data(
         crypto_total_usd
         * usdtry
     )
-    gold_total_tl = 0
+    gold_data = user.get(
+        "gold",
+        {}
+    )
+    gold_grams = gold_data.get(
+        "grams",
+        0
+    )
+    gold_price = (
+        get_gram_gold()
+        or 0
+    )
+    gold_total_tl = (
+        gold_grams
+        * gold_price
+    )
+    gold_cost = (
+        gold_data.get(
+            "cost",
+            0
+        )
+    )
+    gold_cost_total = (
+        gold_cost
+        * gold_grams
+    )
     total_cost = 0
     for fund in funds:
         total_cost += fund[
@@ -173,6 +207,9 @@ def build_report_data(
             * crypto["quantity"]
             * usdtry
         )
+    total_cost += (
+        gold_cost_total
+    )
     total_value_tl = (
         fund_total_tl
         + crypto_total_tl
@@ -223,13 +260,33 @@ def build_report_data(
         funds,
         "cryptos":
         cryptos,
+        "gold": {
+            "grams":
+            gold_grams,
+            "price":
+            gold_price,
+            "value":
+            round(
+                gold_total_tl,
+                2
+            ),
+            "cost":
+            gold_cost,
+            "cost_value":
+            round(
+                gold_cost_total,
+                2
+            )
+        },
         "market": {
             "usdtry":
             usdtry,
             "bist100":
             bist100,
             "us10y":
-            us10y
+            us10y,
+            "gram_gold":
+            gold_price
         }
     }
 def run_portfolios():
