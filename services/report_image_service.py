@@ -38,14 +38,14 @@ def draw_card(
 
     if icon:
 
-    draw.text(
-        (
-            x + 15,
-            y + 15
-        ),
-        icon,
-        font=get_font(40)
-    )
+        draw.text(
+            (
+                x + 15,
+                y + 15
+            ),
+            icon,
+            font=get_font(40)
+        )
     
     draw.rounded_rectangle(
         (
