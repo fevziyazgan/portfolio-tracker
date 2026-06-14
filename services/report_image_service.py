@@ -222,7 +222,7 @@ def create_report_image(
         "TOPLAM DEGER",
         f"{summary['total_value_tl']:,.0f} TL",
         "#16A34A",
-        icon="💰"
+        icon="\uf53a"
     )
 
     daily_tl = perf["daily"]["change_tl"]
