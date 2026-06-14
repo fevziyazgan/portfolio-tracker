@@ -473,6 +473,57 @@ def create_report_image(
     )
     
     y += 430
+
+    perf = report_data["performance"]
+
+    draw.text(
+        (30, y),
+        "PERFORMANS OZETI",
+        fill="black",
+        font=section_font
+    )
+    
+    y += 60
+    draw_card(
+    draw,
+    30,
+    y,
+    250,
+    100,
+    "Gunluk",
+    f"{perf['daily']['change_pct']:.2f}%"
+    )
+    
+    draw_card(
+        draw,
+        310,
+        y,
+        250,
+        100,
+        "30 Gunluk",
+        f"{perf['monthly']['change_pct']:.2f}%"
+    )
+    
+    draw_card(
+        draw,
+        590,
+        y,
+        250,
+        100,
+        "En Iyi",
+        f"{perf['best_asset']['asset']}"
+    )
+    
+    draw_card(
+        draw,
+        870,
+        y,
+        250,
+        100,
+        "En Kotu",
+        f"{perf['worst_asset']['asset']}"
+    )
+    y += 140
     
     image.save(
         output_file
