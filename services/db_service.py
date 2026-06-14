@@ -1,6 +1,68 @@
 import sqlite3
 from pathlib import Path
 DB_FILE = "data/portfolio.db"
+def generate_fake_history():
+
+    from datetime import datetime
+    from datetime import timedelta
+    import random
+
+    conn = get_connection()
+    cur = conn.cursor()
+
+    base = 2500000
+
+    for i in range(30):
+
+        date = (
+            datetime.now()
+            - timedelta(days=29-i)
+        ).strftime(
+            "%d.%m.%Y"
+        )
+
+        value = (
+            base
+            + (i * 15000)
+            + random.randint(
+                -10000,
+                10000
+            )
+        )
+
+        cur.execute(
+            """
+            INSERT OR REPLACE INTO
+            portfolio_history
+            (
+                date,
+                total_value,
+                fund_value,
+                crypto_value,
+                gold_value,
+                total_cost,
+                profit
+            )
+            VALUES
+            (?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                date,
+                value,
+                value * 0.60,
+                value * 0.05,
+                value * 0.35,
+                value * 0.80,
+                value * 0.20
+            )
+        )
+
+    conn.commit()
+    conn.close()
+
+    print(
+        "FAKE HISTORY CREATED"
+    )
 def get_connection():
     Path("data").mkdir(
         exist_ok=True
