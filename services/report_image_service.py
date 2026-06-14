@@ -7,8 +7,8 @@ from services.chart_service import (
     create_portfolio_performance_chart
 )
 
-WIDTH = 1600
-HEIGHT = 4200
+WIDTH = 1800
+HEIGHT = 5000
 
 
 def get_font(size):
@@ -151,9 +151,9 @@ def create_report_image(
         image
     )
 
-    title_font = get_font(48)
-    section_font = get_font(30)
-    text_font = get_font(22)
+    title_font = get_font(64)
+    section_font = get_font(42)
+    text_font = get_font(30)
 
     y = 30
 
@@ -193,8 +193,8 @@ def create_report_image(
         draw,
         40,
         y,
-        340,
-        140,
+        400,
+        180,
         "Fonlar",
         f"{summary['fund_total_tl']:,.0f} TL",
         "#2563EB"
@@ -204,8 +204,8 @@ def create_report_image(
         draw,
         430,
         y,
-        340,
-        140,
+        400,
+        180,
         "Kripto",
         f"{summary['crypto_total_tl']:,.0f} TL",
         "#F97316"
@@ -215,8 +215,8 @@ def create_report_image(
         draw,
         820,
         y,
-        340,
-        140,
+        400,
+        180,
         "Altin",
         f"{summary['gold_total_tl']:,.0f} TL",
         "#EAB308"
@@ -226,8 +226,8 @@ def create_report_image(
         draw,
         1210,
         y,
-        340,
-        140,
+        400,
+        180,
         "Maliyet",
         f"{summary['total_cost_tl']:,.0f} TL",
         "#6B7280"
@@ -244,16 +244,16 @@ def create_report_image(
 
     donut = donut.resize(
         (
-            500,
-            500
+            700,
+            700
         )
     )
 
     image.paste(
         donut,
         (
-            780,
-            y - 20
+            1000,
+            y - 40
         ),
         donut
     )
@@ -449,8 +449,8 @@ def create_report_image(
     
     chart = chart.resize(
         (
-            1500,
-            600
+            1650,
+            800
         )
     )
     
