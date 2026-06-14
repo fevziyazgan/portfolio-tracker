@@ -3,6 +3,15 @@ import csv
 import os
 from datetime import datetime
 import yfinance as yf
+import os
+
+TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
+
+print("TOKEN VAR:", TOKEN is not None)
+
+if TOKEN:
+    print("TOKEN LENGTH:", len(TOKEN))
+
 CONFIG_FILE = "config/users.json"
 HISTORY_DIR = "history"
 def load_users():
