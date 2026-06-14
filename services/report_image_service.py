@@ -39,30 +39,6 @@ def draw_card(
     icon_path=None
 ):
 
-    if icon_path:
-
-    icon = Image.open(
-        icon_path
-    ).convert(
-        "RGBA"
-    )
-
-    icon = icon.resize(
-        (
-            48,
-            48
-        )
-    )
-
-    image.paste(
-        icon,
-        (
-            x + 20,
-            y + 20
-        ),
-        icon
-    )
-    
     draw.rounded_rectangle(
         (
             x,
@@ -76,13 +52,37 @@ def draw_card(
         width=2
     )
 
+    if icon_path:
+
+        icon = Image.open(
+            icon_path
+        ).convert(
+            "RGBA"
+        )
+
+        icon = icon.resize(
+            (
+                48,
+                48
+            )
+        )
+
+        image.paste(
+            icon,
+            (
+                x + 20,
+                y + 20
+            ),
+            icon
+        )
+
     draw.text(
         (
             x + 85,
             y + 25
         ),
         title,
-        fill="#444444",
+        fill="#666666",
         font=get_font(22)
     )
 
@@ -93,11 +93,11 @@ def draw_card(
         ),
         value,
         fill=value_color,
-        font=get_font(40)
+        font=get_font(34)
     )
 
     if subtitle:
-    
+
         draw.text(
             (
                 x + 20,
@@ -105,7 +105,7 @@ def draw_card(
             ),
             subtitle,
             fill=value_color,
-            font=get_font(22)
+            font=get_font(20)
         )
 
 def create_donut_chart(
