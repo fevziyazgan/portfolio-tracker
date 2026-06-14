@@ -11,10 +11,23 @@ def create_donut_chart(
     output_file="donut_chart.png"
 ):
 
+    safe_values = [
+        max(0, v)
+        for v in values
+    ]
+
+    if sum(safe_values) == 0:
+
+        safe_values = [
+            1,
+            1,
+            1
+        ]
+
     colors = [
-        "#2563EB",  # Fonlar
-        "#EF4444",  # Kripto
-        "#EAB308"   # Altın
+        "#2563EB",
+        "#F97316",
+        "#EAB308"
     ]
 
     fig, ax = plt.subplots(
@@ -22,7 +35,7 @@ def create_donut_chart(
     )
 
     ax.pie(
-        values,
+        safe_values,
         labels=labels,
         colors=colors,
         startangle=90,
@@ -52,7 +65,7 @@ def create_portfolio_performance_chart(
         30
     )
 
-    if len(history) == 0:
+    if len(history) < 2:
 
         dates = [
             "G1",
@@ -86,12 +99,22 @@ def create_portfolio_performance_chart(
         linewidth=3
     )
 
+    plt.fill_between(
+        dates,
+        values,
+        alpha=0.15
+    )
+
     plt.title(
-        "Portfoy Performansi"
+        "30 Gunluk Portfoy Performansi"
     )
 
     plt.grid(
-        alpha=0.3
+        alpha=0.25
+    )
+
+    plt.xticks(
+        rotation=45
     )
 
     plt.tight_layout()
@@ -104,40 +127,80 @@ def create_portfolio_performance_chart(
     plt.close()
 
 
-def create_asset_performance_chart(
-    data,
-    output_file="asset_chart.png"
+def create_allocation_table_data(
+    report_data
 ):
 
-    labels = [
-        item["label"]
-        for item in data
+    summary = report_data[
+        "summary"
     ]
 
-    values = [
-        item["value"]
-        for item in data
+    total = max(
+        1,
+        summary[
+            "total_value_tl"
+        ]
+    )
+
+    return [
+
+        {
+            "name":
+            "Fonlar",
+
+            "value":
+            summary[
+                "fund_total_tl"
+            ],
+
+            "percent":
+            round(
+                summary[
+                    "fund_total_tl"
+                ]
+                / total
+                * 100,
+                2
+            )
+        },
+
+        {
+            "name":
+            "Kripto",
+
+            "value":
+            summary[
+                "crypto_total_tl"
+            ],
+
+            "percent":
+            round(
+                summary[
+                    "crypto_total_tl"
+                ]
+                / total
+                * 100,
+                2
+            )
+        },
+
+        {
+            "name":
+            "Altin",
+
+            "value":
+            summary[
+                "gold_total_tl"
+            ],
+
+            "percent":
+            round(
+                summary[
+                    "gold_total_tl"
+                ]
+                / total
+                * 100,
+                2
+            )
+        }
     ]
-
-    plt.figure(
-        figsize=(8, 4)
-    )
-
-    plt.bar(
-        labels,
-        values
-    )
-
-    plt.title(
-        "Varlik Performansi"
-    )
-
-    plt.tight_layout()
-
-    plt.savefig(
-        output_file,
-        bbox_inches="tight"
-    )
-
-    plt.close()
-
