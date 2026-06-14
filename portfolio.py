@@ -1,7 +1,10 @@
-from services.portfolio_service import (
-    run_portfolios
+from services.db_service import (
+    init_db,
+    generate_fake_history
 )
 
 if __name__ == "__main__":
 
-    run_portfolios()
+    init_db()
+
+    generate_fake_history()
