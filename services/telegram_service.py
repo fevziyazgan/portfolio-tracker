@@ -1,9 +1,27 @@
-import requests
 import os
+import requests
+
 
 TOKEN = os.environ.get(
     "TELEGRAM_BOT_TOKEN"
 )
+
+
+def send_message(
+    chat_id,
+    text
+):
+
+    response = requests.post(
+        f"https://api.telegram.org/bot{TOKEN}/sendMessage",
+        json={
+            "chat_id": chat_id,
+            "text": text
+        },
+        timeout=30
+    )
+
+    return response.status_code
 
 
 def send_photo(
