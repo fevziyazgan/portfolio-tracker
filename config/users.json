@@ -6,9 +6,7 @@
       "name": "Fevzi",
       "role": "admin",
       "telegram": {
-        "user_id": 123456789,
-        "token": "BOT_TOKEN",
-        "chat_id": "CHAT_ID"
+        "chat_id": 123456789
       },
       "settings": {
         "report_hour": "19:00",
@@ -43,57 +41,28 @@
         }
       ],
       "portfolio": {
-
-  "ALTIN": {
-
-    "amount": 1164000,
-
-    "cost": 1164000
-
-  },
-
-  "TLY": {
-
-    "amount": 1552000,
-
-    "cost": 1552000
-
-  },
-
-  "PHE": {
-
-    "amount": 1552000,
-
-    "cost": 1552000
-
-  },
-
-  "TMV": {
-
-    "amount": 1164000,
-
-    "cost": 1164000
-
-  },
-
-  "IPV": {
-
-    "amount": 1164000,
-
-    "cost": 1164000
-
-  }
-
-},
-      "transactions": [
-        {
-          "date": "2026-08-01",
-          "type": "buy",
-          "asset": "TLY",
-          "amount": 250000,
-          "note": "Likitten ekleme"
+        "ALTIN": {
+          "amount": 1164000,
+          "cost": 1164000
+        },
+        "TLY": {
+          "amount": 1552000,
+          "cost": 1552000
+        },
+        "PHE": {
+          "amount": 1552000,
+          "cost": 1552000
+        },
+        "TMV": {
+          "amount": 1164000,
+          "cost": 1164000
+        },
+        "IPV": {
+          "amount": 1164000,
+          "cost": 1164000
         }
-      ]
+      },
+      "transactions": []
     }
   ]
 }
