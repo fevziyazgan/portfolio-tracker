@@ -74,6 +74,7 @@ def append_history_row(
             us10y
         ])
 def main():
+    print("\n===== MARKET DATA =====\n")
     usdtry = get_price(
         "USDTRY=X"
     )
@@ -96,10 +97,15 @@ def main():
         us10y
     )
     print(
-        "TEFAS TEST:"
+        "\n===== TEFAS TEST =====\n"
     )
+    tefas_result = test_funds()
     print(
-        test_funds()
+        json.dumps(
+            tefas_result,
+            indent=2,
+            ensure_ascii=False
+        )
     )
     users = load_users()
     for user in users:
@@ -114,15 +120,17 @@ def main():
             bist100,
             us10y
         )
+        message = (
+            f"📊 Portfolio Tracker\n\n"
+            f"👤 {user['name']}\n\n"
+            f"USDTRY : {usdtry}\n"
+            f"BIST100: {bist100}\n"
+            f"US10Y  : {us10y}\n\n"
+            f"TEFAS bağlantı testi tamamlandı."
+        )
         send_message(
             user["telegram"]["chat_id"],
-            (
-                "🚀 Portfolio Tracker\n\n"
-                f"Kullanıcı: {user['name']}\n"
-                f"USDTRY: {usdtry}\n"
-                f"BIST100: {bist100}\n"
-                f"US10Y: {us10y}"
-            )
+            message
         )
         print(
             f"OK -> "
