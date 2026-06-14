@@ -2,6 +2,35 @@ from services.db_service import (
     get_connection
 )
 
+def get_asset_history(
+    asset_code,
+    days=30
+):
+
+    conn = get_connection()
+    
+    cur = conn.cursor()
+    
+    rows = cur.execute(
+        """
+        SELECT
+            date,
+            value
+        FROM asset_history
+        WHERE asset_code = ?
+        ORDER BY date ASC
+        LIMIT ?
+        """,
+        (
+            asset_code,
+            days
+        )
+    ).fetchall()
+    
+    conn.close()
+    
+    return rows
+
 
 def get_daily_change():
 
