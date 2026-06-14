@@ -114,27 +114,24 @@ def create_donut_chart(
     ]
 
     values = [
-        summary[
-            "fund_total_tl"
-        ],
-        summary[
-            "crypto_total_tl"
-        ],
-        summary[
-            "gold_total_tl"
-        ]
+        summary["fund_total_tl"],
+        summary["crypto_total_tl"],
+        summary["gold_total_tl"],
+        summary.get("deposit_total_tl", 0)
     ]
-
+    
     labels = [
         "Fon",
         "Kripto",
-        "Altin"
+        "Altin",
+        "Mevduat"
     ]
-
+    
     colors = [
         "#2563EB",
         "#F97316",
-        "#EAB308"
+        "#EAB308",
+        "#10B981"
     ]
 
     fig, ax = plt.subplots(
@@ -243,10 +240,10 @@ def create_report_image(
         summary["gold_total_tl"]
         / total
     ) * 100
-    
-    cost_pct = (
-        summary["total_cost_tl"]
-        / total
+
+    deposit_pct = (
+    summary.get("deposit_total_tl", 0)
+    / total
     ) * 100
     
     y += 10
@@ -374,11 +371,11 @@ def create_report_image(
     y,
     400,
     180,
-    "MALIYET",
-    f"{summary['total_cost_tl']:,.0f} TL",
-    "#6B7280",
-    f"%{cost_pct:.2f}",
-    "icons/wallet.png"
+    "MEVDUAT",
+    f"{summary.get('deposit_total_tl',0):,.0f} TL",
+    "#10B981",
+    f"%{deposit_pct:.2f}",
+    "icons/bank.png"
     )
     
     donut = Image.open(
@@ -403,6 +400,23 @@ def create_report_image(
         donut
     )
 
+    center_x = 1350
+    center_y = y + 350
+    
+    draw.text(
+        (center_x - 120, center_y - 30),
+        f"{summary['total_value_tl']:,.0f} TL",
+        fill="black",
+        font=get_font(28)
+    )
+    
+    draw.text(
+        (center_x - 90, center_y + 15),
+        "Toplam Portfoy",
+        fill="#666666",
+        font=get_font(20)
+    )
+    
     y += 190
 
     draw.text(
@@ -432,6 +446,18 @@ def create_report_image(
         font=text_font
     )
 
+    y += 35
+
+    draw.text(
+        (
+            50,
+            y
+        ),
+        f"Mevduat %{summary.get('deposit_total_tl',0) / total * 100:.1f}",
+        fill="#10B981",
+        font=text_font
+    )
+    
     y += 35
 
     draw.text(
