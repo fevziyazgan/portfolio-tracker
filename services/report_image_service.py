@@ -438,7 +438,7 @@ def create_report_image(
     )
 
     
-    y += 480
+    y += 200
 
     draw.text(
         (
