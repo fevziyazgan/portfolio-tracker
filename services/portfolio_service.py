@@ -3,7 +3,10 @@ from datetime import datetime
 from services.yahoo_service import get_price
 from services.tefas_service import get_fund_price
 from services.crypto_service import get_crypto_price
-from services.telegram_service import send_message
+from services.telegram_service import send_photo
+from services.report_image_service import (
+    create_report_image
+)
 CONFIG_FILE = "config/users.json"
 def load_users():
     with open(
@@ -40,30 +43,26 @@ def build_report(user):
         []
     ):
         try:
-            fund_data = (
-                get_fund_price(
-                    fund["code"]
-                )
+            data = get_fund_price(
+                fund["code"]
             )
-            if not fund_data:
+            if not data:
                 continue
-            price = fund_data[
-                "price"
-            ]
+            price = data["price"]
             value = (
                 price
                 * fund["quantity"]
             )
             total_fund_value += value
             report.append(
-                f"{fund['code']} | "
+                f"{fund['code']}  "
                 f"{price:.4f}"
             )
         except Exception:
-            pass
+            continue
     report.append("")
     report.append(
-        f"💰 Toplam Fon: "
+        f"💰 Fon Toplamı: "
         f"{total_fund_value:,.0f} TL"
     )
     report.append("")
@@ -84,10 +83,8 @@ def build_report(user):
         []
     ):
         try:
-            price = (
-                get_crypto_price(
-                    crypto["symbol"]
-                )
+            price = get_crypto_price(
+                crypto["symbol"]
             )
             if not price:
                 continue
@@ -97,14 +94,14 @@ def build_report(user):
             )
             total_crypto_usd += value
             report.append(
-                f"{crypto['symbol']} | "
+                f"{crypto['symbol']}  "
                 f"{price:.6f}$"
             )
         except Exception:
-            pass
+            continue
     report.append("")
     report.append(
-        f"💰 Toplam Kripto: "
+        f"💰 Kripto Toplamı: "
         f"{total_crypto_usd:,.2f} USD"
     )
     report.append("")
@@ -156,9 +153,14 @@ def run_portfolios():
             report = build_report(
                 user
             )
-            send_message(
+            image_file = (
+                create_report_image(
+                    report
+                )
+            )
+            send_photo(
                 user["telegram"]["chat_id"],
-                report
+                image_file
             )
         except Exception as e:
             print(
