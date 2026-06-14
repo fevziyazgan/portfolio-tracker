@@ -72,28 +72,7 @@ def draw_card(
             ),
             icon
         )
-        center_x = 1100 + 350
-        center_y = y + 140 + 350
         
-        draw.text(
-            (
-                center_x - 70,
-                center_y - 25
-            ),
-            "TOPLAM",
-            fill="#666666",
-            font=get_font(24)
-        )
-        
-        draw.text(
-            (
-                center_x - 140,
-                center_y + 15
-            ),
-            f"{summary['total_value_tl']:,.0f} TL",
-            fill="#111111",
-            font=get_font(30)
-        )
     draw.text(
         (
             x + 85,
@@ -421,6 +400,29 @@ def create_report_image(
         donut
     )
 
+    center_x = 1450
+    center_y = y + 490
+    
+    draw.text(
+        (
+            center_x - 60,
+            center_y - 35
+        ),
+        "TOPLAM",
+        fill="#666666",
+        font=get_font(24)
+    )
+    
+    draw.text(
+        (
+            center_x - 150,
+            center_y + 10
+        ),
+        f"{summary['total_value_tl']:,.0f} TL",
+        fill="#111111",
+        font=get_font(30)
+    )
+    
     legend_x = 1180
     legend_y = y + 780
     
