@@ -10,6 +10,31 @@ if TOKEN:
     print("TOKEN LENGTH:", len(TOKEN))
 CONFIG_FILE = "config/users.json"
 HISTORY_DIR = "history"
+def get_tefas_price(fund_code):
+    url = (
+        "https://www.tefas.gov.tr/FonAnaliz.aspx"
+        f"?FonKod={fund_code}"
+    )
+    try:
+        response = requests.get(
+            url,
+            timeout=30,
+            headers={
+                "User-Agent":
+                "Mozilla/5.0"
+            }
+        )
+        print(
+            f"TEFAS {fund_code}:",
+            response.status_code
+        )
+        return response.status_code
+    except Exception as e:
+        print(
+            f"TEFAS ERROR {fund_code}:",
+            e
+        )
+        return None
 def load_users():
     with open(CONFIG_FILE, "r", encoding="utf-8") as f:
         data = json.load(f)
@@ -76,12 +101,17 @@ def send_test_message(user):
     print("TELEGRAM STATUS:", response.status_code)
     print("TELEGRAM RESPONSE:", response.text)
 def main():
+
     usdtry = get_yahoo_price("USDTRY=X")
     bist100 = get_yahoo_price("XU100.IS")
     us10y = get_yahoo_price("^TNX")
     print("USDTRY:", usdtry)
     print("BIST100:", bist100)
     print("US10Y:", us10y)
+    print("IPV:", get_tefas_price("IPV"))
+print("PHE:", get_tefas_price("PHE"))
+print("TMV:", get_tefas_price("TMV"))
+print("TLY:", get_tefas_price("TLY"))
     users = load_users()
     for user in users:
         filename = ensure_history_file(user["id"])
