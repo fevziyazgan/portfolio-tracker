@@ -187,57 +187,55 @@ def create_report_image(
 
     perf = report_data["performance"]
     
-y += 170
-
-draw_card(
-    draw,
-    40,
-    y,
-    340,
-    140,
-    "Fonlar",
-    f"{summary['fund_total_tl']:,.0f} TL",
-    "#2563EB"
-)
-
-draw_card(
-    draw,
-    430,
-    y,
-    340,
-    140,
-    "Kripto",
-    f"{summary['crypto_total_tl']:,.0f} TL",
-    "#F97316"
-)
-
-draw_card(
-    draw,
-    820,
-    y,
-    340,
-    140,
-    "Altin",
-    f"{summary['gold_total_tl']:,.0f} TL",
-    "#EAB308"
-)
-
-draw_card(
-    draw,
-    1210,
-    y,
-    340,
-    140,
-    "Maliyet",
-    f"{summary['total_cost_tl']:,.0f} TL",
-    "#6B7280"
-)
-
-y += 200
+    y += 170
+    
+    draw_card(
+        draw,
+        40,
+        y,
+        340,
+        140,
+        "Fonlar",
+        f"{summary['fund_total_tl']:,.0f} TL",
+        "#2563EB"
+    )
+    
+    draw_card(
+        draw,
+        430,
+        y,
+        340,
+        140,
+        "Kripto",
+        f"{summary['crypto_total_tl']:,.0f} TL",
+        "#F97316"
+    )
+    
+    draw_card(
+        draw,
+        820,
+        y,
+        340,
+        140,
+        "Altin",
+        f"{summary['gold_total_tl']:,.0f} TL",
+        "#EAB308"
+    )
+    
+    draw_card(
+        draw,
+        1210,
+        y,
+        340,
+        140,
+        "Maliyet",
+        f"{summary['total_cost_tl']:,.0f} TL",
+        "#6B7280"
+    )
+    
+    y += 200
 
     
-    y += 190
-
     donut = Image.open(
         "donut_chart.png"
     ).convert(
