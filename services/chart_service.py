@@ -1,7 +1,8 @@
 import matplotlib.pyplot as plt
 
 from services.analytics_service import (
-    get_portfolio_history
+    get_portfolio_history,
+    get_asset_history
 )
 
 
@@ -56,28 +57,31 @@ def create_donut_chart(
 
     plt.close()
 
-
 def create_portfolio_performance_chart(
     output_file="performance_chart.png"
 ):
 
-    history = get_portfolio_history(
-        30
+    plt.figure(
+        figsize=(12, 5)
     )
 
-    if len(history) < 2:
+    assets = [
+        "IPV",
+        "PHE",
+        "TMV",
+        "TLY",
+        "GOLD"
+    ]
 
-        dates = [
-            "G1",
-            "G2"
-        ]
+    for asset in assets:
 
-        values = [
-            100,
-            100
-        ]
+        history = get_asset_history(
+            asset,
+            30
+        )
 
-    else:
+        if len(history) < 2:
+            continue
 
         dates = [
             row[0]
@@ -88,42 +92,66 @@ def create_portfolio_performance_chart(
             row[1]
             for row in history
         ]
-        
-        "30 Gunluk Portfoy Performansi (%)"
-        
+
         base = values[0]
 
         values = [
-            (v / base) * 100
+            (
+                v / base
+            ) * 100
             for v in values
         ]
 
-    plt.figure(
-        figsize=(10, 4)
+        plt.plot(
+            dates,
+            values,
+            label=asset,
+            linewidth=2
+        )
+
+    portfolio = (
+        get_portfolio_history(
+            30
+        )
     )
 
-    plt.plot(
-        dates,
-        values,
-        linewidth=3
-    )
+    if len(portfolio) > 1:
 
-    plt.fill_between(
-        dates,
-        values,
-        alpha=0.15
-    )
+        dates = [
+            row[0]
+            for row in portfolio
+        ]
+
+        values = [
+            row[1]
+            for row in portfolio
+        ]
+
+        base = values[0]
+
+        values = [
+            (
+                v / base
+            ) * 100
+            for v in values
+        ]
+
+        plt.plot(
+            dates,
+            values,
+            label="PORTFOY",
+            linewidth=4,
+            linestyle="--"
+        )
 
     plt.title(
-        "30 Gunluk Portfoy Performansi"
+        "30 Gunluk Performans"
     )
+
+    plt.legend()
 
     plt.grid(
         alpha=0.25
-    )
-
-    plt.xticks(
-        rotation=45
     )
 
     plt.tight_layout()
@@ -134,6 +162,7 @@ def create_portfolio_performance_chart(
     )
 
     plt.close()
+
 
 
 def create_allocation_table_data(
