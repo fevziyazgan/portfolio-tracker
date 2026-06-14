@@ -7,10 +7,31 @@
         "token": "SECRET",
         "chat_id": "SECRET"
       },
+      "settings": {
+        "report_hour": "19:00",
+        "daily_report": true,
+        "send_png": true,
+        "send_text": true
+      },
+      "alarms": {
+        "usdtry_high": 48.5,
+        "cds_low": 250,
+        "cds_high": 400,
+        "us10y_low": 3.5,
+        "us10y_high": 5.0,
+        "gold_high": 7000,
+        "portfolio_day_change": 3,
+        "portfolio_month_change": 15,
+        "fund_size_rise": 20,
+        "fund_size_drop": -10,
+        "investor_rise": 15,
+        "investor_drop": -10
+      },
       "start_value": 7760000,
       "portfolio": {
         "LIKIT": {
           "weight": 15,
+          "principal": 1164000,
           "rate": 43,
           "rate_type": "annual",
           "start_date": "2026-07-01",
@@ -31,7 +52,14 @@
         "IPV": {
           "weight": 15
         }
-      }
+      },
+      "transactions": [
+        {
+          "date": "2026-08-01",
+          "amount": 250000,
+          "note": "Likitten ekleme"
+        }
+      ]
     }
   ]
 }
