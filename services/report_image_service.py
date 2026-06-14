@@ -23,8 +23,11 @@ def get_font(size):
         return ImageFont.load_default()
 
 
+from PIL import Image
+
 def draw_card(
     draw,
+    image,
     x,
     y,
     w,
@@ -33,19 +36,32 @@ def draw_card(
     value,
     value_color="#111111",
     subtitle=None,
-    icon=None
+    icon_path=None
 ):
 
-    if icon:
+if icon_path:
 
-        draw.text(
-            (
-                x + 15,
-                y + 15
-            ),
-            icon,
-            font=get_font(40)
+    icon = Image.open(
+        icon_path
+    ).convert(
+        "RGBA"
+    )
+
+    icon = icon.resize(
+        (
+            48,
+            48
         )
+    )
+
+    image.paste(
+        icon,
+        (
+            x + 20,
+            y + 20
+        ),
+        icon
+    )
     
     draw.rounded_rectangle(
         (
@@ -62,12 +78,12 @@ def draw_card(
 
     draw.text(
         (
-            x + 70,
-            y + 20
+            x + 85,
+            y + 25
         ),
         title,
         fill="#444444",
-        font=get_font(24)
+        font=get_font(22)
     )
 
     draw.text(
@@ -215,6 +231,7 @@ def create_report_image(
     
     draw_card(
         draw,
+        image,
         40,
         y,
         400,
@@ -222,7 +239,8 @@ def create_report_image(
         "TOPLAM DEGER",
         f"{summary['total_value_tl']:,.0f} TL",
         "#16A34A",
-        icon="\uf53a"
+        None,
+        "assets/icons/money.png"
     )
 
     daily_tl = perf["daily"]["change_tl"]
@@ -231,19 +249,21 @@ def create_report_image(
     
     draw_card(
         draw,
+        image,
         480,
         y,
         400,
         180,
         "GUNLUK DEGISIM",
-        f"{daily_tl:,.0f} TL",
+        f"{perf['daily']['change_tl']:,.0f} TL",
         "#16A34A",
-        f"(+{daily_pct:.2f}%)",
-        "📈"
+        f"{perf['daily']['change_pct']:.2f}%",
+        "assets/icons/chart.png"
     )
     
     draw_card(
         draw,
+        image,
         920,
         y,
         400,
@@ -251,18 +271,25 @@ def create_report_image(
         "30 GUNLUK DEGISIM",
         f"{perf['monthly']['change_tl']:,.0f} TL",
         "#16A34A",
-        f"(+{perf['monthly']['change_pct']:.2f}%)",
-        "📊"
+        f"{perf['monthly']['change_pct']:.2f}%",
+        "assets/icons/calendar.png"
     )
 
-    profit_pct = (
-    summary["profit_tl"]
-    /
-    max(summary["total_cost_tl"],1)
-    ) * 100
+    if summary["total_cost_tl"] > 0:
+    
+        profit_pct = (
+            summary["profit_tl"]
+            /
+            summary["total_cost_tl"]
+        ) * 100
+    
+    else:
+
+    profit_pct = 0
     
     draw_card(
         draw,
+        image,
         1360,
         y,
         400,
@@ -270,12 +297,67 @@ def create_report_image(
         "KAR / ZARAR",
         f"{summary['profit_tl']:,.0f} TL",
         "#16A34A",
-        f"(+{profit_pct:.2f}%)",
-        "📉"
+        f"{profit_pct:.2f}%",
+        "assets/icons/profit.png"
     )
     
     y += 200
 
+    draw_card(
+    draw,
+    image,
+    40,
+    y,
+    400,
+    180,
+    "FONLAR",
+    f"{summary['fund_total_tl']:,.0f} TL",
+    "#2563EB",
+    f"%{fund_pct:.2f}",
+    "assets/icons/fund.png"
+    )
+
+    draw_card(
+    draw,
+    image,
+    480,
+    y,
+    400,
+    180,
+    "KRIPTO",
+    f"{summary['crypto_total_tl']:,.0f} TL",
+    "#F97316",
+    f"%{crypto_pct:.2f}",
+    "assets/icons/bitcoin.png"
+    )
+
+    draw_card(
+    draw,
+    image,
+    920,
+    y,
+    400,
+    180,
+    "ALTIN",
+    f"{summary['gold_total_tl']:,.0f} TL",
+    "#EAB308",
+    f"%{gold_pct:.2f}",
+    "assets/icons/gold.png"
+    )
+
+    draw_card(
+    draw,
+    image,
+    1360,
+    y,
+    400,
+    180,
+    "MALIYET",
+    f"{summary['total_cost_tl']:,.0f} TL",
+    "#6B7280",
+    f"%{cost_pct:.2f}",
+    "assets/icons/wallet.png"
+    )
     
     donut = Image.open(
         "donut_chart.png"
