@@ -32,7 +32,7 @@ def create_donut_chart(
     ]
 
     fig, ax = plt.subplots(
-        figsize=(5, 5)
+        figsize=(20, 10)
     )
 
     ax.pie(
