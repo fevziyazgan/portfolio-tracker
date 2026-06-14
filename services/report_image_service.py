@@ -424,7 +424,7 @@ def create_report_image(
     legend_x = 1180
     legend_y = y + 780
     
-   draw.text(
+    draw.text(
     (legend_x, legend_y),
     f"■ Fonlar\n{summary['fund_total_tl']:,.0f} TL (%{fund_pct:.1f})",
     fill="#2563EB",
@@ -434,28 +434,28 @@ def create_report_image(
     legend_y += 80
     
     draw.text(
-        (legend_x, legend_y),
-        f"■ Altın\n{summary['gold_total_tl']:,.0f} TL (%{gold_pct:.1f})",
-        fill="#EAB308",
-        font=get_font(24)
+    (legend_x, legend_y),
+    f"■ Altın\n{summary['gold_total_tl']:,.0f} TL (%{gold_pct:.1f})",
+    fill="#EAB308",
+    font=get_font(24)
     )
     
     legend_y += 80
     
     draw.text(
-        (legend_x, legend_y),
-        f"■ Kripto\n{summary['crypto_total_tl']:,.0f} TL (%{crypto_pct:.1f})",
-        fill="#F97316",
-        font=get_font(24)
+    (legend_x, legend_y),
+    f"■ Kripto\n{summary['crypto_total_tl']:,.0f} TL (%{crypto_pct:.1f})",
+    fill="#F97316",
+    font=get_font(24)
     )
     
     legend_y += 80
     
     draw.text(
-        (legend_x, legend_y),
-        f"■ Mevduat\n{summary.get('deposit_total_tl',0):,.0f} TL (%{deposit_pct:.1f})",
-        fill="#10B981",
-        font=get_font(24)
+    (legend_x, legend_y),
+    f"■ Mevduat\n{summary.get('deposit_total_tl',0):,.0f} TL (%{deposit_pct:.1f})",
+    fill="#10B981",
+    font=get_font(24)
     )
 
     
