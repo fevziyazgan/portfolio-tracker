@@ -1,37 +1,26 @@
 name: Portfolio Tracker
-
 on:
-  workflow_dispatch
-
-jobs:
-  test:
-    runs-on: ubuntu-latest
-
-    steps:
-      - run: echo "Repository OK"
-name: Portfolio Tracker
-on:
-  workflow_dispatch
+  workflow_dispatch:
 jobs:
   run:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Python
+      - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Install
+      - name: Install Requirements
         run: |
           pip install -r requirements.txt
-      - name: Run
+      - name: Run Portfolio
         run: |
           python portfolio.py
-      - name: Commit
+      - name: Commit History
         run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
           git add history/
           git commit -m "history update" || echo "No changes"
           git push
