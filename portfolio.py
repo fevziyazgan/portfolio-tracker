@@ -34,27 +34,23 @@ def get_tefas_price(fund_code):
             e
         )
         return None
-def get_fintables_page(code):
-    url = f"https://fintables.com/fonlar/{code}"
-    try:
-        response = requests.get(
-            url,
-            timeout=30,
-            headers={
-                "User-Agent": "Mozilla/5.0"
-            }
-        )
-        print(
-            f"FINTABLES {code}:",
-            response.status_code
-        )
-        return response.status_code
-    except Exception as e:
-        print(
-            f"FINTABLES ERROR {code}:",
-            e
-        )
-        return None
+def get_tefas_html(fund_code):
+    url = (
+        "https://www.tefas.gov.tr/FonAnaliz.aspx"
+        f"?FonKod={fund_code}"
+    )
+    response = requests.get(
+        url,
+        headers={
+            "User-Agent": "Mozilla/5.0"
+        },
+        timeout=30
+    )
+    print(
+        f"HTML LENGTH {fund_code}:",
+        len(response.text)
+    )
+    return response.text
 def load_users():
     with open(CONFIG_FILE, "r", encoding="utf-8") as f:
         data = json.load(f)
@@ -119,7 +115,6 @@ def send_test_message(user):
         timeout=30
     )
     print("TELEGRAM STATUS:", response.status_code)
-    print("TELEGRAM RESPONSE:", response.text)
 def main():
     usdtry = get_yahoo_price("USDTRY=X")
     bist100 = get_yahoo_price("XU100.IS")
@@ -131,10 +126,8 @@ def main():
     print("TEFAS PHE:", get_tefas_price("PHE"))
     print("TEFAS TMV:", get_tefas_price("TMV"))
     print("TEFAS TLY:", get_tefas_price("TLY"))
-    print("FINTABLES TLY:", get_fintables_page("TLY"))
-    print("FINTABLES IPV:", get_fintables_page("IPV"))
-    print("FINTABLES PHE:", get_fintables_page("PHE"))
-    print("FINTABLES TMV:", get_fintables_page("TMV"))
+    html = get_tefas_html("TLY")
+    print(html[:1000])
     users = load_users()
     for user in users:
         filename = ensure_history_file(user["id"])
