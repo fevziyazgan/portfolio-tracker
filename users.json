@@ -2,10 +2,11 @@
   "users": [
     {
       "id": 1,
+      "version": 1,
       "name": "Fevzi",
       "telegram": {
-        "token": "SECRET",
-        "chat_id": "SECRET"
+        "token": "BOT_TOKEN",
+        "chat_id": "CHAT_ID"
       },
       "settings": {
         "report_hour": "19:00",
@@ -28,15 +29,18 @@
         "investor_drop": -10
       },
       "start_value": 7760000,
-      "portfolio": {
-        "LIKIT": {
+      "cash_positions": [
+        {
+          "name": "Likit",
           "weight": 15,
           "principal": 1164000,
           "rate": 43,
           "rate_type": "annual",
           "start_date": "2026-07-01",
           "end_date": "2026-10-01"
-        },
+        }
+      ],
+      "portfolio": {
         "ALTIN": {
           "weight": 15
         },
@@ -53,13 +57,7 @@
           "weight": 15
         }
       },
-      "transactions": [
-        {
-          "date": "2026-08-01",
-          "amount": 250000,
-          "note": "Likitten ekleme"
-        }
-      ]
+      "transactions": []
     }
   ]
 }
