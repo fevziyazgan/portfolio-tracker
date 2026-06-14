@@ -8,8 +8,15 @@ def create_report_image(
     output_file="report.png"
 ):
 
+    lines = report_text.split("\n")
+
     width = 900
-    height = 1400
+
+    line_height = 40
+
+    height = (
+        len(lines) * line_height
+    ) + 100
 
     image = Image.new(
         "RGB",
@@ -32,13 +39,18 @@ def create_report_image(
 
         font = ImageFont.load_default()
 
-    draw.multiline_text(
-        (40, 40),
-        report_text,
-        fill="black",
-        font=font,
-        spacing=12
-    )
+    y = 30
+
+    for line in lines:
+
+        draw.text(
+            (30, y),
+            line,
+            fill="black",
+            font=font
+        )
+
+        y += line_height
 
     image.save(
         output_file
