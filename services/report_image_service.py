@@ -31,9 +31,22 @@ def draw_card(
     h,
     title,
     value,
-    value_color
+    value_color="#111111",
+    subtitle=None,
+    icon=None
 ):
 
+    if icon:
+
+    draw.text(
+        (
+            x + 15,
+            y + 15
+        ),
+        icon,
+        font=get_font(40)
+    )
+    
     draw.rounded_rectangle(
         (
             x,
@@ -49,24 +62,35 @@ def draw_card(
 
     draw.text(
         (
-            x + 20,
-            y + 15
+            x + 70,
+            y + 20
         ),
         title,
-        fill="#666666",
-        font=get_font(22)
+        fill="#444444",
+        font=get_font(24)
     )
 
     draw.text(
         (
             x + 20,
-            y + 55
+            y + 70
         ),
         value,
         fill=value_color,
-        font=get_font(28)
+        font=get_font(40)
     )
 
+    if subtitle:
+    
+        draw.text(
+            (
+                x + 20,
+                y + 125
+            ),
+            subtitle,
+            fill=value_color,
+            font=get_font(22)
+        )
 
 def create_donut_chart(
     report_data
@@ -195,42 +219,59 @@ def create_report_image(
         y,
         400,
         180,
-        "Fonlar",
-        f"{summary['fund_total_tl']:,.0f} TL",
-        "#2563EB"
+        "TOPLAM DEGER",
+        f"{summary['total_value_tl']:,.0f} TL",
+        "#16A34A",
+        icon="💰"
+    )
+
+    daily_tl = perf["daily"]["change_tl"]
+
+    daily_pct = perf["daily"]["change_pct"]
+    
+    draw_card(
+        draw,
+        480,
+        y,
+        400,
+        180,
+        "GUNLUK DEGISIM",
+        f"{daily_tl:,.0f} TL",
+        "#16A34A",
+        f"(+{daily_pct:.2f}%)",
+        "📈"
     )
     
     draw_card(
         draw,
-        430,
+        920,
         y,
         400,
         180,
-        "Kripto",
-        f"{summary['crypto_total_tl']:,.0f} TL",
-        "#F97316"
+        "30 GUNLUK DEGISIM",
+        f"{perf['monthly']['change_tl']:,.0f} TL",
+        "#16A34A",
+        f"(+{perf['monthly']['change_pct']:.2f}%)",
+        "📊"
     )
+
+    profit_pct = (
+    summary["profit_tl"]
+    /
+    max(summary["total_cost_tl"],1)
+    ) * 100
     
     draw_card(
         draw,
-        820,
+        1360,
         y,
         400,
         180,
-        "Altin",
-        f"{summary['gold_total_tl']:,.0f} TL",
-        "#EAB308"
-    )
-    
-    draw_card(
-        draw,
-        1210,
-        y,
-        400,
-        180,
-        "Maliyet",
-        f"{summary['total_cost_tl']:,.0f} TL",
-        "#6B7280"
+        "KAR / ZARAR",
+        f"{summary['profit_tl']:,.0f} TL",
+        "#16A34A",
+        f"(+{profit_pct:.2f}%)",
+        "📉"
     )
     
     y += 200
