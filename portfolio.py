@@ -68,12 +68,11 @@ def send_test_message(user):
     )
 def main():
     usdtry = get_yahoo_price("USDTRY=X")
-bist100 = get_yahoo_price("XU100.IS")
-us10y = get_yahoo_price("^TNX")
-
-print("USDTRY:", usdtry)
-print("BIST100:", bist100)
-print("US10Y:", us10y)
+    bist100 = get_yahoo_price("XU100.IS")
+    us10y = get_yahoo_price("^TNX")
+    print("USDTRY:", usdtry)
+    print("BIST100:", bist100)
+    print("US10Y:", us10y)
     users = load_users()
     for user in users:
         filename = ensure_history_file(user["id"])
