@@ -18,7 +18,9 @@ from services.report_image_service import (
 )
 from services.db_service import (
     init_db,
-    save_daily_snapshot
+    save_daily_snapshot,
+    get_daily_change,
+    get_monthly_change
 )
 from services.db_service import (
     get_daily_change,
@@ -302,6 +304,15 @@ def build_report_data(
             us10y,
             "gram_gold":
             gold_price
+            "performance": {
+
+            "daily":
+            get_daily_change(),
+        
+            "monthly":
+            get_monthly_change()
+        
+            },
         }
     }
 def run_portfolios():
