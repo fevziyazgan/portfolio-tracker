@@ -171,6 +171,7 @@ def create_portfolio_performance_chart(
 
     plt.savefig(
         output_file,
+        dpi=200,
         bbox_inches="tight"
     )
 
