@@ -14,6 +14,15 @@
         "buy_date": ""
       },
 
+      "cash_interest": {
+        "amount": 0,
+        "rate": 0,
+        "rate_period": "yearly",
+        "tax_rate": 15,
+        "bank": "",
+        "start_date": ""
+      },
+
       "funds": [
         {
           "code": "IPV",
