@@ -1,0 +1,36 @@
+{
+  "USDTRY": {
+    "provider": "yfinance",
+    "ticker": "USDTRY=X"
+  },
+  "BIST100": {
+    "provider": "yfinance",
+    "ticker": "XU100.IS"
+  },
+  "US10Y": {
+    "provider": "yfinance",
+    "ticker": "^TNX"
+  },
+  "ALTIN": {
+    "provider": "gold"
+  },
+  "CDS": {
+    "provider": "worldgovernmentbonds"
+  },
+  "IPV": {
+    "provider": "tefas",
+    "code": "IPV"
+  },
+  "PHE": {
+    "provider": "tefas",
+    "code": "PHE"
+  },
+  "TMV": {
+    "provider": "tefas",
+    "code": "TMV"
+  },
+  "TLY": {
+    "provider": "tefas",
+    "code": "TLY"
+  }
+}
