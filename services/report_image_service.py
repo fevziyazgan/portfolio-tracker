@@ -3,9 +3,12 @@ import matplotlib.pyplot as plt
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
+from services.chart_service import (
+    create_portfolio_performance_chart
+)
 
 WIDTH = 1200
-HEIGHT = 2500
+HEIGHT = 3200
 
 
 def get_font(size):
@@ -131,7 +134,9 @@ def create_report_image(
     create_donut_chart(
         report_data
     )
-
+    
+    create_portfolio_performance_chart()
+    
     image = Image.new(
         "RGB",
         (
@@ -434,6 +439,41 @@ def create_report_image(
 
         y += 35
 
+        y += 80
+
+        draw.text(
+            (
+                30,
+                y
+            ),
+            "30 GUNLUK PERFORMANS",
+            fill="black",
+            font=section_font
+        )
+        
+        y += 50
+        
+        chart = Image.open(
+            "performance_chart.png"
+        )
+        
+        chart = chart.resize(
+            (
+                1100,
+                400
+            )
+        )
+        
+        image.paste(
+            chart,
+            (
+                40,
+                y
+            )
+        )
+        
+        y += 430
+    
     image.save(
         output_file
     )
