@@ -187,7 +187,7 @@ def create_report_image(
 
     perf = report_data["performance"]
     
-   y += 170
+y += 170
 
 draw_card(
     draw,
