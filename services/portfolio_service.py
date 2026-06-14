@@ -333,6 +333,11 @@ def run_portfolios():
                 user
             )
         )
+        print(
+            report_data[
+                "performance"
+            ]
+        )
         save_daily_snapshot(
             report_data
         )
