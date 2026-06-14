@@ -219,15 +219,15 @@ def build_report_data(
     
     for fund in funds:
 
-    fund["portfolio_pct"] = round(
-        (
-            fund["value"]
-            / fund_total_tl
-        ) * 100,
-        2
-    ) if fund_total_tl else 0
-    
-    total_cost = 0
+        fund["portfolio_pct"] = round(
+            (
+                fund["value"]
+                / fund_total_tl
+            ) * 100,
+            2
+        ) if fund_total_tl else 0
+        
+        total_cost = 0
     for fund in funds:
         total_cost += fund[
             "cost_value"
