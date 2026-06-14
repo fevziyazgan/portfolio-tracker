@@ -375,7 +375,7 @@ def create_report_image(
     f"{summary.get('deposit_total_tl',0):,.0f} TL",
     "#10B981",
     f"%{deposit_pct:.2f}",
-    "icons/bank.png"
+    "icons/wallet.png"
     )
     
     donut = Image.open(
