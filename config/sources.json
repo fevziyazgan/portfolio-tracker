@@ -1,17 +1,21 @@
 {
-  "USDTRY": {
-    "provider": "yfinance",
-    "ticker": "USDTRY=X",
-    "enabled": true
+  "TLY": {
+    "provider": "fintables",
+    "url": "https://fintables.com/fonlar/TLY"
   },
-  "BIST100": {
-    "provider": "yfinance",
-    "ticker": "XU100.IS",
-    "enabled": true
+
+  "IPV": {
+    "provider": "fintables",
+    "url": "https://fintables.com/fonlar/IPV"
   },
-  "US10Y": {
-    "provider": "yfinance",
-    "ticker": "^TNX",
-    "enabled": true
+
+  "PHE": {
+    "provider": "fintables",
+    "url": "https://fintables.com/fonlar/PHE"
+  },
+
+  "TMV": {
+    "provider": "fintables",
+    "url": "https://fintables.com/fonlar/TMV"
   }
 }
