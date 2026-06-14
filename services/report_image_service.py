@@ -223,7 +223,8 @@ image.paste(
         y - 20
     ),
     donut
-)
+    )
+
     draw.text(
         (
             30,
