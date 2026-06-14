@@ -180,6 +180,17 @@ def build_report_data(
         crypto_total_usd
         * usdtry
     )
+    for crypto in cryptos:
+
+    crypto["portfolio_pct"] = round(
+        (
+            crypto["value_tl"]
+            / crypto_total_tl
+        ) * 100,
+        2
+    ) if crypto_total_tl else 0
+
+    
     gold_info = user.get(
         "gold",
         {}
