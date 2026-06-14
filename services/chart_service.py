@@ -70,7 +70,8 @@ def create_portfolio_performance_chart(
         "PHE",
         "TMV",
         "TLY",
-        "GOLD"
+        "GOLD",
+        "CRYPTO"
     ]
 
     for asset in assets:
@@ -102,12 +103,13 @@ def create_portfolio_performance_chart(
             for v in values
         ]
 
-        plt.plot(
-            dates,
-            values,
-            label=asset,
-            linewidth=2
-        )
+    plt.plot(
+        dates,
+        values,
+        label="KRIPTO",
+        linewidth=3,
+        linestyle=":"
+    )
 
     portfolio = (
         get_portfolio_history(
@@ -139,7 +141,7 @@ def create_portfolio_performance_chart(
         plt.plot(
             dates,
             values,
-            label="PORTFOY",
+            label="KRIPTO",
             linewidth=4,
             linestyle="--"
         )
