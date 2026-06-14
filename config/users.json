@@ -4,7 +4,9 @@
       "id": 1,
       "version": 1,
       "name": "Fevzi",
+      "role": "admin",
       "telegram": {
+        "user_id": 123456789,
         "token": "BOT_TOKEN",
         "chat_id": "CHAT_ID"
       },
@@ -57,7 +59,15 @@
           "amount": 1164000
         }
       },
-      "transactions": []
+      "transactions": [
+        {
+          "date": "2026-08-01",
+          "type": "buy",
+          "asset": "TLY",
+          "amount": 250000,
+          "note": "Likitten ekleme"
+        }
+      ]
     }
   ]
 }
