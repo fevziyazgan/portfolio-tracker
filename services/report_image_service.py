@@ -7,8 +7,8 @@ from services.chart_service import (
     create_portfolio_performance_chart
 )
 
-WIDTH = 3200
-HEIGHT = 4500
+WIDTH = 1600
+HEIGHT = 4200
 
 
 def get_font(size):
@@ -187,84 +187,53 @@ def create_report_image(
 
     perf = report_data["performance"]
     
-    # 1. SATIR
-    
-    draw_card(
-        draw,
-        30,
-        y,
-        260,
-        120,
-        "Toplam Deger",
-        f"{summary['total_value_tl']:,.0f} TL",
-        "#16A34A"
-    )
-    
-    draw_card(
-        draw,
-        320,
-        y,
-        260,
-        120,
-        "Gunluk Degisim",
-        f"{perf['daily']['change_pct']:.2f}%",
-        "#16A34A"
-    )
-    
-    draw_card(
-        draw,
-        610,
-        y,
-        260,
-        120,
-        "30 Gunluk",
-        f"{perf['monthly']['change_pct']:.2f}%",
-        "#16A34A"
-    )
-    
-    draw_card(
-        draw,
-        900,
-        y,
-        260,
-        120,
-        "Kar / Zarar",
-        f"{summary['profit_tl']:,.0f} TL",
-        "#16A34A"
-    )
-    
-    y += 150
-    
-    # 2. SATIR
-    
-    total = max(
-        summary["total_value_tl"],
-        1
-    )
-    
-    draw_card(
-        draw,
-        30,
-        y,
-        260,
-        120,
-        "Fonlar",
-        f"{summary['fund_total_tl']:,.0f} TL",
-        "#16A34A"
-    )
-    
-    draw_card(
-        draw,
-        320,
-        y,
-        260,
-        120,
-        "Kripto",
-        f"{summary['crypto_total_tl']:,.0f} TL",
-        "#16A34A"
-    )
-    
-    y += 190
+   y += 170
+
+draw_card(
+    draw,
+    40,
+    y,
+    340,
+    140,
+    "Fonlar",
+    f"{summary['fund_total_tl']:,.0f} TL",
+    "#2563EB"
+)
+
+draw_card(
+    draw,
+    430,
+    y,
+    340,
+    140,
+    "Kripto",
+    f"{summary['crypto_total_tl']:,.0f} TL",
+    "#F97316"
+)
+
+draw_card(
+    draw,
+    820,
+    y,
+    340,
+    140,
+    "Altin",
+    f"{summary['gold_total_tl']:,.0f} TL",
+    "#EAB308"
+)
+
+draw_card(
+    draw,
+    1210,
+    y,
+    340,
+    140,
+    "Maliyet",
+    f"{summary['total_cost_tl']:,.0f} TL",
+    "#6B7280"
+)
+
+y += 200
 
     
     y += 190
@@ -289,11 +258,6 @@ def create_report_image(
             y - 20
         ),
         donut
-    )
-
-    total = max(
-        1,
-        summary["total_value_tl"]
     )
 
     draw.text(
