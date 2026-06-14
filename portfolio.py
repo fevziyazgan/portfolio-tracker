@@ -36,18 +36,23 @@ def get_yahoo_price(ticker):
         return round(float(hist["Close"].iloc[-1]), 4)
     except Exception:
         return None
-def append_test_row(filename):
+def append_history_row(
+    filename,
+    usdtry,
+    bist100,
+    us10y
+):
     today = datetime.now().strftime("%Y-%m-%d")
     with open(filename, "a", newline="", encoding="utf-8") as f:
         writer = csv.writer(f)
         writer.writerow([
             today,
             0,
+            usdtry,
             0,
+            bist100,
             0,
-            0,
-            0,
-            0
+            us10y
         ])
 def send_test_message(user):
     token = user["telegram"]["token"]
@@ -76,7 +81,17 @@ def main():
     users = load_users()
     for user in users:
         filename = ensure_history_file(user["id"])
-        append_test_row(filename)
+        append_history_row(
+
+    filename,
+
+    usdtry,
+
+    bist100,
+
+    us10y
+
+)
         send_test_message(user)
         print(
             f"OK -> {user['name']} ({user['id']})"
