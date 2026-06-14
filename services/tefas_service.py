@@ -1,56 +1,56 @@
 import requests
 
+BASE_URL = (
+    "https://www.tefas.gov.tr"
+    "/api/funds/fonFiyatBilgiGetir"
+)
+
 
 def get_fund_price(fund_code):
 
-    url = (
-        "https://www.tefas.gov.tr"
-        "/api/funds/fonFiyatBilgiGetir"
-    )
-
     payload = {
-        "fonKodu": fund_code,
+        "fonKodu": fund_code.upper(),
         "dil": "TR",
         "periyod": 1
     }
 
-    try:
+    response = requests.post(
+        BASE_URL,
+        json=payload,
+        timeout=30,
+        headers={
+            "User-Agent":
+            "Mozilla/5.0",
+            "Accept":
+            "application/json"
+        }
+    )
 
-        response = requests.post(
-            url,
-            json=payload,
-            timeout=30,
-            headers={
-                "User-Agent":
-                "Mozilla/5.0",
-                "Accept":
-                "application/json"
-            }
-        )
+    response.raise_for_status()
 
-        print(
-            f"\nFUND: {fund_code}"
-        )
+    data = response.json()
 
-        print(
-            "STATUS:",
-            response.status_code
-        )
+    result_list = data.get(
+        "resultList",
+        []
+    )
 
-        print(
-            response.text[:1000]
-        )
-
-        return response.json()
-
-    except Exception as e:
-
-        print(
-            f"{fund_code} ERROR:",
-            e
-        )
-
+    if not result_list:
         return None
+
+    latest = result_list[-1]
+
+    return {
+        "code": latest["fonKodu"],
+        "date": latest["tarih"],
+        "price": float(
+            latest["fiyat"]
+        ),
+        "name": latest.get(
+            "fonUnvan",
+            ""
+        )
+    }
 
 
 def test_funds():
@@ -64,8 +64,18 @@ def test_funds():
         "TLY"
     ]:
 
-        result[code] = get_fund_price(
-            code
-        )
+        try:
+
+            result[code] = (
+                get_fund_price(
+                    code
+                )
+            )
+
+        except Exception as e:
+
+            result[code] = {
+                "error": str(e)
+            }
 
     return result
