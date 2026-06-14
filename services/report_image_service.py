@@ -22,9 +22,6 @@ def get_font(size):
     except Exception:
         return ImageFont.load_default()
 
-
-from PIL import Image
-
 def draw_card(
     draw,
     image,
