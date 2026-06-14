@@ -1,21 +1,26 @@
 {
-  "TLY": {
-    "provider": "fintables",
-    "url": "https://fintables.com/fonlar/TLY"
+  "USDTRY": {
+    "provider": "yfinance",
+    "ticker": "USDTRY=X"
   },
-
+  "BIST100": {
+    "provider": "yfinance",
+    "ticker": "XU100.IS"
+  },
+  "US10Y": {
+    "provider": "yfinance",
+    "ticker": "^TNX"
+  },
   "IPV": {
-    "provider": "fintables",
-    "url": "https://fintables.com/fonlar/IPV"
+    "provider": "tefas"
   },
-
   "PHE": {
-    "provider": "fintables",
-    "url": "https://fintables.com/fonlar/PHE"
+    "provider": "tefas"
   },
-
   "TMV": {
-    "provider": "fintables",
-    "url": "https://fintables.com/fonlar/TMV"
+    "provider": "tefas"
+  },
+  "TLY": {
+    "provider": "tefas"
   }
 }
