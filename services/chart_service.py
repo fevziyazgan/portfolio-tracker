@@ -62,7 +62,7 @@ def create_portfolio_performance_chart(
 ):
 
     plt.figure(
-        figsize=(12, 5)
+        figsize=(14, 7)
     )
 
     assets = [
@@ -150,10 +150,23 @@ def create_portfolio_performance_chart(
 
     plt.legend()
 
+    plt.xticks(
+    rotation=90,
+    fontsize=8
+    )
+    
     plt.grid(
         alpha=0.25
     )
-
+    
+    plt.ylabel(
+    "Performans (%)"
+    )
+    
+    plt.xlabel(
+        ""
+    )
+    
     plt.tight_layout()
 
     plt.savefig(
