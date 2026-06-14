@@ -289,29 +289,43 @@ def build_report_data(
             gold_price
         }
     }
+from services.db_service import (
+    init_db,
+    save_daily_snapshot
+)
 def run_portfolios():
+
+    init_db()
+
     users = load_users()
+
     for user in users:
+
         try:
+
             report_data = (
                 build_report_data(
                     user
                 )
             )
+
+            save_daily_snapshot(
+                report_data
+            )
+
             image_file = (
                 create_report_image(
                     report_data
                 )
             )
+
             send_photo(
-                user[
-                    "telegram"
-                ][
-                    "chat_id"
-                ],
+                user["telegram"]["chat_id"],
                 image_file
             )
+
         except Exception as e:
+
             print(
                 f"ERROR: {e}"
             )
