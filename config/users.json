@@ -1,68 +1,49 @@
 {
-  "users": [
-    {
-      "id": 1,
-      "version": 1,
-      "name": "Fevzi",
-      "role": "admin",
-      "telegram": {
-        "chat_id": 1968226108
-      },
-      "settings": {
-        "report_hour": "19:00",
-        "daily_report": true,
-        "send_png": true,
-        "send_text": true
-      },
-      "alarms": {
-        "usdtry_high": 48.5,
-        "cds_low": 250,
-        "cds_high": 400,
-        "us10y_low": 3.5,
-        "us10y_high": 5.0,
-        "gold_high": 7000,
-        "portfolio_day_change": 3,
-        "portfolio_month_change": 15,
-        "fund_size_rise": 20,
-        "fund_size_drop": -10,
-        "investor_rise": 15,
-        "investor_drop": -10
-      },
-      "portfolio_start_date": "2026-07-01",
-      "cash_positions": [
-        {
-          "id": 1,
-          "name": "Likit",
-          "amount": 1164000,
-          "rate": 43,
-          "rate_type": "annual",
-          "start_date": "2026-07-01",
-          "end_date": "2026-10-01"
-        }
-      ],
-      "portfolio": {
-        "ALTIN": {
-          "amount": 1164000,
-          "cost": 1164000
-        },
-        "TLY": {
-          "amount": 1552000,
-          "cost": 1552000
-        },
-        "PHE": {
-          "amount": 1552000,
-          "cost": 1552000
-        },
-        "TMV": {
-          "amount": 1164000,
-          "cost": 1164000
-        },
-        "IPV": {
-          "amount": 1164000,
-          "cost": 1164000
-        }
-      },
-      "transactions": []
+  "id": 1,
+  "name": "Fevzi",
+
+  "telegram": {
+    "chat_id": 1968226108
+  },
+
+  "portfolio": {
+
+    "LIKIT": {
+      "amount": 1164000,
+      "rate": 0.48,
+      "type": "yearly",
+      "start_date": "2026-06-14"
+    },
+
+    "ALTIN": {
+      "amount": 1164000
+    },
+
+    "TLY": {
+      "amount": 1552000,
+      "units": null
+    },
+
+    "PHE": {
+      "amount": 1552000,
+      "units": null
+    },
+
+    "TMV": {
+      "amount": 1164000,
+      "units": null
+    },
+
+    "IPV": {
+      "amount": 1164000,
+      "units": null
     }
-  ]
+  },
+
+  "alarms": {
+    "usdtry_high": 48.5,
+    "cds_high": 400,
+    "cds_low": 250,
+    "gold_high": 7000
+  }
 }
