@@ -34,6 +34,27 @@ def get_tefas_price(fund_code):
             e
         )
         return None
+def get_fintables_page(code):
+    url = f"https://fintables.com/fonlar/{code}"
+    try:
+        response = requests.get(
+            url,
+            timeout=30,
+            headers={
+                "User-Agent": "Mozilla/5.0"
+            }
+        )
+        print(
+            f"FINTABLES {code}:",
+            response.status_code
+        )
+        return response.status_code
+    except Exception as e:
+        print(
+            f"FINTABLES ERROR {code}:",
+            e
+        )
+        return None
 def load_users():
     with open(CONFIG_FILE, "r", encoding="utf-8") as f:
         data = json.load(f)
@@ -106,10 +127,14 @@ def main():
     print("USDTRY:", usdtry)
     print("BIST100:", bist100)
     print("US10Y:", us10y)
-    print("IPV:", get_tefas_price("IPV"))
-    print("PHE:", get_tefas_price("PHE"))
-    print("TMV:", get_tefas_price("TMV"))
-    print("TLY:", get_tefas_price("TLY"))
+    print("TEFAS IPV:", get_tefas_price("IPV"))
+    print("TEFAS PHE:", get_tefas_price("PHE"))
+    print("TEFAS TMV:", get_tefas_price("TMV"))
+    print("TEFAS TLY:", get_tefas_price("TLY"))
+    print("FINTABLES TLY:", get_fintables_page("TLY"))
+    print("FINTABLES IPV:", get_fintables_page("IPV"))
+    print("FINTABLES PHE:", get_fintables_page("PHE"))
+    print("FINTABLES TMV:", get_fintables_page("TMV"))
     users = load_users()
     for user in users:
         filename = ensure_history_file(user["id"])
