@@ -72,7 +72,28 @@ def draw_card(
             ),
             icon
         )
-
+        center_x = 1100 + 350
+        center_y = y + 140 + 350
+        
+        draw.text(
+            (
+                center_x - 70,
+                center_y - 25
+            ),
+            "TOPLAM",
+            fill="#666666",
+            font=get_font(24)
+        )
+        
+        draw.text(
+            (
+                center_x - 140,
+                center_y + 15
+            ),
+            f"{summary['total_value_tl']:,.0f} TL",
+            fill="#111111",
+            font=get_font(30)
+        )
     draw.text(
         (
             x + 85,
@@ -144,7 +165,7 @@ def create_donut_chart(
         colors=colors,
         startangle=90,
         wedgeprops={
-            "width": 0.45
+            "width": 0.35
         }
     )
 
