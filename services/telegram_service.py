@@ -1,35 +1,37 @@
-import os
 import requests
+import os
+
 TOKEN = os.environ.get(
     "TELEGRAM_BOT_TOKEN"
 )
-def send_message(
+
+
+def send_photo(
     chat_id,
-    text
+    image_path,
+    caption=""
 ):
-    if not TOKEN:
-        print(
-            "TOKEN BULUNAMADI"
-        )
-        return False
-    try:
+
+    url = (
+        f"https://api.telegram.org/"
+        f"bot{TOKEN}/sendPhoto"
+    )
+
+    with open(
+        image_path,
+        "rb"
+    ) as photo:
+
         response = requests.post(
-            f"https://api.telegram.org/bot{TOKEN}/sendMessage",
-            json={
+            url,
+            data={
                 "chat_id": chat_id,
-                "text": text
+                "caption": caption
             },
-            timeout=30
+            files={
+                "photo": photo
+            },
+            timeout=60
         )
-        print(
-            "TELEGRAM:",
-            response.status_code
-        )
-        return (
-            response.status_code == 200
-        )
-    except Exception as e:
-        print(
-            f"TELEGRAM ERROR: {e}"
-        )
-        return False
+
+    return response.status_code
