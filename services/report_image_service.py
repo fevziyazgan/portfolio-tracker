@@ -39,7 +39,7 @@ def draw_card(
     icon_path=None
 ):
 
-if icon_path:
+    if icon_path:
 
     icon = Image.open(
         icon_path
