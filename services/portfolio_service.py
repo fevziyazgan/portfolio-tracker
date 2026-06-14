@@ -18,10 +18,16 @@ from services.report_image_service import (
 )
 from services.db_service import (
     init_db,
-    save_daily_snapshot,
-    get_daily_change,
-    get_monthly_change
+    save_daily_snapshot
 )
+
+from services.analytics_service import (
+    get_daily_change,
+    get_monthly_change,
+    get_best_asset,
+    get_worst_asset
+)
+
 CONFIG_FILE = "config/users.json"
 def load_users():
     with open(
@@ -291,6 +297,22 @@ def build_report_data(
                 2
             )
         },
+        "performance": {
+        
+            "daily":
+            get_daily_change(),
+        
+            "monthly":
+            get_monthly_change(),
+        
+            "best_asset":
+            get_best_asset(),
+        
+            "worst_asset":
+            get_worst_asset()
+        
+        },
+        
         "market": {
             "usdtry":
             usdtry,
@@ -300,15 +322,6 @@ def build_report_data(
             us10y,
             "gram_gold":
             gold_price
-            "performance": {
-
-            "daily":
-            get_daily_change(),
-        
-            "monthly":
-            get_monthly_change()
-        
-            },
         }
     }
 def run_portfolios():
