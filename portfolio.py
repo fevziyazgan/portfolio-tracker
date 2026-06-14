@@ -1,9 +1,8 @@
 import json
 import csv
 import os
-import yfinance as yf
 from datetime import datetime
-import requests
+import yfinance as yf
 CONFIG_FILE = "config/users.json"
 HISTORY_DIR = "history"
 def load_users():
@@ -19,6 +18,7 @@ def ensure_history_file(user_id):
             writer.writerow([
                 "date",
                 "total_value",
+                "portfolio_return_pct",
                 "usdtry",
                 "gold",
                 "bist100",
@@ -26,7 +26,6 @@ def ensure_history_file(user_id):
                 "us10y"
             ])
     return filename
-
 def get_yahoo_price(ticker):
     try:
         data = yf.Ticker(ticker)
@@ -34,7 +33,8 @@ def get_yahoo_price(ticker):
         if len(hist) == 0:
             return None
         return round(float(hist["Close"].iloc[-1]), 4)
-    except Exception:
+    except Exception as e:
+        print(f"ERROR {ticker}: {e}")
         return None
 def append_history_row(
     filename,
@@ -48,35 +48,13 @@ def append_history_row(
         writer.writerow([
             today,
             0,
+            0,
             usdtry,
             0,
             bist100,
             0,
             us10y
         ])
-def send_report(user, usdtry, bist100, us10y):
-
-    token = user["telegram"]["token"]
-    chat_id = user["telegram"]["chat_id"]
-
-    text = f"""
-📊 PORTFÖY
-
-👤 {user['name']}
-
-USDTRY : {usdtry}
-BIST100: {bist100}
-US10Y  : {us10y}
-"""
-
-    requests.post(
-        f"https://api.telegram.org/bot{token}/sendMessage",
-        json={
-            "chat_id": chat_id,
-            "text": text
-        },
-        timeout=30
-    )
 def main():
     usdtry = get_yahoo_price("USDTRY=X")
     bist100 = get_yahoo_price("XU100.IS")
@@ -88,22 +66,11 @@ def main():
     for user in users:
         filename = ensure_history_file(user["id"])
         append_history_row(
-
-    filename,
-
-    usdtry,
-
-    bist100,
-
-    us10y
-
-)
-        send_report(
-    user,
-    usdtry,
-    bist100,
-    us10y
-)
+            filename,
+            usdtry,
+            bist100,
+            us10y
+        )
         print(
             f"OK -> {user['name']} ({user['id']})"
         )
