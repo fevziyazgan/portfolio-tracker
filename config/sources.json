@@ -1,36 +1,45 @@
 {
   "USDTRY": {
     "provider": "yfinance",
-    "ticker": "USDTRY=X"
+    "ticker": "USDTRY=X",
+    "enabled": true
   },
   "BIST100": {
     "provider": "yfinance",
-    "ticker": "XU100.IS"
+    "ticker": "XU100.IS",
+    "enabled": true
   },
   "US10Y": {
     "provider": "yfinance",
-    "ticker": "^TNX"
+    "ticker": "^TNX",
+    "enabled": true
   },
   "ALTIN": {
-    "provider": "gold"
+    "provider": "gold",
+    "enabled": true
   },
   "CDS": {
-    "provider": "worldgovernmentbonds"
+    "provider": "worldgovernmentbonds",
+    "enabled": true
   },
   "IPV": {
     "provider": "tefas",
-    "code": "IPV"
+    "code": "IPV",
+    "enabled": true
   },
   "PHE": {
     "provider": "tefas",
-    "code": "PHE"
+    "code": "PHE",
+    "enabled": true
   },
   "TMV": {
     "provider": "tefas",
-    "code": "TMV"
+    "code": "TMV",
+    "enabled": true
   },
   "TLY": {
     "provider": "tefas",
-    "code": "TLY"
+    "code": "TLY",
+    "enabled": true
   }
 }
