@@ -20,8 +20,7 @@ def get_tefas_price(fund_code):
             url,
             timeout=30,
             headers={
-                "User-Agent":
-                "Mozilla/5.0"
+                "User-Agent": "Mozilla/5.0"
             }
         )
         print(
@@ -101,7 +100,6 @@ def send_test_message(user):
     print("TELEGRAM STATUS:", response.status_code)
     print("TELEGRAM RESPONSE:", response.text)
 def main():
-
     usdtry = get_yahoo_price("USDTRY=X")
     bist100 = get_yahoo_price("XU100.IS")
     us10y = get_yahoo_price("^TNX")
@@ -109,9 +107,9 @@ def main():
     print("BIST100:", bist100)
     print("US10Y:", us10y)
     print("IPV:", get_tefas_price("IPV"))
-print("PHE:", get_tefas_price("PHE"))
-print("TMV:", get_tefas_price("TMV"))
-print("TLY:", get_tefas_price("TLY"))
+    print("PHE:", get_tefas_price("PHE"))
+    print("TMV:", get_tefas_price("TMV"))
+    print("TLY:", get_tefas_price("TLY"))
     users = load_users()
     for user in users:
         filename = ensure_history_file(user["id"])
