@@ -2,16 +2,12 @@ import json
 import csv
 import os
 from datetime import datetime
+import requests
 import yfinance as yf
-import os
-
 TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
-
 print("TOKEN VAR:", TOKEN is not None)
-
 if TOKEN:
     print("TOKEN LENGTH:", len(TOKEN))
-
 CONFIG_FILE = "config/users.json"
 HISTORY_DIR = "history"
 def load_users():
@@ -64,6 +60,21 @@ def append_history_row(
             0,
             us10y
         ])
+def send_test_message(user):
+    if not TOKEN:
+        print("TOKEN BULUNAMADI")
+        return
+    chat_id = user["telegram"]["chat_id"]
+    response = requests.post(
+        f"https://api.telegram.org/bot{TOKEN}/sendMessage",
+        json={
+            "chat_id": chat_id,
+            "text": "🚀 Portfolio Tracker test mesajı"
+        },
+        timeout=30
+    )
+    print("TELEGRAM STATUS:", response.status_code)
+    print("TELEGRAM RESPONSE:", response.text)
 def main():
     usdtry = get_yahoo_price("USDTRY=X")
     bist100 = get_yahoo_price("XU100.IS")
@@ -80,6 +91,7 @@ def main():
             bist100,
             us10y
         )
+        send_test_message(user)
         print(
             f"OK -> {user['name']} ({user['id']})"
         )
