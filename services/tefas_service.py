@@ -67,6 +67,18 @@ def get_fund_price(
 
             data = response.json()
 
+            data = response.json()
+
+            import json
+
+            print(
+    json.dumps(
+        data,
+        ensure_ascii=False,
+        indent=2
+    )
+)
+            
             result_list = data.get(
                 "resultList",
                 []
