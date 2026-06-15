@@ -488,11 +488,17 @@ def create_report_image(
         "gold"
     ]
 
-    draw.text((50, y), "GOLD", font=text_font)
+    draw.text(
+        (50, y),
+        "GOLD",
+        fill="red",
+        font=text_font
+    )
     
     draw.text(
         (180, y),
         f"{gold['value']:,.0f}",
+        fill="blue",
         font=text_font
     )
     
