@@ -8,7 +8,7 @@ from services.chart_service import (
 )
 
 WIDTH = 1800
-HEIGHT = 5000
+HEIGHT = 3200
 
 
 def get_font(size):
