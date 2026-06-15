@@ -573,6 +573,16 @@ def create_report_image(
 
     y += 50
 
+    draw.text((50, y), "KOD", fill="black", font=get_font(24))
+    draw.text((140, y), "DEGER", fill="black", font=get_font(24))
+    draw.text((450, y), "GUNLUK", fill="black", font=get_font(24))
+    draw.text((620, y), "30 GUN", fill="black", font=get_font(24))
+    draw.text((790, y), "%", fill="black", font=get_font(24))
+    
+    y += 40
+    draw.line((50, y, 1000, y), fill="#CCCCCC", width=2)
+    y += 20
+
     for crypto in report_data[
         "cryptos"
     ]:
@@ -597,6 +607,27 @@ def create_report_image(
             font=text_font
         )
 
+        draw.text(
+        (450, y),
+        f"{crypto['daily_pct']:.2f}%",
+        fill="#16A34A" if crypto["daily_pct"] >= 0 else "#DC2626",
+        font=text_font
+        )
+        
+        draw.text(
+            (620, y),
+            f"{crypto['monthly_pct']:.2f}%",
+            fill="#16A34A" if crypto["monthly_pct"] >= 0 else "#DC2626",
+            font=text_font
+        )
+        
+        draw.text(
+            (790, y),
+            f"{crypto['portfolio_pct']:.2f}",
+            fill="#F97316",
+            font=text_font
+        )
+        
         y += 35
         
     y += 80
