@@ -466,10 +466,14 @@ def create_report_image(
     )
     
     legend_y += 80
+
+    cash = report_data[
+    "cash_interest"
+    ]
     
     draw.text(
     (legend_x, legend_y),
-    f"■ Mevduat\n{summary.get('deposit_total_tl',0):,.0f} TL (%{deposit_pct:.1f})",
+    f"■ Mevduat\n{cash["amount"]:,.0f} TL (%{deposit_pct:.1f})",
     fill="#10B981",
     font=get_font(24)
     )
@@ -515,14 +519,14 @@ def create_report_image(
     draw.text(
         (50, y + 55),
         cash["bank"],
-        fill="white",
+        fill="black",
         font=get_font(26)
     )
     
     draw.text(
         (180, y + 55),
         f"{cash['amount']:,.0f} TL",
-        fill="white",
+        fill="black",
         font=get_font(26)
     )
     
