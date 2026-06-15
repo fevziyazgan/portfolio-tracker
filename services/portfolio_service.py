@@ -257,6 +257,13 @@ def build_report_data(
         15
     )
     
+    cash_start_date = cash.get(
+        "start_date",
+        ""
+    )
+
+    daily_interest = 0
+
     if cash_period == "daily":
     
         daily_interest = (
@@ -292,11 +299,45 @@ def build_report_data(
     )
     
     monthly_interest_net = (
-        daily_interest_net * 30
+        daily_interest_net
+        * 30
     )
     
     yearly_interest_net = (
-        daily_interest_net * 365
+        daily_interest_net
+        * 365
+    )
+    
+    accrued_interest = 0
+    
+    if cash_start_date:
+    
+        try:
+    
+            days_passed = (
+                datetime.now().date()
+                -
+                datetime.strptime(
+                    cash_start_date,
+                    "%Y-%m-%d"
+                ).date()
+            ).days
+    
+            accrued_interest = (
+                daily_interest_net
+                * max(
+                    0,
+                    days_passed
+                )
+            )
+    
+        except Exception:
+    
+            pass
+    
+    current_value = (
+        cash_amount
+        + accrued_interest
     )
     
     for fund in funds:
@@ -349,6 +390,18 @@ def build_report_data(
             "amount":
             cash_amount,
         
+            "current_value":
+            round(
+                current_value,
+                2
+            ),
+        
+            "accrued_interest":
+            round(
+                accrued_interest,
+                2
+            ),
+        
             "rate":
             cash_rate,
         
@@ -374,16 +427,7 @@ def build_report_data(
             round(
                 yearly_interest_net,
                 2
-            ),
-        
-            "portfolio_pct":
-            round(
-                (
-                    cash_amount
-                    / total_value_tl
-                ) * 100,
-                2
-            ) if total_value_tl else 0
+            )
         },
         "summary": {
             "total_value_tl":
