@@ -474,28 +474,46 @@ def create_report_image(
     )
 
     y += 45
-
+    draw.text((50, y), "KOD", fill="black", font=get_font(24))
+    draw.text((140, y), "DEGER", fill="black", font=get_font(24))
+    draw.text((450, y), "GUNLUK", fill="black", font=get_font(24))
+    draw.text((620, y), "30 GUN", fill="black", font=get_font(24))
+    draw.text((790, y), "%", fill="black", font=get_font(24))
+    
+    y += 40
+    draw.line((50, y, 1000, y), fill="#CCCCCC", width=2)
+    y += 20
+    
     gold = report_data[
         "gold"
     ]
 
+    draw.text((50, y), "GOLD", font=text_font)
+    
     draw.text(
-        (
-            50,
-            y
-        ),
-        f"{gold['grams']} gram",
-        fill="black",
+        (140, y),
+        f"{gold['value']:,.0f}",
         font=text_font
     )
-
+    
     draw.text(
-        (
-            850,
-            y
-        ),
-        f"{gold['value']:,.0f} TL",
-        fill="black",
+        (450, y),
+        f"{gold['daily_pct']:.2f}%",
+        fill="#16A34A" if gold["daily_pct"] >= 0 else "#DC2626",
+        font=text_font
+    )
+    
+    draw.text(
+        (620, y),
+        f"{gold['monthly_pct']:.2f}%",
+        fill="#16A34A" if gold["monthly_pct"] >= 0 else "#DC2626",
+        font=text_font
+    )
+    
+    draw.text(
+        (790, y),
+        f"{gold['portfolio_pct']:.2f}",
+        fill="#EAB308",
         font=text_font
     )
 
