@@ -15,12 +15,12 @@
       },
 
       "cash_interest": {
-        "amount": 0,
-        "rate": 0,
+        "amount": 500000,
+        "rate": 48,
         "rate_period": "yearly",
         "tax_rate": 15,
-        "bank": "",
-        "start_date": ""
+        "bank": "Enpara",
+        "start_date": "2026-06-15"
       },
 
       "funds": [
