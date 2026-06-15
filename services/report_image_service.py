@@ -245,11 +245,15 @@ def create_report_image(
         / total
     ) * 100
 
+    cash = report_data[
+        "cash_interest"
+    ]
+    
     cash_pct = (
-    cash_amount
-    / total_value
-    * 100
-    )
+        cash["amount"]
+        / total
+        * 100
+    ) if total else 0
     
     deposit_pct = (
     summary.get("deposit_total_tl", 0)
@@ -491,13 +495,11 @@ def create_report_image(
     "#10B981"   # Mevduat
     ]
     
-    draw_card(
-    draw,
-    40,
-    y,
-    1840,
-    170,
-    "MEVDUAT"
+    draw.text(
+        (30, y),
+        "MEVDUAT",
+        fill="black",
+        font=section_font
     )
 
     y += 45
