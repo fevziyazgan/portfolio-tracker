@@ -380,7 +380,15 @@ def build_report_data(
             "%d.%m.%Y"
         ),
         "cash_interest": {
-
+            "portfolio_pct":
+            round(
+                (
+                    current_value
+                    / total_value_tl
+                ) * 100,
+                2
+            ) if total_value_tl else 0,
+            
             "bank":
             cash.get(
                 "bank",
