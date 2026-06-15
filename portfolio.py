@@ -1,3 +1,5 @@
+import time
+
 from services.telegram_service import (
     get_new_messages,
     send_message
