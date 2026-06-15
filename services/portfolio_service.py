@@ -368,7 +368,7 @@ def build_report_data(
         fund_total_tl
         + crypto_total_tl
         + gold_total_tl
-        + cash_amount
+        + current_value
     )
     profit_tl = (
         total_value_tl
