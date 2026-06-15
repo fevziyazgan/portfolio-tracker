@@ -1,30 +1,46 @@
 name: Portfolio Tracker
+
 on:
   workflow_dispatch:
+
+  schedule:
+    - cron: '30 16 * * *'   # Türkiye 19:30
+
 permissions:
   contents: write
+
 jobs:
   run:
+
     runs-on: ubuntu-latest
+
     steps:
+
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+
       - name: Install Requirements
         run: |
           pip install -r requirements.txt
+
       - name: Run Portfolio
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
         run: |
           python portfolio.py
+
       - name: Commit Database
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
+
           git add data/portfolio.db
-          git commit -m "portfolio history update" || echo "No changes"
+
+          git diff --staged --quiet || git commit -m "portfolio history update"
+
           git push
