@@ -115,9 +115,9 @@ def create_donut_chart(
 
     values = [
         summary["fund_total_tl"],
-        summary["crypto_total_tl"],
         summary["gold_total_tl"],
-        summary.get("deposit_total_tl", 0)
+        summary["crypto_total_tl"],
+        cash["amount"]
     ]
     
     labels = [
@@ -463,6 +463,67 @@ def create_report_image(
     
     y += 200
 
+    cash = report_data[
+    "cash_interest"
+    ]
+
+    draw_card(
+    draw,
+    40,
+    y,
+    1840,
+    170,
+    "MEVDUAT"
+    )
+
+    y += 45
+    
+    draw.text((50, y), "BANKA", fill="black", font=get_font(24))
+    draw.text((180, y), "DEGER", fill="black", font=get_font(24))
+    draw.text((450, y), "GUNLUK", fill="black", font=get_font(24))
+    draw.text((620, y), "AYLIK", fill="black", font=get_font(24))
+    draw.text((790, y), "PORTFÖY %", fill="black", font=get_font(24))
+    
+    y += 40
+    
+    draw.text(
+        (50, y + 55),
+        cash["bank"],
+        fill="white",
+        font=get_font(26)
+    )
+    
+    draw.text(
+        (180, y + 55),
+        f"{cash['amount']:,.0f} TL",
+        fill="white",
+        font=get_font(26)
+    )
+    
+    draw.text(
+        (450, y + 55),
+        f"+{cash['daily_interest']:,.0f} TL",
+        fill="#10B981",
+        font=get_font(26)
+    )
+    
+    draw.text(
+        (620, y + 55),
+        f"+{cash['monthly_interest']:,.0f} TL",
+        fill="#10B981",
+        font=get_font(26)
+    )
+    
+    draw.text(
+        (790, y + 55),
+        f"%{cash['portfolio_pct']:.2f}",
+        fill="#10B981",
+        font=get_font(26)
+    )
+    
+    y += 210
+
+    
     draw.text(
         (
             30,
@@ -478,7 +539,7 @@ def create_report_image(
     draw.text((180, y), "DEGER", fill="black", font=get_font(24))
     draw.text((450, y), "GUNLUK", fill="black", font=get_font(24))
     draw.text((620, y), "30 GUN", fill="black", font=get_font(24))
-    draw.text((790, y), "%", fill="black", font=get_font(24))
+    draw.text((790, y), "PORTFÖY %", fill="black", font=get_font(24))
     
     y += 40
     draw.line((50, y, 1000, y), fill="#CCCCCC", width=2)
@@ -541,7 +602,7 @@ def create_report_image(
     draw.text((180, y), "DEGER", fill="black", font=get_font(24))
     draw.text((450, y), "GUNLUK", fill="black", font=get_font(24))
     draw.text((620, y), "30 GUN", fill="black", font=get_font(24))
-    draw.text((790, y), "%", fill="black", font=get_font(24))
+    draw.text((790, y), "PORTFÖY %", fill="black", font=get_font(24))
     
     y += 40
     draw.line((50, y, 1000, y), fill="#CCCCCC", width=2)
@@ -601,7 +662,7 @@ def create_report_image(
     draw.text((180, y), "DEGER", fill="black", font=get_font(24))
     draw.text((450, y), "GUNLUK", fill="black", font=get_font(24))
     draw.text((620, y), "30 GUN", fill="black", font=get_font(24))
-    draw.text((790, y), "%", fill="black", font=get_font(24))
+    draw.text((790, y), "PORTFÖY %", fill="black", font=get_font(24))
     
     y += 40
     draw.line((50, y, 1000, y), fill="#CCCCCC", width=2)
