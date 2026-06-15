@@ -491,14 +491,14 @@ def create_report_image(
     draw.text(
         (50, y),
         "GOLD",
-        fill="red",
+        fill="black",
         font=text_font
     )
     
     draw.text(
         (180, y),
         f"{gold['value']:,.0f}",
-        fill="blue",
+        fill="black",
         font=text_font
     )
     
@@ -623,7 +623,7 @@ def create_report_image(
 
         draw.text(
             (
-                140,
+                180,
                 y
             ),
             f"{crypto['value_tl']:,.0f} TL",
