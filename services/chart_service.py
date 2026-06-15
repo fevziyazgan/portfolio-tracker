@@ -70,7 +70,8 @@ def create_portfolio_performance_chart(
         "PHE",
         "TMV",
         "TLY",
-        "GOLD"
+        "GOLD",
+        "CASH"
     ]
 
     for asset in assets:
