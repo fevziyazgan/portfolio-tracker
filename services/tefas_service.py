@@ -1,3 +1,4 @@
+import json
 import time
 import requests
 
@@ -5,6 +6,33 @@ BASE_URL = (
     "https://www.tefas.gov.tr"
     "/api/funds/fonFiyatBilgiGetir"
 )
+
+ASSETS_FILE = (
+    "config/assets.json"
+)
+
+
+def load_assets():
+
+    with open(
+        ASSETS_FILE,
+        "r",
+        encoding="utf-8"
+    ) as f:
+
+        return json.load(f)
+
+
+def get_fund_codes():
+
+    assets = load_assets()
+
+    return list(
+        assets.get(
+            "funds",
+            {}
+        ).keys()
+    )
 
 
 def get_fund_price(
@@ -24,7 +52,7 @@ def get_fund_price(
         "application/json"
     }
 
-    for _ in range(3):
+    for attempt in range(3):
 
         try:
 
@@ -45,30 +73,73 @@ def get_fund_price(
             )
 
             if not result_list:
+
+                print(
+                    f"TEFAS VERISI BULUNAMADI: "
+                    f"{fund_code}"
+                )
+
                 return None
 
             latest = result_list[-1]
 
             return {
                 "code":
-                latest["fonKodu"],
+                latest.get(
+                    "fonKodu",
+                    fund_code.upper()
+                ),
 
                 "date":
-                latest["tarih"],
+                latest.get(
+                    "tarih",
+                    ""
+                ),
 
                 "price":
                 float(
-                    latest["fiyat"]
+                    latest.get(
+                        "fiyat",
+                        0
+                    )
                 ),
 
                 "name":
                 latest.get(
                     "fonUnvan",
                     ""
-                )
+                ).strip()
             }
 
-        except Exception:
+        except Exception as e:
+
+            print(
+                f"TEFAS ERROR "
+                f"{fund_code} "
+                f"(TRY {attempt + 1}/3): "
+                f"{e}"
+            )
 
             time.sleep(2)
+
+    print(
+        f"TEFAS FAILED: "
+        f"{fund_code}"
+    )
+
     return None
+
+
+def test_tefas():
+
+    result = {}
+
+    for fund in get_fund_codes():
+
+        result[
+            fund
+        ] = get_fund_price(
+            fund
+        )
+
+    return result
