@@ -7,12 +7,12 @@
         "chat_id": "1968226108"
       },
       "gold": {
-        "grams": 150,
+        "grams": 180,
         "cost": 0,
         "buy_date": ""
       },
       "cash_interest": {
-        "amount": 500000,
+        "amount": 1170000,
         "rate": 48,
         "rate_period": "daily",
         "tax_rate": 15,
@@ -22,19 +22,19 @@
       "funds": [
         {
           "code": "IPV",
-          "quantity": 1000,
+          "quantity": 15800,
           "cost": 0,
           "buy_date": ""
         },
         {
           "code": "PHE",
-          "quantity": 3000,
+          "quantity": 528000,
           "cost": 0,
           "buy_date": ""
         },
         {
           "code": "TMV",
-          "quantity": 500,
+          "quantity": 198000,
           "cost": 0,
           "buy_date": ""
         },
