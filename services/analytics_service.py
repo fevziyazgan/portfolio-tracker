@@ -2,6 +2,28 @@ from services.db_service import (
     get_connection
 )
 
+def get_all_assets():
+
+    conn = get_connection()
+
+    cur = conn.cursor()
+
+    rows = cur.execute(
+        """
+        SELECT DISTINCT
+            asset_code
+        FROM asset_history
+        ORDER BY asset_code
+        """
+    ).fetchall()
+
+    conn.close()
+
+    return [
+        row[0]
+        for row in rows
+    ]
+    
 def get_asset_history(
     asset_code,
     days=30
