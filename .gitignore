@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.pyc
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+
+# Logs
+*.log
+
+# Geçici dosyalar
+*.png
+
+# Data klasörü
+data/*
+
+# Ama veritabanını sakla
+!data/portfolio.db
