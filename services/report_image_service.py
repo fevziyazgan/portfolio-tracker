@@ -121,7 +121,7 @@ def create_donut_chart(
         summary["fund_total_tl"],
         summary["gold_total_tl"],
         summary["crypto_total_tl"],
-        cash["current_value"]
+        cash["amount"]
     ]
     
     labels = [
@@ -250,7 +250,7 @@ def create_report_image(
     ]
     
     cash_pct = (
-        cash["current_value"]
+        cash["amount"]
         / total
         * 100
     ) if total else 0
@@ -473,7 +473,7 @@ def create_report_image(
     
     draw.text(
     (legend_x, legend_y),
-    f"■ Mevduat\n{cash['current_value']:,.0f} TL (%{deposit_pct:.1f})",
+    f"■ Mevduat\n{cash['amount']:,.0f} TL (%{deposit_pct:.1f})",
     fill="#10B981",
     font=get_font(24)
     )
@@ -489,7 +489,7 @@ def create_report_image(
     summary["fund_total_tl"],
     summary["gold_total_tl"],
     summary["crypto_total_tl"],
-    cash["current_value"]
+    cash["amount"]
     ]
 
     colors = [
@@ -526,7 +526,7 @@ def create_report_image(
     
     draw.text(
         (180, y + 55),
-        f"{cash['current_value']:,.0f} TL",
+        f"{cash['amount']:,.0f} TL",
         fill="black",
         font=get_font(26)
     )
