@@ -220,6 +220,35 @@ def save_daily_snapshot(report_data):
             gold["profit"]
         )
     )
+
+    cash = report_data["cash_interest"]
+
+    cur.execute(
+        """
+        INSERT INTO asset_history (
+            date,
+            asset_code,
+            asset_type,
+            quantity,
+            cost,
+            price,
+            value,
+            profit
+        )
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        """,
+        (
+            date,
+            "CASH",
+            "CASH",
+            1,
+            cash["amount"],
+            cash["current_value"],
+            cash["current_value"],
+            cash["accrued_interest"]
+        )
+    )
+    
     market = report_data["market"]
     cur.execute(
         """
