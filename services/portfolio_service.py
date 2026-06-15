@@ -42,35 +42,6 @@ def load_users():
 def build_report_data(
     user
 ):
-    cash_info = user.get(
-    "cash",
-    {}
-    )
-    
-    cash_amount = cash_info.get(
-        "amount",
-        0
-    )
-    
-    interest_rate = cash_info.get(
-        "interest_rate",
-        0
-    )
-    
-    daily_interest = (
-        cash_amount
-        * (interest_rate / 100)
-        / 365
-    )
-    
-    monthly_interest = (
-        daily_interest * 30
-    )
-    
-    yearly_interest = (
-        cash_amount
-        * (interest_rate / 100)
-    )
     usdtry = (
         get_price(
             "USDTRY=X"
@@ -260,6 +231,73 @@ def build_report_data(
             "GOLD"
         )
     )
+
+    cash = user.get(
+        "cash_interest",
+        {}
+    )
+    
+    cash_amount = cash.get(
+        "amount",
+        0
+    )
+    
+    cash_rate = cash.get(
+        "rate",
+        0
+    )
+    
+    cash_period = cash.get(
+        "rate_period",
+        "yearly"
+    )
+    
+    cash_tax = cash.get(
+        "tax_rate",
+        15
+    )
+    
+    if cash_period == "daily":
+    
+        daily_interest = (
+            cash_amount
+            * cash_rate
+            / 100
+        )
+    
+    elif cash_period == "monthly":
+    
+        daily_interest = (
+            cash_amount
+            * cash_rate
+            / 100
+            / 30
+        )
+    
+    else:
+    
+        daily_interest = (
+            cash_amount
+            * cash_rate
+            / 100
+            / 365
+        )
+    
+    daily_interest_net = (
+        daily_interest
+        * (
+            1
+            - cash_tax / 100
+        )
+    )
+    
+    monthly_interest_net = (
+        daily_interest_net * 30
+    )
+    
+    yearly_interest_net = (
+        daily_interest_net * 365
+    )
     
     for fund in funds:
 
@@ -300,24 +338,52 @@ def build_report_data(
         datetime.now().strftime(
             "%d.%m.%Y"
         ),
-        "cash": {
-            "amount": round(
-                cash_amount,
+        "cash_interest": {
+
+            "bank":
+            cash.get(
+                "bank",
+                ""
+            ),
+        
+            "amount":
+            cash_amount,
+        
+            "rate":
+            cash_rate,
+        
+            "rate_period":
+            cash_period,
+        
+            "tax_rate":
+            cash_tax,
+        
+            "daily_interest":
+            round(
+                daily_interest_net,
                 2
             ),
-            "interest_rate": interest_rate,
-            "daily_interest": round(
-                daily_interest,
+        
+            "monthly_interest":
+            round(
+                monthly_interest_net,
                 2
             ),
-            "monthly_interest": round(
-                monthly_interest,
+        
+            "yearly_interest":
+            round(
+                yearly_interest_net,
                 2
             ),
-            "yearly_interest": round(
-                yearly_interest,
+        
+            "portfolio_pct":
+            round(
+                (
+                    cash_amount
+                    / total_value_tl
+                ) * 100,
                 2
-            )
+            ) if total_value_tl else 0
         },
         "summary": {
             "total_value_tl":
