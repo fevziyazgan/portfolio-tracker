@@ -497,7 +497,7 @@ def create_report_image(
     
     draw.text(
         (180, y),
-        f"{gold['value']:,.0f}",
+        f"{gold['value']:,.0f} TL",
         fill="black",
         font=text_font
     )
@@ -518,7 +518,7 @@ def create_report_image(
     
     draw.text(
         (790, y),
-        f"{gold['portfolio_pct']:.2f}",
+        f"{gold['portfolio_pct']:.2f}%",
         fill="#EAB308",
         font=text_font
     )
@@ -557,7 +557,7 @@ def create_report_image(
     
         draw.text(
             (180, y),
-            f"{fund['value']:,.0f}",
+            f"{fund['value']:,.0f} TL",
             fill="black",
             font=text_font
         )
@@ -578,7 +578,7 @@ def create_report_image(
     
         draw.text(
             (790, y),
-            f"{fund['portfolio_pct']:.2f}",
+            f"{fund['portfolio_pct']:.2f}%",
             fill="#2563EB",
             font=text_font
         )
