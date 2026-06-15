@@ -475,7 +475,7 @@ def create_report_image(
 
     y += 45
     draw.text((50, y), "KOD", fill="black", font=get_font(24))
-    draw.text((140, y), "DEGER", fill="black", font=get_font(24))
+    draw.text((180, y), "DEGER", fill="black", font=get_font(24))
     draw.text((450, y), "GUNLUK", fill="black", font=get_font(24))
     draw.text((620, y), "30 GUN", fill="black", font=get_font(24))
     draw.text((790, y), "%", fill="black", font=get_font(24))
@@ -491,7 +491,7 @@ def create_report_image(
     draw.text((50, y), "GOLD", font=text_font)
     
     draw.text(
-        (140, y),
+        (180, y),
         f"{gold['value']:,.0f}",
         font=text_font
     )
@@ -532,7 +532,7 @@ def create_report_image(
     y += 50
 
     draw.text((50, y), "KOD", fill="black", font=get_font(24))
-    draw.text((140, y), "DEGER", fill="black", font=get_font(24))
+    draw.text((180, y), "DEGER", fill="black", font=get_font(24))
     draw.text((450, y), "GUNLUK", fill="black", font=get_font(24))
     draw.text((620, y), "30 GUN", fill="black", font=get_font(24))
     draw.text((790, y), "%", fill="black", font=get_font(24))
@@ -550,7 +550,7 @@ def create_report_image(
         )
     
         draw.text(
-            (140, y),
+            (180, y),
             f"{fund['value']:,.0f}",
             fill="black",
             font=text_font
@@ -592,7 +592,7 @@ def create_report_image(
     y += 50
 
     draw.text((50, y), "KOD", fill="black", font=get_font(24))
-    draw.text((140, y), "DEGER", fill="black", font=get_font(24))
+    draw.text((180, y), "DEGER", fill="black", font=get_font(24))
     draw.text((450, y), "GUNLUK", fill="black", font=get_font(24))
     draw.text((620, y), "30 GUN", fill="black", font=get_font(24))
     draw.text((790, y), "%", fill="black", font=get_font(24))
