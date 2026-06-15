@@ -53,3 +53,124 @@ def send_photo(
         )
 
     return response.status_code
+
+
+def get_updates(
+    offset=None
+):
+
+    url = (
+        f"https://api.telegram.org/"
+        f"bot{TOKEN}/getUpdates"
+    )
+
+    params = {}
+
+    if offset is not None:
+
+        params[
+            "offset"
+        ] = offset
+
+    response = requests.get(
+        url,
+        params=params,
+        timeout=30
+    )
+
+    try:
+
+        return response.json()
+
+    except Exception:
+
+        return {
+            "ok": False,
+            "result": []
+        }
+
+
+def load_offset():
+
+    try:
+
+        with open(
+            "data/telegram_offset.txt",
+            "r"
+        ) as f:
+
+            return int(
+                f.read().strip()
+            )
+
+    except Exception:
+
+        return None
+
+
+def save_offset(
+    offset
+):
+
+    with open(
+        "data/telegram_offset.txt",
+        "w"
+    ) as f:
+
+        f.write(
+            str(offset)
+        )
+
+
+def get_new_messages():
+
+    offset = load_offset()
+
+    updates = get_updates(
+        offset
+    )
+
+    if not updates.get(
+        "ok"
+    ):
+        return []
+
+    messages = []
+
+    for update in updates[
+        "result"
+    ]:
+
+        save_offset(
+            update[
+                "update_id"
+            ] + 1
+        )
+
+        message = update.get(
+            "message"
+        )
+
+        if not message:
+            continue
+
+        text = message.get(
+            "text",
+            ""
+        )
+
+        chat_id = (
+            message["chat"]["id"]
+        )
+
+        messages.append(
+            {
+                "chat_id":
+                chat_id,
+
+                "text":
+                text
+            }
+        )
+
+    return messages
