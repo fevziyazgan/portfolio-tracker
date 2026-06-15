@@ -126,15 +126,15 @@ def create_donut_chart(
     
     labels = [
         "Fon",
-        "Kripto",
         "Altin",
+        "Kripto",
         "Mevduat"
     ]
     
     colors = [
         "#2563EB",
-        "#F97316",
         "#EAB308",
+        "#F97316",
         "#10B981"
     ]
 
@@ -473,7 +473,7 @@ def create_report_image(
     
     draw.text(
     (legend_x, legend_y),
-    f"■ Mevduat\n{cash['current_value']:,.0f} TL (%{deposit_pct:.1f})",
+    f"■ Mevduat\n{cash['current_value']:,.0f} TL (%{cash['portfolio_pct']:.1f})",
     fill="#10B981",
     font=get_font(24)
     )
