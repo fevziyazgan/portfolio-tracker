@@ -241,6 +241,12 @@ def create_report_image(
         / total
     ) * 100
 
+    cash_pct = (
+    cash_amount
+    / total_value
+    * 100
+    )
+    
     deposit_pct = (
     summary.get("deposit_total_tl", 0)
     / total
