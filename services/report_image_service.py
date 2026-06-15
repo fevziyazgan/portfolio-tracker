@@ -513,8 +513,9 @@ def create_report_image(
     draw.text((450, y), "GUNLUK", fill="black", font=get_font(24))
     draw.text((620, y), "AYLIK", fill="black", font=get_font(24))
     draw.text((790, y), "PORTFÖY %", fill="black", font=get_font(24))
-    
     y += 40
+    draw.line((50, y, 1000, y), fill="#CCCCCC", width=2)
+    y += 20
     
     draw.text(
         (50, y + 55),
@@ -551,7 +552,7 @@ def create_report_image(
         font=get_font(26)
     )
     
-    y += 210
+    y += 80
 
     
     draw.text(
