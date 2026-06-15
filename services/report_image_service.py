@@ -617,7 +617,7 @@ def create_report_image(
 
         draw.text(
             (
-                850,
+                140,
                 y
             ),
             f"{crypto['value_tl']:,.0f} TL",
