@@ -388,7 +388,7 @@ def create_report_image(
     "MEVDUAT",
     f"{cash['current_value']:,.0f} TL",
     "#10B981",
-    f"%{deposit_pct:.2f}",
+    f"%{cash['portfolio_pct':.2f}",
     "icons/wallet.png"
     )
     
