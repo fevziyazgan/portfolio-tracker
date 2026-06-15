@@ -74,41 +74,38 @@ def create_portfolio_performance_chart(
         "CRYPTO"
     ]
 
-    for asset in assets:
+for asset in assets:
 
-        history = get_asset_history(
-            asset,
-            30
-        )
+    history = get_asset_history(
+        asset,
+        30
+    )
 
-        if len(history) < 2:
-            continue
+    if len(history) < 2:
+        continue
 
-        dates = [
-            row[0]
-            for row in history
-        ]
+    dates = [
+        row[0]
+        for row in history
+    ]
 
-        values = [
-            row[1]
-            for row in history
-        ]
+    values = [
+        row[1]
+        for row in history
+    ]
 
-        base = values[0]
+    base = values[0]
 
-        values = [
-            (
-                v / base
-            ) * 100
-            for v in values
-        ]
+    values = [
+        (v / base) * 100
+        for v in values
+    ]
 
     plt.plot(
         dates,
         values,
-        label="KRIPTO",
-        linewidth=3,
-        linestyle=":"
+        label=asset,
+        linewidth=2
     )
 
     portfolio = (
@@ -138,13 +135,14 @@ def create_portfolio_performance_chart(
             for v in values
         ]
 
-        plt.plot(
-            dates,
-            values,
-            label="KRIPTO",
-            linewidth=4,
-            linestyle="--"
-        )
+    plt.plot(
+        dates,
+        values,
+        label="PORTFOY",
+        linewidth=4,
+        linestyle="--",
+        color="black"
+    )
 
     plt.title(
         "30 Gunluk Performans"
