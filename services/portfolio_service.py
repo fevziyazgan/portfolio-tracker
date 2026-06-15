@@ -289,6 +289,7 @@ def build_report_data(
         fund_total_tl
         + crypto_total_tl
         + gold_total_tl
+        + cash_amount
     )
     profit_tl = (
         total_value_tl
@@ -299,6 +300,25 @@ def build_report_data(
         datetime.now().strftime(
             "%d.%m.%Y"
         ),
+        "cash": {
+            "amount": round(
+                cash_amount,
+                2
+            ),
+            "interest_rate": interest_rate,
+            "daily_interest": round(
+                daily_interest,
+                2
+            ),
+            "monthly_interest": round(
+                monthly_interest,
+                2
+            ),
+            "yearly_interest": round(
+                yearly_interest,
+                2
+            )
+        },
         "summary": {
             "total_value_tl":
             round(
