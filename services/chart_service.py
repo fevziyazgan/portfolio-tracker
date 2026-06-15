@@ -65,14 +65,12 @@ def create_portfolio_performance_chart(
         figsize=(14, 7)
     )
 
-    assets = [
-        "IPV",
-        "PHE",
-        "TMV",
-        "TLY",
-        "GOLD",
-        "CASH"
-    ]
+    from services.analytics_service import (
+    get_portfolio_history,
+    get_asset_history,
+    get_all_assets
+    )
+    assets = get_all_assets()
 
     for asset in assets:
 
