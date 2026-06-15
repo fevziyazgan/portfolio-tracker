@@ -42,6 +42,35 @@ def load_users():
 def build_report_data(
     user
 ):
+    cash_info = user.get(
+    "cash",
+    {}
+    )
+    
+    cash_amount = cash_info.get(
+        "amount",
+        0
+    )
+    
+    interest_rate = cash_info.get(
+        "interest_rate",
+        0
+    )
+    
+    daily_interest = (
+        cash_amount
+        * (interest_rate / 100)
+        / 365
+    )
+    
+    monthly_interest = (
+        daily_interest * 30
+    )
+    
+    yearly_interest = (
+        cash_amount
+        * (interest_rate / 100)
+    )
     usdtry = (
         get_price(
             "USDTRY=X"
