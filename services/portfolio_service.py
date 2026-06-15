@@ -310,24 +310,25 @@ def build_report_data(
             "grams": gold_grams,
             "cost": gold_cost,
             "price": gold_price,
+            "value": round(gold_total_tl, 2),
+            "cost_value": round(gold_cost_total, 2),
+            "profit": round(gold_profit, 2),
         
-            "value": round(
-                gold_total_tl,
-                2
+            "daily_pct": get_asset_daily_change(
+                "GOLD"
             ),
         
-            "cost_value": round(
-                gold_cost_total,
-                2
+            "monthly_pct": get_asset_monthly_change(
+                "GOLD"
             ),
         
-            "profit": round(
-                gold_profit,
+            "portfolio_pct": round(
+                (
+                    gold_total_tl
+                    / total_value_tl
+                ) * 100,
                 2
-            ),
-        
-            "daily_pct": gold_daily_pct,
-            "monthly_pct": gold_monthly_pct
+            ) if total_value_tl else 0
         },
         "performance": {
         
