@@ -13,51 +13,62 @@
       "provider": "tefas"
     }
   },
-
   "crypto": {
     "BTC": {
       "provider": "yahoo",
       "ticker": "BTC-USD"
     },
-
     "ETH": {
       "provider": "yahoo",
       "ticker": "ETH-USD"
     },
-
     "XRP": {
       "provider": "yahoo",
       "ticker": "XRP-USD"
     },
-
     "LUNC": {
       "provider": "yahoo",
       "ticker": "LUNC-USD"
     },
-
     "AGIX": {
       "provider": "yahoo",
       "ticker": "AGIX-USD"
     },
-
     "SHIB": {
       "provider": "yahoo",
       "ticker": "SHIB-USD"
     },
-
     "TRX": {
       "provider": "yahoo",
       "ticker": "TRX-USD"
     },
-
     "FTT": {
       "provider": "yahoo",
       "ticker": "FTT-USD"
     },
-
     "MBOX": {
       "provider": "yahoo",
       "ticker": "MBOX-USD"
+    },
+    "DOGE": {
+      "provider": "yahoo",
+      "ticker": "DOGE-USD"
+    },
+    "ARB": {
+      "provider": "yahoo",
+      "ticker": "ARB-USD"
+    },
+    "BNB": {
+      "provider": "yahoo",
+      "ticker": "BNB-USD"
+    },
+    "USDT": {
+      "provider": "yahoo",
+      "ticker": "USDT-USD"
+    },
+    "AVAX": {
+      "provider": "yahoo",
+      "ticker": "AVAX-USD"
     }
   }
 }
