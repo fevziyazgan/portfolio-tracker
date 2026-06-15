@@ -17,7 +17,7 @@
       "cash_interest": {
         "amount": 500000,
         "rate": 48,
-        "rate_period": "yearly",
+        "rate_period": "daily",
         "tax_rate": 15,
         "bank": "Enpara",
         "start_date": "2026-06-01"
