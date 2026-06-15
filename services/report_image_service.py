@@ -647,7 +647,7 @@ def create_report_image(
         
         draw.text(
             (790, y),
-            f"{crypto['portfolio_pct']:.2f}",
+            f"{crypto['portfolio_pct']:.2f}%",
             fill="#F97316",
             font=text_font
         )
