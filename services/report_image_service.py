@@ -502,7 +502,7 @@ def create_report_image(
     draw.text(
         (30, y),
         "MEVDUAT",
-        fill="black",
+        fill="red",
         font=section_font
     )
 
@@ -518,35 +518,35 @@ def create_report_image(
     y += 20
     
     draw.text(
-        (50, y + 55),
+        (50, y ),
         cash["bank"],
         fill="black",
         font=get_font(26)
     )
     
     draw.text(
-        (180, y + 55),
+        (180, y ),
         f"{cash['current_value']:,.0f} TL",
         fill="black",
         font=get_font(26)
     )
     
     draw.text(
-        (450, y + 55),
+        (450, y ),
         f"+{cash['daily_interest']:,.0f} TL",
         fill="#10B981",
         font=get_font(26)
     )
     
     draw.text(
-        (620, y + 55),
+        (620, y ),
         f"+{cash['monthly_interest']:,.0f} TL",
         fill="#10B981",
         font=get_font(26)
     )
     
     draw.text(
-        (790, y + 55),
+        (790, y ),
         f"%{cash['portfolio_pct']:.2f}",
         fill="#10B981",
         font=get_font(26)
@@ -561,7 +561,7 @@ def create_report_image(
             y
         ),
         "ALTIN",
-        fill="black",
+        fill="red",
         font=section_font
     )
 
@@ -623,7 +623,7 @@ def create_report_image(
             y
         ),
         "FON PORTFOYU",
-        fill="black",
+        fill="red",
         font=section_font
     )
 
@@ -683,7 +683,7 @@ def create_report_image(
             y
         ),
         "KRIPTO PORTFOYU",
-        fill="black",
+        fill="red",
         font=section_font
     )
 
@@ -754,7 +754,7 @@ def create_report_image(
             y
         ),
         "30 GUNLUK PERFORMANS",
-        fill="black",
+        fill="red",
         font=section_font
     )
     
