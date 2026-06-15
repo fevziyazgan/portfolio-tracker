@@ -116,7 +116,8 @@ def create_donut_chart(
     values = [
         summary["fund_total_tl"],
         summary["gold_total_tl"],
-        summary["crypto_total_tl"]
+        summary["crypto_total_tl"],
+        cash["amount"]
     ]
     
     labels = [
