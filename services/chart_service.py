@@ -70,48 +70,45 @@ def create_portfolio_performance_chart(
         "PHE",
         "TMV",
         "TLY",
-        "GOLD",
-        "CRYPTO"
+        "GOLD"
     ]
 
-for asset in assets:
+    for asset in assets:
 
-    history = get_asset_history(
-        asset,
-        30
-    )
-
-    if len(history) < 2:
-        continue
-
-    dates = [
-        row[0]
-        for row in history
-    ]
-
-    values = [
-        row[1]
-        for row in history
-    ]
-
-    base = values[0]
-
-    values = [
-        (v / base) * 100
-        for v in values
-    ]
-
-    plt.plot(
-        dates,
-        values,
-        label=asset,
-        linewidth=2
-    )
-
-    portfolio = (
-        get_portfolio_history(
+        history = get_asset_history(
+            asset,
             30
         )
+
+        if len(history) < 2:
+            continue
+
+        dates = [
+            row[0]
+            for row in history
+        ]
+
+        values = [
+            row[1]
+            for row in history
+        ]
+
+        base = values[0]
+
+        values = [
+            (v / base) * 100
+            for v in values
+        ]
+
+        plt.plot(
+            dates,
+            values,
+            label=asset,
+            linewidth=2
+        )
+
+    portfolio = get_portfolio_history(
+        30
     )
 
     if len(portfolio) > 1:
@@ -129,20 +126,18 @@ for asset in assets:
         base = values[0]
 
         values = [
-            (
-                v / base
-            ) * 100
+            (v / base) * 100
             for v in values
         ]
 
-    plt.plot(
-        dates,
-        values,
-        label="PORTFOY",
-        linewidth=4,
-        linestyle="--",
-        color="black"
-    )
+        plt.plot(
+            dates,
+            values,
+            label="PORTFOY",
+            linewidth=4,
+            linestyle="--",
+            color="black"
+        )
 
     plt.title(
         "30 Gunluk Performans"
@@ -151,22 +146,18 @@ for asset in assets:
     plt.legend()
 
     plt.xticks(
-    rotation=90,
-    fontsize=8
+        rotation=90,
+        fontsize=8
     )
-    
+
     plt.grid(
         alpha=0.25
     )
-    
+
     plt.ylabel(
-    "Performans (%)"
+        "Performans (%)"
     )
-    
-    plt.xlabel(
-        ""
-    )
-    
+
     plt.tight_layout()
 
     plt.savefig(
