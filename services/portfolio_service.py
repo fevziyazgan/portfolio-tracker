@@ -270,6 +270,7 @@ def build_report_data(
             cash_amount
             * cash_rate
             / 100
+            / 365
         )
     
     elif cash_period == "monthly":
@@ -278,7 +279,7 @@ def build_report_data(
             cash_amount
             * cash_rate
             / 100
-            / 30
+            / 365
         )
     
     else:
