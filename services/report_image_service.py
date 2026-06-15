@@ -583,7 +583,7 @@ def create_report_image(
             font=text_font
         )
     
-        y += 40
+        y += 80
 
     draw.text(
         (
