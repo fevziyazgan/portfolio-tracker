@@ -116,8 +116,7 @@ def create_donut_chart(
     values = [
         summary["fund_total_tl"],
         summary["gold_total_tl"],
-        summary["crypto_total_tl"],
-        cash["amount"]
+        summary["crypto_total_tl"]
     ]
     
     labels = [
@@ -472,7 +471,21 @@ def create_report_image(
     cash = report_data[
     "cash_interest"
     ]
+    
+    values = [
+    summary["fund_total_tl"],
+    summary["gold_total_tl"],
+    summary["crypto_total_tl"],
+    cash["amount"]
+    ]
 
+    colors = [
+    "#2563EB",  # Fon
+    "#EAB308",  # Altın
+    "#F97316",  # Kripto
+    "#10B981"   # Mevduat
+    ]
+    
     draw_card(
     draw,
     40,
