@@ -38,9 +38,11 @@ jobs:
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
-
+          
+          git pull --rebase origin main
+          
           git add data/portfolio.db
-
+          
           git diff --staged --quiet || git commit -m "portfolio history update"
-
+          
           git push
