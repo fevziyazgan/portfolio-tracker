@@ -3,17 +3,14 @@
     {
       "id": 1,
       "name": "Fevzi",
-
       "telegram": {
         "chat_id": "1968226108"
       },
-
       "gold": {
         "grams": 150,
         "cost": 0,
         "buy_date": ""
       },
-
       "cash_interest": {
         "amount": 500000,
         "rate": 48,
@@ -22,7 +19,6 @@
         "bank": "Enpara",
         "start_date": "2026-05-01"
       },
-
       "funds": [
         {
           "code": "IPV",
@@ -49,105 +45,104 @@
           "buy_date": ""
         }
       ],
-
-"crypto": [
-  {
-    "symbol": "XRP",
-    "quantity": 556.242,
-    "cost": 0,
-    "buy_date": ""
-  },
-  {
-    "symbol": "LUNC",
-    "quantity": 1409159.3255,
-    "cost": 0,
-    "buy_date": ""
-  },
-  {
-    "symbol": "AGIX",
-    "quantity": 970.701,
-    "cost": 0,
-    "buy_date": ""
-  },
-  {
-    "symbol": "SHIB",
-    "quantity": 12440759.13,
-    "cost": 0,
-    "buy_date": ""
-  },
-  {
-    "symbol": "TRX",
-    "quantity": 157.3261,
-    "cost": 0,
-    "buy_date": ""
-  },
-  {
-    "symbol": "FTT",
-    "quantity": 22.1665,
-    "cost": 0,
-    "buy_date": ""
-  },
-  {
-    "symbol": "MBOX",
-    "quantity": 92.9106,
-    "cost": 0,
-    "buy_date": ""
-  },
-  {
-    "symbol": "SUNDOG",
-    "quantity": 13.4093,
-    "cost": 0,
-    "buy_date": ""
-  },
-  {
-    "symbol": "DOGE",
-    "quantity": 4289.556,
-    "cost": 4.836,
-    "buy_date": ""
-  },
-  {
-    "symbol": "ARB",
-    "quantity": 50.2497,
-    "cost": 57.93,
-    "buy_date": ""
-  },
-  {
-    "symbol": "BNB",
-    "quantity": 0.0009985,
-    "cost": 24738.61,
-    "buy_date": ""
-  },
-  {
-    "symbol": "USDT",
-    "quantity": 0.2875,
-    "cost": 46.23,
-    "buy_date": ""
-  },
-  {
-    "symbol": "AVAX",
-    "quantity": 0.002,
-    "cost": 951.61,
-    "buy_date": ""
-  },
-  {
-    "symbol": "POLIS",
-    "quantity": 3149.69741,
-    "cost": 0,
-    "buy_date": ""
-  },
-  {
-    "symbol": "SOL",
-    "quantity": 0.08759,
-    "cost": 0,
-    "buy_date": ""
-  },
-  {
-    "symbol": "MELANIA",
-    "quantity": 52.68027,
-    "cost": 0,
-    "buy_date": ""
-  }
-]
+      "crypto": [
+        {
+          "symbol": "XRP",
+          "quantity": 556.242,
+          "cost": 0,
+          "buy_date": ""
+        },
+        {
+          "symbol": "LUNC",
+          "quantity": 1409159.3255,
+          "cost": 0,
+          "buy_date": ""
+        },
+        {
+          "symbol": "AGIX",
+          "quantity": 970.701,
+          "cost": 0,
+          "buy_date": ""
+        },
+        {
+          "symbol": "SHIB",
+          "quantity": 12440759.13,
+          "cost": 0,
+          "buy_date": ""
+        },
+        {
+          "symbol": "TRX",
+          "quantity": 157.3261,
+          "cost": 0,
+          "buy_date": ""
+        },
+        {
+          "symbol": "FTT",
+          "quantity": 22.1665,
+          "cost": 0,
+          "buy_date": ""
+        },
+        {
+          "symbol": "MBOX",
+          "quantity": 92.9106,
+          "cost": 0,
+          "buy_date": ""
+        },
+        {
+          "symbol": "SUNDOG",
+          "quantity": 13.4093,
+          "cost": 0,
+          "buy_date": ""
+        },
+        {
+          "symbol": "DOGE",
+          "quantity": 4289.556,
+          "cost": 4.836,
+          "buy_date": ""
+        },
+        {
+          "symbol": "ARB",
+          "quantity": 50.2497,
+          "cost": 57.93,
+          "buy_date": ""
+        },
+        {
+          "symbol": "BNB",
+          "quantity": 0.0009985,
+          "cost": 24738.61,
+          "buy_date": ""
+        },
+        {
+          "symbol": "USDT",
+          "quantity": 0.2875,
+          "cost": 46.23,
+          "buy_date": ""
+        },
+        {
+          "symbol": "AVAX",
+          "quantity": 0.002,
+          "cost": 951.61,
+          "buy_date": ""
+        },
+        {
+          "symbol": "POLIS",
+          "quantity": 3149.69741,
+          "cost": 0,
+          "buy_date": ""
+        },
+        {
+          "symbol": "SOL",
+          "quantity": 0.08759,
+          "cost": 0,
+          "buy_date": ""
+        },
+        {
+          "symbol": "MELANIA",
+          "quantity": 52.68027,
+          "cost": 0,
+          "buy_date": ""
+        }
+      ]
     }
   ]
 }
