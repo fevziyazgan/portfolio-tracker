@@ -47,16 +47,6 @@ def get_fund_price(
             )
             response.raise_for_status()
             data = response.json()
-            print(
-                f"\n===== {fund_code} ====="
-            )
-            print(
-                json.dumps(
-                    data,
-                    ensure_ascii=False,
-                    indent=2
-                )
-            )
             result_list = data.get(
                 "resultList",
                 []
