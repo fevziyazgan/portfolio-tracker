@@ -473,7 +473,7 @@ def create_report_image(
     
     draw.text(
     (legend_x, legend_y),
-    f"■ Mevduat\n{cash["amount"]:,.0f} TL (%{deposit_pct:.1f})",
+    f"■ Mevduat\n{cash['amount']:,.0f} TL (%{deposit_pct:.1f})",
     fill="#10B981",
     font=get_font(24)
     )
