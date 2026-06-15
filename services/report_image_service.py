@@ -113,6 +113,10 @@ def create_donut_chart(
         "summary"
     ]
 
+    cash = report_data[
+        "cash_interest"
+    ]
+
     values = [
         summary["fund_total_tl"],
         summary["gold_total_tl"],
