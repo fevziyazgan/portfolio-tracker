@@ -395,8 +395,8 @@ def build_report_data(
             ) * 100,
             2
         ) if fund_total_tl else 0
-        
-        total_cost = 0
+    
+    total_cost = 0
     for fund in funds:
         total_cost += fund[
             "cost_value"
@@ -409,6 +409,9 @@ def build_report_data(
         )
     total_cost += (
         gold_cost_total
+    )
+    total_cost += (
+        cash_amount
     )
     total_value_tl = (
         fund_total_tl
@@ -596,4 +599,3 @@ def run_portfolios():
             user["telegram"]["chat_id"],
             image_file
         )
-        
