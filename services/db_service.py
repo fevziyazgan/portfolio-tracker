@@ -145,7 +145,7 @@ def save_daily_snapshot(report_data):
     for fund in report_data["funds"]:
         cur.execute(
             """
-            INSERT INTO asset_history (
+            INSERT OR REPLACE INTO asset_history (
                 date,
                 asset_code,
                 asset_type,
@@ -171,7 +171,7 @@ def save_daily_snapshot(report_data):
     for crypto in report_data["cryptos"]:
         cur.execute(
             """
-            INSERT INTO asset_history (
+            INSERT OR REPLACE INTO asset_history (
                 date,
                 asset_code,
                 asset_type,
@@ -197,7 +197,7 @@ def save_daily_snapshot(report_data):
     gold = report_data["gold"]
     cur.execute(
         """
-        INSERT INTO asset_history (
+        INSERT OR REPLACE INTO asset_history (
             date,
             asset_code,
             asset_type,
@@ -225,7 +225,7 @@ def save_daily_snapshot(report_data):
 
     cur.execute(
         """
-        INSERT INTO asset_history (
+        INSERT OR REPLACE INTO asset_history (
             date,
             asset_code,
             asset_type,
