@@ -309,37 +309,7 @@ def build_report_data(
         * 365
     )
     
-    accrued_interest = 0
-    
-    if cash_start_date:
-    
-        try:
-    
-            days_passed = (
-                datetime.now().date()
-                -
-                datetime.strptime(
-                    cash_start_date,
-                    "%Y-%m-%d"
-                ).date()
-            ).days
-    
-            accrued_interest = (
-                daily_interest_net
-                * max(
-                    0,
-                    days_passed
-                )
-            )
-    
-        except Exception:
-    
-            pass
-    
-    current_value = (
-        cash_amount
-        + accrued_interest
-    )
+--
     
     for fund in funds:
 
