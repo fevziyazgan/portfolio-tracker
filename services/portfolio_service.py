@@ -309,82 +309,82 @@ def build_report_data(
         * 365
     )
     
-accrued_interest = 0
-current_value = cash_amount
-
-if cash_start_date:
-
-    try:
-
-        days_passed = (
-            datetime.now().date()
-            -
-            datetime.strptime(
-                cash_start_date,
-                "%Y-%m-%d"
-            ).date()
-        ).days
-
-        days_passed = max(
-            0,
-            days_passed
-        )
-
-        net_rate = (
-            cash_rate
-            * (
-                1
-                - cash_tax / 100
+    accrued_interest = 0
+    current_value = cash_amount
+    
+    if cash_start_date:
+    
+        try:
+    
+            days_passed = (
+                datetime.now().date()
+                -
+                datetime.strptime(
+                    cash_start_date,
+                    "%Y-%m-%d"
+                ).date()
+            ).days
+    
+            days_passed = max(
+                0,
+                days_passed
             )
-            / 100
-        )
-
-        if cash_period == "daily":
-
-            current_value = (
-                cash_amount
+    
+            net_rate = (
+                cash_rate
                 * (
                     1
-                    + net_rate / 365
-                ) ** days_passed
+                    - cash_tax / 100
+                )
+                / 100
             )
-
-        elif cash_period == "monthly":
-
-            months_passed = (
-                days_passed // 30
+    
+            if cash_period == "daily":
+    
+                current_value = (
+                    cash_amount
+                    * (
+                        1
+                        + net_rate / 365
+                    ) ** days_passed
+                )
+    
+            elif cash_period == "monthly":
+    
+                months_passed = (
+                    days_passed // 30
+                )
+    
+                current_value = (
+                    cash_amount
+                    * (
+                        1
+                        + net_rate / 12
+                    ) ** months_passed
+                )
+    
+            else:
+    
+                years_passed = (
+                    days_passed / 365
+                )
+    
+                current_value = (
+                    cash_amount
+                    * (
+                        1
+                        + net_rate
+                    ) ** years_passed
+                )
+    
+            accrued_interest = (
+                current_value
+                - cash_amount
             )
-
-            current_value = (
-                cash_amount
-                * (
-                    1
-                    + net_rate / 12
-                ) ** months_passed
-            )
-
-        else:
-
-            years_passed = (
-                days_passed / 365
-            )
-
-            current_value = (
-                cash_amount
-                * (
-                    1
-                    + net_rate
-                ) ** years_passed
-            )
-
-        accrued_interest = (
-            current_value
-            - cash_amount
-        )
-
-    except Exception:
-
-        pass
+    
+        except Exception:
+    
+            pass
     
     for fund in funds:
 
