@@ -70,6 +70,83 @@ def get_connection():
     return sqlite3.connect(
         DB_FILE
     )
+
+def migrate_asset_history_unique_constraint():
+    """
+    Migration: Add UNIQUE(date, asset_code) constraint to asset_history table.
+    Preserves existing data and keeps the latest record for duplicate date/asset_code pairs.
+    """
+    conn = get_connection()
+    cur = conn.cursor()
+    
+    try:
+        # Check if the table exists and if it has the UNIQUE constraint
+        cur.execute(
+            "PRAGMA table_info(asset_history)"
+        )
+        columns = cur.fetchall()
+        
+        # Check if migration is needed by trying to insert a duplicate
+        cur.execute(
+            """
+            SELECT sql FROM sqlite_master 
+            WHERE type='table' AND name='asset_history'
+            """
+        )
+        table_sql = cur.fetchone()
+        
+        if table_sql and "UNIQUE" not in table_sql[0]:
+            # Migration needed: Create new table with UNIQUE constraint
+            cur.execute(
+                """
+                CREATE TABLE asset_history_new (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    date TEXT,
+                    asset_code TEXT,
+                    asset_type TEXT,
+                    quantity REAL,
+                    cost REAL,
+                    price REAL,
+                    value REAL,
+                    profit REAL,
+                    UNIQUE(date, asset_code)
+                )
+                """
+            )
+            
+            # Copy data, keeping only the latest record for each date/asset_code pair
+            cur.execute(
+                """
+                INSERT INTO asset_history_new (
+                    date, asset_code, asset_type, quantity, cost, price, value, profit
+                )
+                SELECT 
+                    date, asset_code, asset_type, quantity, cost, price, value, profit
+                FROM asset_history a
+                WHERE id = (
+                    SELECT MAX(id) FROM asset_history 
+                    WHERE date = a.date AND asset_code = a.asset_code
+                )
+                ORDER BY id ASC
+                """
+            )
+            
+            # Drop old table
+            cur.execute("DROP TABLE asset_history")
+            
+            # Rename new table
+            cur.execute("ALTER TABLE asset_history_new RENAME TO asset_history")
+            
+            conn.commit()
+            print("Migration completed: UNIQUE(date, asset_code) constraint added to asset_history")
+        else:
+            print("Migration not needed: UNIQUE constraint already exists")
+            
+    except Exception as e:
+        print(f"Migration error: {e}")
+    finally:
+        conn.close()
+
 def init_db():
     conn = get_connection()
     cur = conn.cursor()
@@ -97,7 +174,8 @@ def init_db():
             cost REAL,
             price REAL,
             value REAL,
-            profit REAL
+            profit REAL,
+            UNIQUE(date, asset_code)
         )
         """
     )
@@ -114,6 +192,10 @@ def init_db():
     )
     conn.commit()
     conn.close()
+    
+    # Run migration if needed
+    migrate_asset_history_unique_constraint()
+
 def save_daily_snapshot(report_data):
     conn = get_connection()
     cur = conn.cursor()
@@ -398,5 +480,3 @@ def get_history(
     conn.close()
 
     return rows
-
-    
