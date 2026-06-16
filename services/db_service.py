@@ -398,5 +398,5 @@ def get_history(
     return rows
 
     
-    conn.commit()
-    conn.close()
+conn.commit()
+conn.close()
