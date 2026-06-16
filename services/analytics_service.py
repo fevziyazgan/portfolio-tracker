@@ -25,7 +25,6 @@ def get_all_assets():
     ]
     
 
-
 def get_daily_change():
 
     conn = get_connection()
@@ -156,6 +155,17 @@ def get_asset_history(
     asset_code,
     days=30
 ):
+    """
+    Get asset history for the specified asset code.
+    
+    If multiple records exist for the same date (from multiple daily reports),
+    returns only the latest record for each date (MAX id).
+    
+    This ensures:
+    - Consistent performance calculations
+    - Latest price is always used
+    - Temporary pricing errors (like AGIX) don't affect calculations
+    """
 
     conn = get_connection()
     cur = conn.cursor()
@@ -377,4 +387,3 @@ def get_worst_asset():
             }
 
     return worst
-
