@@ -269,7 +269,9 @@ def save_daily_snapshot(report_data):
             market["gram_gold"]
         )
     )
-
+    conn.commit()
+    conn.close()
+    
 def get_daily_change():
 
     conn = get_connection()
@@ -398,5 +400,3 @@ def get_history(
     return rows
 
     
-conn.commit()
-conn.close()
