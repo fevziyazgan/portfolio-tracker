@@ -193,9 +193,15 @@ def get_asset_history(
         SELECT
             date,
             value
-        FROM asset_history
+        FROM asset_history a
         WHERE asset_code = ?
-        ORDER BY date ASC
+        AND id = (
+            SELECT MAX(id)
+            FROM asset_history
+            WHERE asset_code = a.asset_code
+            AND date = a.date
+        )
+        ORDER BY id ASC
         LIMIT ?
         """,
         (
@@ -209,7 +215,6 @@ def get_asset_history(
     conn.close()
 
     return rows
-
 
 def get_asset_return(
     asset_code
