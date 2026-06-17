@@ -40,6 +40,7 @@ def create_donut_chart(
         labels=labels,
         colors=colors,
         startangle=90,
+        autopct='%1.0f%%',
         wedgeprops={
             "width": 0.45
         }
