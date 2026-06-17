@@ -4,11 +4,13 @@ from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
 from services.chart_service import (
-    create_portfolio_performance_chart
+    create_portfolio_performance_chart,
+    create_allocation_breakdown_chart,
+    create_crypto_performance_chart
 )
 
 WIDTH = 1800
-HEIGHT = 3200
+HEIGHT = 5200
 
 
 def get_font(size):
@@ -183,6 +185,12 @@ def create_report_image(
     )
     
     create_portfolio_performance_chart()
+    
+    create_allocation_breakdown_chart(
+        report_data
+    )
+    
+    create_crypto_performance_chart()
     
     image = Image.new(
         "RGB",
@@ -396,7 +404,7 @@ def create_report_image(
     "MEVDUAT",
     f"{cash['current_value']:,.0f} TL",
     "#10B981",
-    f"%{cash['portfolio_pct']:.2f}",
+    f"%{cash_pct:.2f}",
     "icons/wallet.png"
     )
     
@@ -481,7 +489,7 @@ def create_report_image(
     
     draw.text(
     (legend_x, legend_y),
-    f"■ Mevduat\n{cash['current_value']:,.0f} TL\n({cash['portfolio_pct']:.1f}%)",
+    f"■ Mevduat\n{cash['current_value']:,.0f} TL\n({cash_pct:.1f}%)",
     fill="#10B981",
     font=get_font(24)
     )
@@ -516,51 +524,51 @@ def create_report_image(
 
     y += 45
     
-    draw.text((50, y), "BANKA", fill="black", font=get_font(24))
-    draw.text((180, y), "DEGER", fill="black", font=get_font(24))
-    draw.text((450, y), "GUNLUK", fill="black", font=get_font(24))
-    draw.text((620, y), "AYLIK", fill="black", font=get_font(24))
-    draw.text((790, y), "PORTFÖY %", fill="black", font=get_font(24))
-    y += 40
-    draw.line((50, y, 1000, y), fill="#CCCCCC", width=2)
-    y += 20
+    draw.text((50, y), "BANKA", fill="black", font=get_font(20))
+    draw.text((150, y), "DEGER", fill="black", font=get_font(20))
+    draw.text((350, y), "GUNLUK", fill="black", font=get_font(20))
+    draw.text((500, y), "AYLIK", fill="black", font=get_font(20))
+    draw.text((650, y), "PORTFÖY %", fill="black", font=get_font(20))
+    y += 35
+    draw.line((50, y, 900, y), fill="#CCCCCC", width=2)
+    y += 15
     
     draw.text(
         (50, y ),
         cash["bank"],
         fill="black",
-        font=get_font(26)
+        font=get_font(22)
     )
     
     draw.text(
-        (180, y ),
+        (150, y ),
         f"{cash['current_value']:,.0f} TL",
         fill="black",
-        font=get_font(26)
+        font=get_font(22)
     )
     
     draw.text(
-        (450, y ),
+        (350, y ),
         f"+{cash['daily_interest']:,.0f} TL",
         fill="#10B981",
-        font=get_font(26)
+        font=get_font(22)
     )
     
     draw.text(
-        (620, y ),
+        (500, y ),
         f"+{cash['monthly_interest']:,.0f} TL",
         fill="#10B981",
-        font=get_font(26)
+        font=get_font(22)
     )
     
     draw.text(
-        (790, y ),
+        (650, y ),
         f"%{cash['portfolio_pct']:.2f}",
         fill="#10B981",
-        font=get_font(26)
+        font=get_font(22)
     )
     
-    y += 80
+    y += 60
 
     
     draw.text(
@@ -574,15 +582,15 @@ def create_report_image(
     )
 
     y += 45
-    draw.text((50, y), "KOD", fill="black", font=get_font(24))
-    draw.text((180, y), "DEGER", fill="black", font=get_font(24))
-    draw.text((450, y), "GUNLUK", fill="black", font=get_font(24))
-    draw.text((620, y), "30 GUN", fill="black", font=get_font(24))
-    draw.text((790, y), "PORTFÖY %", fill="black", font=get_font(24))
+    draw.text((50, y), "KOD", fill="black", font=get_font(20))
+    draw.text((150, y), "DEGER", fill="black", font=get_font(20))
+    draw.text((350, y), "GUNLUK", fill="black", font=get_font(20))
+    draw.text((500, y), "30 GUN", fill="black", font=get_font(20))
+    draw.text((650, y), "PORTFÖY %", fill="black", font=get_font(20))
     
-    y += 40
-    draw.line((50, y, 1000, y), fill="#CCCCCC", width=2)
-    y += 20
+    y += 35
+    draw.line((50, y, 900, y), fill="#CCCCCC", width=2)
+    y += 15
     
     gold = report_data[
         "gold"
@@ -592,38 +600,38 @@ def create_report_image(
         (50, y),
         "GOLD",
         fill="black",
-        font=text_font
+        font=get_font(22)
     )
     
     draw.text(
-        (180, y),
+        (150, y),
         f"{gold['value']:,.0f} TL",
         fill="black",
-        font=text_font
+        font=get_font(22)
     )
     
     draw.text(
-        (450, y),
+        (350, y),
         f"{gold['daily_pct']:.2f}%",
         fill="#16A34A" if gold["daily_pct"] >= 0 else "#DC2626",
-        font=text_font
+        font=get_font(22)
     )
     
     draw.text(
-        (620, y),
+        (500, y),
         f"{gold['monthly_pct']:.2f}%",
         fill="#16A34A" if gold["monthly_pct"] >= 0 else "#DC2626",
-        font=text_font
+        font=get_font(22)
     )
     
     draw.text(
-        (790, y),
+        (650, y),
         f"{gold['portfolio_pct']:.2f}%",
         fill="#EAB308",
-        font=text_font
+        font=get_font(22)
     )
 
-    y += 80
+    y += 60
 
     draw.text(
         (
@@ -637,53 +645,53 @@ def create_report_image(
 
     y += 50
 
-    draw.text((50, y), "KOD", fill="black", font=get_font(24))
-    draw.text((180, y), "DEGER", fill="black", font=get_font(24))
-    draw.text((450, y), "GUNLUK", fill="black", font=get_font(24))
-    draw.text((620, y), "30 GUN", fill="black", font=get_font(24))
-    draw.text((790, y), "PORTFÖY %", fill="black", font=get_font(24))
+    draw.text((50, y), "KOD", fill="black", font=get_font(20))
+    draw.text((150, y), "DEGER", fill="black", font=get_font(20))
+    draw.text((350, y), "GUNLUK", fill="black", font=get_font(20))
+    draw.text((500, y), "30 GUN", fill="black", font=get_font(20))
+    draw.text((650, y), "PORTFÖY %", fill="black", font=get_font(20))
     
-    y += 40
-    draw.line((50, y, 1000, y), fill="#CCCCCC", width=2)
-    y += 20
+    y += 35
+    draw.line((50, y, 900, y), fill="#CCCCCC", width=2)
+    y += 15
     for fund in report_data["funds"]:
     
         draw.text(
             (50, y),
             fund["code"],
             fill="black",
-            font=text_font
+            font=get_font(20)
         )
     
         draw.text(
-            (180, y),
+            (150, y),
             f"{fund['value']:,.0f} TL",
             fill="black",
-            font=text_font
+            font=get_font(20)
         )
     
         draw.text(
-            (450, y),
+            (350, y),
             f"{fund['daily_pct']:.2f}%",
             fill="#16A34A" if fund["daily_pct"] >= 0 else "#DC2626",
-            font=text_font
+            font=get_font(20)
         )
     
         draw.text(
-            (620, y),
+            (500, y),
             f"{fund['monthly_pct']:.2f}%",
             fill="#16A34A" if fund["monthly_pct"] >= 0 else "#DC2626",
-            font=text_font
+            font=get_font(20)
         )
     
         draw.text(
-            (790, y),
+            (650, y),
             f"{fund['portfolio_pct']:.2f}%",
             fill="#2563EB",
-            font=text_font
+            font=get_font(20)
         )
     
-        y += 80
+        y += 60
 
     draw.text(
         (
@@ -697,15 +705,15 @@ def create_report_image(
 
     y += 50
 
-    draw.text((50, y), "KOD", fill="black", font=get_font(24))
-    draw.text((180, y), "DEGER", fill="black", font=get_font(24))
-    draw.text((450, y), "GUNLUK", fill="black", font=get_font(24))
-    draw.text((620, y), "30 GUN", fill="black", font=get_font(24))
-    draw.text((790, y), "PORTFÖY %", fill="black", font=get_font(24))
+    draw.text((50, y), "KOD", fill="black", font=get_font(20))
+    draw.text((150, y), "DEGER", fill="black", font=get_font(20))
+    draw.text((350, y), "GUNLUK", fill="black", font=get_font(20))
+    draw.text((500, y), "30 GUN", fill="black", font=get_font(20))
+    draw.text((650, y), "PORTFÖY %", fill="black", font=get_font(20))
     
-    y += 40
-    draw.line((50, y, 1000, y), fill="#CCCCCC", width=2)
-    y += 20
+    y += 35
+    draw.line((50, y, 900, y), fill="#CCCCCC", width=2)
+    y += 15
 
     for crypto in report_data[
         "cryptos"
@@ -718,76 +726,129 @@ def create_report_image(
             ),
             crypto["symbol"],
             fill="black",
-            font=text_font
+            font=get_font(20)
         )
 
         draw.text(
             (
-                180,
+                150,
                 y
             ),
             f"{crypto['value_tl']:,.0f} TL",
             fill="black",
-            font=text_font
+            font=get_font(20)
         )
 
         draw.text(
-        (450, y),
+        (350, y),
         f"{crypto['daily_pct']:.2f}%",
         fill="#16A34A" if crypto["daily_pct"] >= 0 else "#DC2626",
-        font=text_font
+        font=get_font(20)
         )
         
         draw.text(
-            (620, y),
+            (500, y),
             f"{crypto['monthly_pct']:.2f}%",
             fill="#16A34A" if crypto["monthly_pct"] >= 0 else "#DC2626",
-            font=text_font
+            font=get_font(20)
         )
         
         draw.text(
-            (790, y),
+            (650, y),
             f"{crypto['portfolio_pct']:.2f}%",
             fill="#F97316",
-            font=text_font
+            font=get_font(20)
         )
         
-        y += 35
+        y += 30
         
-    y += 80
+    y += 60
 
     draw.text(
         (
             30,
             y
         ),
-        "30 GUNLUK PERFORMANS",
+        "PERFORMANS GRAFIKLERI",
         fill="red",
         font=section_font
     )
     
     y += 50
     
-    chart = Image.open(
-        "performance_chart.png"
+    # Üst grafik - Portföy Dağılımı
+    draw.text(
+        (
+            30,
+            y
+        ),
+        "PORTFÖY DAĞILIMI",
+        fill="#333333",
+        font=get_font(28)
     )
     
-    chart = chart.resize(
+    y += 40
+    
+    allocation_chart = Image.open(
+        "allocation_breakdown_chart.png"
+    ).convert(
+        "RGBA"
+    )
+
+    allocation_chart = allocation_chart.resize(
         (
             1650,
-            800
+            750
         )
     )
-    
+
     image.paste(
-        chart,
+        allocation_chart,
         (
             40,
             y
-        )
+        ),
+        allocation_chart
     )
     
-    y += 850
+    y += 800
+    
+    # Alt grafik - Kriptolar tek tek
+    draw.text(
+        (
+            30,
+            y
+        ),
+        "KRİPTO PERFORMANSI",
+        fill="#333333",
+        font=get_font(28)
+    )
+
+    y += 40
+    
+    crypto_chart = Image.open(
+        "crypto_performance_chart.png"
+    ).convert(
+        "RGBA"
+    )
+
+    crypto_chart = crypto_chart.resize(
+        (
+            1650,
+            750
+        )
+    )
+
+    image.paste(
+        crypto_chart,
+        (
+            40,
+            y
+        ),
+        crypto_chart
+    )
+    
+    y += 800
     
     image.save(
         output_file
