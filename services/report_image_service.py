@@ -748,38 +748,7 @@ def create_report_image(
         
     y += 80
 
-    draw.text(
-        (
-            30,
-            y
-        ),
-        "30 GUNLUK PERFORMANS",
-        fill="red",
-        font=section_font
-    )
-    
-    y += 50
-    
-    chart = Image.open(
-        "performance_chart.png"
-    )
-    
-    chart = chart.resize(
-        (
-            1650,
-            800
-        )
-    )
-    
-    image.paste(
-        chart,
-        (
-            40,
-            y
-        )
-    )
-    
-    y += 430
+
     
     image.save(
         output_file
