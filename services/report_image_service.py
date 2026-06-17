@@ -139,18 +139,25 @@ def create_donut_chart(
     ]
 
     fig, ax = plt.subplots(
-        figsize=(4, 4)
+        figsize=(8, 8)
     )
 
-    ax.pie(
+    wedges, texts, autotexts = ax.pie(
         values,
         labels=labels,
         colors=colors,
         startangle=90,
         wedgeprops={
             "width": 0.35
-        }
+        },
+        autopct='%1.1f%%',
+        textprops={'fontsize': 10}
     )
+    
+    # Yüzde metinlerini beyaza boya
+    for autotext in autotexts:
+        autotext.set_color('white')
+        autotext.set_fontweight('bold')
 
     ax.set_aspect(
         "equal"
@@ -159,7 +166,8 @@ def create_donut_chart(
     plt.savefig(
         "donut_chart.png",
         transparent=True,
-        bbox_inches="tight"
+        bbox_inches="tight",
+        dpi=150
     )
 
     plt.close()
