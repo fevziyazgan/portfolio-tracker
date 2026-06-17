@@ -58,8 +58,81 @@ def create_donut_chart(
 
     plt.close()
 
-def create_portfolio_performance_chart(
-    output_file="performance_chart.png"
+def create_main_assets_performance_chart(
+    output_file="main_assets_performance_chart.png"
+):
+
+    plt.figure(
+        figsize=(14, 7)
+    )
+
+    portfolio = get_portfolio_history(
+        30
+    )
+
+    if len(portfolio) > 1:
+
+        dates = [
+            row[0]
+            for row in portfolio
+        ]
+
+        values = [
+            row[1]
+            for row in portfolio
+        ]
+
+        base = values[0]
+
+        values = [
+            (v / base) * 100
+            for v in values
+        ]
+
+        plt.plot(
+            dates,
+            values,
+            label="PORTFÖY",
+            linewidth=4,
+            color="black"
+        )
+
+    plt.title(
+        "30 Günlük Performans - Mevduat, Altın, Fonlar"
+    )
+
+    plt.legend(
+        loc='upper left',
+        fontsize=10,
+        framealpha=0.9
+    )
+
+    plt.xticks(
+        rotation=90,
+        fontsize=8
+    )
+
+    plt.grid(
+        alpha=0.25
+    )
+
+    plt.ylabel(
+        "Performans (%)"
+    )
+
+    plt.tight_layout()
+
+    plt.savefig(
+        output_file,
+        dpi=200,
+        bbox_inches="tight"
+    )
+
+    plt.close()
+
+
+def create_crypto_performance_chart(
+    output_file="crypto_performance_chart.png"
 ):
 
     plt.figure(
@@ -67,13 +140,20 @@ def create_portfolio_performance_chart(
     )
 
     from services.analytics_service import (
-    get_portfolio_history,
-    get_asset_history,
-    get_all_assets
+        get_all_assets
     )
+    
     assets = get_all_assets()
+    
+    # Filter only crypto assets (you can add more crypto identifiers if needed)
+    crypto_keywords = ['BTC', 'ETH', 'XRP', 'SOL', 'BNB', 'USDT', 'DOGE', 'ADA', 'AVAX', 'MATIC', 'AGIX', 'LINK', 'AAVE', 'SHIB']
+    
+    crypto_assets = [
+        asset for asset in assets
+        if any(crypto.lower() in asset.lower() for crypto in crypto_keywords)
+    ]
 
-    for asset in assets:
+    for asset in crypto_assets:
 
         history = get_asset_history(
             asset,
@@ -107,40 +187,8 @@ def create_portfolio_performance_chart(
             linewidth=2
         )
 
-    portfolio = get_portfolio_history(
-        30
-    )
-
-    if len(portfolio) > 1:
-
-        dates = [
-            row[0]
-            for row in portfolio
-        ]
-
-        values = [
-            row[1]
-            for row in portfolio
-        ]
-
-        base = values[0]
-
-        values = [
-            (v / base) * 100
-            for v in values
-        ]
-
-        plt.plot(
-            dates,
-            values,
-            label="PORTFOY",
-            linewidth=4,
-            linestyle="--",
-            color="black"
-        )
-
     plt.title(
-        "30 Gunluk Performans"
+        "30 Günlük Performans - Tüm Kriptolar"
     )
 
     plt.legend(
@@ -171,7 +219,6 @@ def create_portfolio_performance_chart(
     )
 
     plt.close()
-
 
 
 def create_allocation_table_data(
