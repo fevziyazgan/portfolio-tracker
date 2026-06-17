@@ -1,3 +1,10 @@
+import matplotlib.pyplot as plt
+
+from services.analytics_service import (
+    get_portfolio_history,
+    get_asset_history
+)
+
 def create_portfolio_performance_chart(
     output_file="performance_chart.png"
 ):
