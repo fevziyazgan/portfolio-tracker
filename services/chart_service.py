@@ -1,64 +1,5 @@
-import matplotlib.pyplot as plt
-
-from services.analytics_service import (
-    get_portfolio_history,
-    get_asset_history
-)
-
-
-def create_donut_chart(
-    labels,
-    values,
-    output_file="donut_chart.png"
-):
-
-    safe_values = [
-        max(0, v)
-        for v in values
-    ]
-
-    if sum(safe_values) == 0:
-
-        safe_values = [
-            1,
-            1,
-            1
-        ]
-
-    colors = [
-        "#2563EB",
-        "#F97316",
-        "#EAB308"
-    ]
-
-    fig, ax = plt.subplots(
-        figsize=(20, 10)
-    )
-
-    ax.pie(
-        safe_values,
-        labels=labels,
-        colors=colors,
-        startangle=90,
-        wedgeprops={
-            "width": 0.45
-        }
-    )
-
-    ax.set_aspect(
-        "equal"
-    )
-
-    plt.savefig(
-        output_file,
-        bbox_inches="tight",
-        transparent=True
-    )
-
-    plt.close()
-
 def create_portfolio_performance_chart(
-output_file="performance_chart.png"
+output_file=“performance_chart.png”
 ):
 
 from services.analytics_service import (
@@ -85,12 +26,11 @@ fig, (ax1, ax2) = plt.subplots(
     figsize=(16, 14)
 )
 assets = get_all_assets()
-#
-# ÜST GRAFİK
-# MEVDUAT + ALTIN + TÜM FONLAR + KRIPTO TOPLAM
-#
 crypto_dates = None
 crypto_total = []
+#
+# ÜST GRAFİK
+#
 for asset in assets:
     if asset in crypto_assets:
         history = get_asset_history(
@@ -178,7 +118,6 @@ ax1.set_ylabel(
 )
 #
 # ALT GRAFİK
-# KRIPTOLAR AYRINTILI
 #
 for asset in crypto_assets:
     history = get_asset_history(
@@ -232,83 +171,3 @@ plt.savefig(
     bbox_inches="tight"
 )
 plt.close()
-
-
-
-def create_allocation_table_data(
-    report_data
-):
-
-    summary = report_data[
-        "summary"
-    ]
-
-    total = max(
-        1,
-        summary[
-            "total_value_tl"
-        ]
-    )
-
-    return [
-
-        {
-            "name":
-            "Fonlar",
-
-            "value":
-            summary[
-                "fund_total_tl"
-            ],
-
-            "percent":
-            round(
-                summary[
-                    "fund_total_tl"
-                ]
-                / total
-                * 100,
-                2
-            )
-        },
-
-        {
-            "name":
-            "Kripto",
-
-            "value":
-            summary[
-                "crypto_total_tl"
-            ],
-
-            "percent":
-            round(
-                summary[
-                    "crypto_total_tl"
-                ]
-                / total
-                * 100,
-                2
-            )
-        },
-
-        {
-            "name":
-            "Altin",
-
-            "value":
-            summary[
-                "gold_total_tl"
-            ],
-
-            "percent":
-            round(
-                summary[
-                    "gold_total_tl"
-                ]
-                / total
-                * 100,
-                2
-            )
-        }
-    ]
