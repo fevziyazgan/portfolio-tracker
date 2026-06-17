@@ -590,6 +590,13 @@ def run_portfolios():
         save_daily_snapshot(
             report_data
         )
+        # Snapshot kaydedildikten sonra report_data yeniden oluştur
+        # böylece analytics fonksiyonları güncel verileri okur
+        report_data = (
+            build_report_data(
+                user
+            )
+        )
         image_file = (
             create_report_image(
                 report_data
