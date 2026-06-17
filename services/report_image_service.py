@@ -442,30 +442,30 @@ def create_report_image(
     
     draw.text(
     (legend_x, legend_y),
-    f"■ Fonlar\n{summary['fund_total_tl']:,.0f} TL (%{fund_pct:.1f})",
+    f"■ Fonlar\n{summary['fund_total_tl']:,.0f} TL\n({fund_pct:.1f}%)",
     fill="#2563EB",
     font=get_font(24)
     )
     
-    legend_y += 80
+    legend_y += 100
     
     draw.text(
     (legend_x, legend_y),
-    f"■ Altın\n{summary['gold_total_tl']:,.0f} TL (%{gold_pct:.1f})",
+    f"■ Altın\n{summary['gold_total_tl']:,.0f} TL\n({gold_pct:.1f}%)",
     fill="#EAB308",
     font=get_font(24)
     )
     
-    legend_y += 80
+    legend_y += 100
     
     draw.text(
     (legend_x, legend_y),
-    f"■ Kripto\n{summary['crypto_total_tl']:,.0f} TL (%{crypto_pct:.1f})",
+    f"■ Kripto\n{summary['crypto_total_tl']:,.0f} TL\n({crypto_pct:.1f}%)",
     fill="#F97316",
     font=get_font(24)
     )
     
-    legend_y += 80
+    legend_y += 100
 
     cash = report_data[
     "cash_interest"
@@ -473,7 +473,7 @@ def create_report_image(
     
     draw.text(
     (legend_x, legend_y),
-    f"■ Mevduat\n{cash['current_value']:,.0f} TL (%{cash['portfolio_pct']:.1f})",
+    f"■ Mevduat\n{cash['current_value']:,.0f} TL\n({cash['portfolio_pct']:.1f}%)",
     fill="#10B981",
     font=get_font(24)
     )
