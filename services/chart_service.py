@@ -1,5 +1,5 @@
 def create_portfolio_performance_chart(
-output_file="performance_chart.png"
+output_file=“performance_chart.png”
 ):
 
 from services.analytics_service import (
