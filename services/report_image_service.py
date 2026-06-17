@@ -779,7 +779,7 @@ def create_report_image(
         )
     )
     
-    y += 430
+    y += 850
     
     image.save(
         output_file
