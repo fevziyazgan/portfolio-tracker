@@ -142,7 +142,11 @@ def create_portfolio_performance_chart(
         "30 Gunluk Performans"
     )
 
-    plt.legend()
+    plt.legend(
+        loc='upper left',
+        fontsize=10,
+        framealpha=0.9
+    )
 
     plt.xticks(
         rotation=90,
