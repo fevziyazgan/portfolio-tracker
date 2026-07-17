@@ -12,8 +12,8 @@
         "buy_date": ""
       },
       "cash_interest": {
-        "amount": 1170000,
-        "rate": 48,
+        "amount": 7095545,
+        "rate": 39,
         "rate_period": "daily",
         "tax_rate": 15,
         "bank": "Enpara",
@@ -21,28 +21,16 @@
       },
       "funds": [
         {
-          "code": "IPV",
-          "quantity": 15800,
-          "cost": 0,
-          "buy_date": ""
-        },
-        {
           "code": "PHE",
-          "quantity": 528000,
-          "cost": 0,
-          "buy_date": ""
+          "quantity": 255750,
+          "cost": 3.91,
+          "buy_date": "2026-07-17"
         },
         {
           "code": "TMV",
-          "quantity": 198000,
-          "cost": 0,
-          "buy_date": ""
-        },
-        {
-          "code": "TLY",
-          "quantity": 250,
-          "cost": 0,
-          "buy_date": ""
+          "quantity": 105268,
+          "cost": 7.747769,
+          "buy_date": "2026-07-17"
         }
       ],
       "crypto": [
