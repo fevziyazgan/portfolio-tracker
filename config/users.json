@@ -6,11 +6,6 @@
       "telegram": {
         "chat_id": "1968226108"
       },
-      "gold": {
-        "grams": 180,
-        "cost": 0,
-        "buy_date": ""
-      },
       "cash_interest": {
         "amount": 7095545,
         "rate": 39,
